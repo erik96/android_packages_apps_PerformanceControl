@@ -21,137 +21,136 @@ Copyright (C) 2012  James Roberts
 
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
-    <string name="tab_cpu_settings">CPU Settings</string>
-    <string name="tab_cpu_profiles">CPU Profiles</string>
-    <string name="tab_battery_info">Battery</string>
-    <string name="tab_oom_settings">Memory Settings</string>
-    <string name="tab_time_in_state">Time In State</string>
-    <string name="tab_voltage_settings">Voltage Settings</string>
-    <string name="tab_cpu_info">General Info</string>
-    <string name="tab_disk_info">Disk Info</string>
-    <string name="tab_tools">Tools</string>
+    <string name="tab_cpu_settings">CPU Instellingen</string>
+    <string name="tab_cpu_profiles">CPU Profielen</string>
+    <string name="tab_battery_info">Batterij</string>
+    <string name="tab_oom_settings">Geheugen Instellingen</string>
+    <string name="tab_time_in_state">Tijd In Status</string>
+    <string name="tab_voltage_settings">Voltage Instellingen</string>
+    <string name="tab_cpu_info">Algemene Info</string>
+    <string name="tab_disk_info">Opslag Info</string>
+    <string name="tab_tools">Gereedschap</string>
     <!-- Titles -->
-    <string name="t_cpu_settings">CPU SETTINGS</string>
-    <string name="t_battery_info">BATTERY</string>
-    <string name="t_oom_settings">MEMORY SETTINGS</string>
-    <string name="t_volt_settings">VOLTAGE SETTINGS</string>
-    <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
-    <string name="t_time_in_state">"TIME IN STATE"</string>
-    <string name="t_cpu_info">GENERAL INFO</string>
-    <string name="t_disk_info">DISK INFO</string>
-    <string name="t_tools">TOOLS</string>
+    <string name="t_cpu_settings">CPU INSTELLINGEN</string>
+    <string name="t_battery_info">BATTERIJ</string>
+    <string name="t_oom_settings">GEHEUGEN INSTELLINGEN</string>
+    <string name="t_volt_settings">VOLTAGE INSTELLINGEN</string>
+    <string name="t_adv_settings">"GEAVANCEERDE INSTELLINGEN"</string>
+    <string name="t_time_in_state">"TIJD IN STATUS"</string>
+    <string name="t_cpu_info">ALGEMENE INFO</string>
+    <string name="t_disk_info">OPSLAG INFO</string>
+    <string name="t_tools">GEREEDSCHAP</string></string>
 
     <string name="menu_tab">Tabs</string>
     <!-- Menu -->
-    <string name="mt_refresh">Refresh</string>
-    <string name="mt_app_settings">"App Settings"</string>
+    <string name="mt_refresh">Ververs</string>
+    <string name="mt_app_settings">"App Instellingen"</string>
     <string name="mt_reset">Reset</string>
-    <string name="mt_restore">Restore</string>
-    <string name="mt_plus25">Increase by 25 mV</string>
-    <string name="mt_minus25">Decrease by 25 mV</string>
+    <string name="mt_restore">Herstellen</string>
+    <string name="mt_plus25">Verhoog met 25 mV</string>
+    <string name="mt_minus25">Verminder met 25 mV</string>
     <!-- CPU settings -->
-    <string name="current_speed">Current Speed</string>
-    <string name="current_max">Current max:</string>
-    <string name="current_min">Current min:</string>
-    <string name="governor">Governor</string>
+    <string name="current_speed">Huidige Snelheid</string>
+    <string name="current_max">Huidig max:</string>
+    <string name="current_min">Huidig min:</string>
+    <string name="governor">Gouverneur</string>
     <string name="io">IO Scheduler</string>
-    <string name="sob">Set on boot</string>
+    <string name="sob">Stel in bij boot</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Annuleer</string>
     <!-- Other settings -->
-    <string name="prefcat_free_memory">FREE MEMORY</string>
-    <string name="prefcat_tweaks">FAST CHARGE</string>
-    <string name="prefcat_misc_short">MISC</string>
-    <string name="prefcat_read_ahead">SD READ AHEAD</string>
-    <string name="prefcat_vm_settings">VM SETTINGS</string>
-    <string name="dt_free_memory">Minfree Taskkiller</string>
-    <string name="dt_read_ahead">SD Read Ahead</string>
-    <string name="pt_free_memory">Free memory</string>
-    <string name="ps_free_memory">Amount of RAM the minfree taskkiller will keep |
-        Current: %s
+    <string name="prefcat_free_memory">VRIJ GEHEUGEN</string>
+    <string name="prefcat_tweaks">SNEL LADEN</string>
+    <string name="prefcat_misc_short">DIVERSEN</string>
+    <string name="prefcat_read_ahead">SD VOORUITLEZEN</string>
+    <string name="prefcat_vm_settings">VM INSTELLINGEN</string>
+    <string name="dt_free_memory">Minfree Taakkiller</string>
+    <string name="dt_read_ahead">SD Vooruitlezen</string>
+    <string name="pt_free_memory">Vrij Geheugen</string>
+    <string name="ps_free_memory">Hoeveelheid RAM dat de minfree taakkiller zal houden |
+        Huidig: %s
     </string>
-    <string name="ps_free_memory_boot">Apply the amount above at boot</string>
-    <string name="pt_read_ahead">SD read ahead</string>
-    <string name="ps_read_ahead">Amount to read ahead on SDCard reads in kb |
-        Current: %s
+    <string name="ps_free_memory_boot">Pas de bovenstaande hoeveelheid toe bij boot</string>
+    <string name="pt_read_ahead">SD vooruitlezen</string>
+    <string name="ps_read_ahead">Hoeveelheid vooruit te lezen op SDCard in kb |
+        Huidig: %s
     </string>
 
-    <string name="ps_fast_charge_boot">Fast charge</string>
-    <string name="fast_charge_warning">YOU WILL NOT BE ABLE TO CONNECT TO YOUR PC AFTER
-        EACH REBOOT!\n\nWhile Fast Charge is ON, you can *only* charge your phone!
+    <string name="ps_fast_charge_boot">Snel laden</string>
+    <string name="fast_charge_warning">U ZAL NIET KUNNEN VERBINDEN MET UW PC NA IEDERE REBOOT!\n\nAls Snel laden AAN is, kan u *enkel* uw telefoon opladen!
     </string>
-    <string name="fast_charge_notification_title">Fast Charge is ON!</string>
-    <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
+    <string name="fast_charge_notification_title">Snel Laden is AAN!</string>
+    <string name="fast_charge_notification_message">Telefoon is in alleen-laden modus!</string>
 
 <!-- minfree -->
-   <string name="prefcat_oom">MINFREE TASKKILLER</string>
-   <string name="title_foreground_app">Foreground Applications</string>
-   <string name="title_visible_app">Visible Applications</string>
-   <string name="title_secondary_server">Secondary Server</string>
-   <string name="title_hidden_app">Hidden Applications</string>
+   <string name="prefcat_oom">MINFREE TAAKKILLER</string>
+   <string name="title_foreground_app">Voorgrond Applicaties</string>
+   <string name="title_visible_app">Zichtbare Applicaties</string>
+   <string name="title_secondary_server">Secundaire Server</string>
+   <string name="title_hidden_app">Verborgen Applicaties</string>
    <string name="title_content_providers">Content Providers</string>
-   <string name="title_empty_app">Empty Applications</string>
+   <string name="title_empty_app">Lege Applicaties</string>
    <string name="prefcat_oom_predefines">PRESETS</string>
-   <string name="pt_oom">Minfree Taskkiller Presets</string>
+   <string name="pt_oom">Minfree Taakkiller Presets</string>
 
-   <string name="pt_verylight">Very Light</string>
-   <string name="pt_light">Light</string>
+   <string name="pt_verylight">Zeer Licht</string>
+   <string name="pt_light">Licht</string>
    <string name="pt_medium">Medium</string>
-   <string name="pt_aggressive">Aggressive</string>
-   <string name="pt_veryaggressive">Very Aggressive</string>
+   <string name="pt_aggressive">Aggressief</string>
+   <string name="pt_veryaggressive">Zeer Aggressive</string>
 
     <!-- do not kill proc -->
-    <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
-    <string name="prefcat_sys_proc">NOT KILLABLE SYSTEM PROCESSES</string>
-    <string name="pt_user_proc">Enable not killable user processes</string>
-    <string name="pt_sys_proc">Enable not killable system processes</string>
-    <string name="pt_user_names_proc">User Processes whitelist</string>
-    <string name="pt_sys_names_proc">System Processes whitelist</string>
-    <string name="ps_restore_boot">Restore above settings at boot</string>
-    <string name="ps_user_proc">The list of user process names (comma separated)</string>
-    <string name="ps_sys_proc">The list of system process names (comma separated)</string>
-    <string name="no_proc">No packages</string>
+    <string name="prefcat_user_proc">NIET AFSLUITBARE GEBRUIKER PROCESSEN</string>
+    <string name="prefcat_sys_proc">NIET AFSLUITBARE SYSTEEM PROCESSEN</string>
+    <string name="pt_user_proc">Inschakelen niet afsluitbare gebruiker processen</string>
+    <string name="pt_sys_proc">Inschakelen niet afsluitbare systeem processen</string>
+    <string name="pt_user_names_proc">Gebruiker Processen negeerlijst</string>
+    <string name="pt_sys_names_proc">Systeem Processen negeerlijst</string>
+    <string name="ps_restore_boot">Herstel bovenstaande instellinge bij boot</string>
+    <string name="ps_user_proc">De lijst van gebruiker proces namen (comma separated)</string>
+    <string name="ps_sys_proc">De lijst van systeem proces namen (comma separated)</string>
+    <string name="no_proc">Geen pakketen</string>
     <!-- bln -->
-    <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
-    <string name="pt_bln">Backlight Notification</string>
+    <string name="prefcat_bln">BACKLIGHT NOTIFICATIE</string>
+    <string name="pt_bln">Backlight Notificatie</string>
     <!-- blx -->
-   <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
-   <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
-   <string name="pt_blx_boot">Set on boot</string>
-   <string name="ps_blx_boot">Apply the amount above at boot</string>
+   <string name="blx_info">Batterij Leven Verlenger functie\nAuteur Ezekeel</string>
+   <string name="prefcat_blx">BATTERIJ LEVEN VERLENGER</string>
+   <string name="pt_blx_boot">Instellen bij boot</string>
+   <string name="ps_blx_boot">Pas de bovenstaande hoeveelheid toe bij boot</string>
    <string name="blx_title">Charge limit:</string>
     <!-- dsync -->
-   <string name="dsync_info">Dynamic FSync feature\nAuthor Paul Reioux (faux123)</string>
-   <string name="prefcat_dsync">DYNAMIC FSYNC</string>
-   <string name="ps_dsync">Setting will be restored on reboot</string>
-   <string name="pt_dsync">Dynamic Fsync</string>
+   <string name="dsync_info">Dynamische FSync functie\nAuteur Paul Reioux (faux123)</string>
+   <string name="prefcat_dsync">DYNAMISCH FSYNC</string>
+   <string name="ps_dsync">Instellingen worden hersteld bij reboot</string>
+   <string name="pt_dsync">Dynamisch Fsync</string>
     <!-- bl_timeout -->
-   <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+   <string name="prefcat_bltimeout">ACHTERGRONDVERLICHTING TIME-OUT</string>
    <string name="ps_bltimeout">%s ms</string>
-   <string name="bltimeout_title">Backlight timeout</string>
+   <string name="bltimeout_title">Achtergrondverlichting time-out</string>
     <!-- bl_touch -->
-   <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
-   <string name="pt_bltouch">Backlight on touchscreen</string>	
+   <string name="prefcat_bltouch">ACHTERGRONDVERLICHTING OP TOUCHSCREEN</string>
+   <string name="pt_bltouch">Achtergrondverlichting op touchscreen</string>	
     <!-- pfk -->
-   <string name="pfk_info">Phantom Key Presses Filter module ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
-   <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
-   <string name="pt_home_enabled">Home key filter</string>
-   <string name="ps_home_enabled">Ignored key pressed: %s</string>
-   <string name="home_allowed_irq_title">Max allowed interrupts</string>
-   <string name="home_report_wait_title">Report wait time</string>
+   <string name="pfk_info">Spook Toetsindrukken Filter module ver. %s\nAuteur Cristoforo Cataldo (Christopher83)</string>
+   <string name="prefcat_pfk">SPOOK TOETSINDRUKKEN FILTER</string>
+   <string name="pt_home_enabled">Home Knop filter</string>
+   <string name="ps_home_enabled">Knop ingedrukt genegeerd: %s</string>
+   <string name="home_allowed_irq_title">Max toegestane interrupts</string>
+   <string name="home_report_wait_title">Rapport wacht tijd</string>
 	
-   <string name="pt_menuback_enabled">Menu/Back keys filter</string>
-   <string name="ps_menuback_enabled">Ignored key pressed: %s</string>
+   <string name="pt_menuback_enabled">Menu/Terug knop filter</string>
+   <string name="ps_menuback_enabled">Knop ingedrukt genegeerd: %s</string>
    <string name="menuback_interrupt_checks_title">Interrupts checks</string>
-   <string name="menuback_first_err_wait_title">First error wait time</string>
-   <string name="menuback_last_err_wait_title">Last error wait time</string>
-   <string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
+   <string name="menuback_first_err_wait_title">Eerste fout wacht tijd</string>
+   <string name="menuback_last_err_wait_title">Laatste fout wacht tijd</string>
+   <string name="ps_pfk_set_on_boot">Als ingeschakeld worden alle pfk instellingen hersteld bij reboot</string>
     <!-- dynamic write back -->
-   <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
-   <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
-   <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
-   <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
-   <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+   <string name="dynamic_writeback_info">Dynamische Dirty Page Writebacks functie\nAuteur Cristoforo Cataldo (Christopher83)</string>
+   <string name="dynamic_write_back_title">DYNAMISCHE DIRTY PAGE WRITEBACKS</string>
+   <string name="pt_dynamic_write_back">Dynamische Dirty Writeback</string>
+   <string name="dynamic_writeback_active_title">Dirty Writeback Actief centisecs</string>
+   <string name="dynamic_writeback_suspend_title">Dirty Writeback Onderbreken centisecs</string>
     <!--  -->
     <string name="size_25_mb">25mb</string>
     <string name="size_50_mb">50mb</string>
@@ -165,152 +164,152 @@ Copyright (C) 2012  James Roberts
     <string name="size_2048_kb">2048kb</string>
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
-    <string name="volt_info">ATTENTION!\nBefore activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
+    <string name="volt_info">ATTENTIE!\nVoor u Instellen bij Boot activeert, vergewis u ervan dat de ingestelde waarden ​​de limieten niet overschrijden of riskeer dat de telefoon vastloopt.</string>
     <string name="ps_volt_mhz_voltage">" Hz"</string>
-    <string name="ps_volt_save">"Save"</string>
-    <string name="ps_volt_current_voltage">"Current voltage: "</string>
-    <string name="ps_volt_setting_to_apply">"Setting to apply: "</string>
-    <string name="pt_volt_control">Voltage control</string>
-    <string name="ps_volt_control">Set voltages for each frequency</string>
-    <string name="apply_values">Apply values</string>
-    <string name="freq">Frequency</string>
-    <string name="current">mV current</string>
-    <string name="saved">mV saved</string>
-    <string name="not_supported">Your kernel does not support voltage control</string>
+    <string name="ps_volt_save">"Opslaan"</string>
+    <string name="ps_volt_current_voltage">"Huidig voltage: "</string>
+    <string name="ps_volt_setting_to_apply">"Toe te passen instelling: "</string>
+    <string name="pt_volt_control">Voltage controle</string>
+    <string name="ps_volt_control">Stel voltages in voor iedere frequentie</string>
+    <string name="apply_values">Waardes toepassen</string>
+    <string name="freq">Frequentie</string>
+    <string name="current">mV stroom</string>
+    <string name="saved">mV opgeslagen</string>
+    <string name="not_supported">Uw kernel laat geen contole van het voltage toe</string>
     <!-- VM settings -->
-    <string name="ps_vm_set_on_boot">If enabled will restore all vm settings on reboot</string>
+    <string name="ps_vm_set_on_boot">als ingeschakeld zal het alle vm instellingen herstellen bij reboot</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
-    <string name="dirty_background_title">Dirty background ratio</string>
+    <string name="dirty_background_title">Dirty achtergrond ratio</string>
     <string name="dirty_expire_title">Dirty expire centisecs</string>
     <string name="dirty_writeback_title">Dirty writeback centisecs</string>
     <string name="min_free_title">Minfree kbytes</string>
     <string name="overcommit_title">Overcommit ratio</string>
     <string name="swappiness_title">Swappiness</string>
-    <string name="vfs_title">VFS cache pressure</string>
+    <string name="vfs_title">VFS cache druk</string>
     <!-- Time in state -->
-    <string name="time_in_state">TIME IN STATE</string>
-    <string name="unused_cpu_states">UNUSED CPU STATES</string>
-    <string name="total_state_time">TOTAL STATE TIME</string>
-    <string name="no_states_file_found">No states file found. Are you sure your phone is
-        compatible?\n\nIf you are running a custom ROM or kernel, try
-        contacting its developer to inform him that the states file is not
-        readable.
+    <string name="time_in_state">TIIJ IN STAAT</string>
+    <string name="unused_cpu_states">ONGEBRUIKTE CPU STATEN</string>
+    <string name="total_state_time">TOTAAL STAAT TIJD</string>
+    <string name="no_states_file_found">Geen staten bestand gevonden. Bent u zeker dat uw toestel
+        compatibel is?\n\nAls u een custom ROM of kernel gebruikt, try
+        de developer te kontakteren om hem te informeren dat het staten bestand niet 
+        leesbaar is
     </string>
-    <string name="deep_sleep">"Deep Sleep"</string>
+    <string name="deep_sleep">"Diepe Slaap"</string>
     <!-- CPU info -->
-    <string name="kernel_info">LINUX KERNEL INFORMATION</string>
-    <string name="cpu_info">CPU INFORMATION</string>
-    <string name="mem_info">MEMORY INFORMATION</string>
-    <string name="first_run_title">First check for root</string>
+    <string name="kernel_info">LINUX KERNEL INFORMATIE</string>
+    <string name="cpu_info">CPU INFORMATIE</string>
+    <string name="mem_info">GEHEUGEN INFORMATIE</string>
+    <string name="first_run_title">Eerst kontoleren op root</string>
     <string name="su_success_title">Success!</string>
     <string name="su_failed_title">Oops!</string>
-    <string name="first_run_message">The application needs to check for root access and
-        busybox. Press OK to continue. Cancel if you would not like to grant
-        root access.
+    <string name="first_run_message">De applicatie moet kontroleren op root toegeng en
+        busybox. Druk op OK om door tr gaan. Annuleer als u geen root toegang
+        wil geven.
     </string>
-    <string name="su_success_message">Performance Control was able to get root access and
-        find busybox. Ready to rock!
+    <string name="su_success_message">Performance Control heeft root toegang gekregen en
+        busybox gevonden. Klaar om te rocken!
     </string>
-    <string name="su_cancel_message">You have chosen to not check for root and busybox.
-        Most options will not work without root access. Sorry!
+    <string name="su_cancel_message">U hebt gekozen om niet te kontroleren op root en busybox.
+        De meeste opties zullen niet werken zonder root toegang. Sorry!
     </string>
-    <string name="su_failed_su_or_busybox">Root access failed or busybox was not found. Most
-        options will not work without root access. Sorry!
+    <string name="su_failed_su_or_busybox">Root toegang mislukt of busybox niet gevonden. De meeste
+        opties zullen niet werken zonder root toegang. Sorry!
     </string>
     
     <!-- Tools -->
-    <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
-    <string name="sh_title">Edit shell command</string>
-    <string name="ps_sh">Command will be executed at boot.</string>
-    <string name="sh_msg">Leave blank for no operation.</string>
-    <string name="clear">Clear</string>
-    <string name="yes">Yes</string>
-    <string name="wait">Please wait…</string>
-    <string name="prefcat_wipe_cache">CACHE and DALVIK CACHE</string>
-    <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
-    <string name="ps_wipe_cache">Cache partition: %s</string>
-    <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
+    <string name="prefcat_sh">AANGEPASTE SHELL TAAK</string>
+    <string name="sh_title">Bewerk shell taak</string>
+    <string name="ps_sh">Taak zal uitgevoerd worden bij boot.</string>
+    <string name="sh_msg">Laat leeg voor geen operatie.</string>
+    <string name="clear">Wissen</string>
+    <string name="yes">Ja</string>
+    <string name="wait">Even geduld…</string>
+    <string name="prefcat_wipe_cache">CACHE en DALVIK CACHE</string>
+    <string name="wipe_cache_title">Wis cache en dalvik cache</string>
+    <string name="ps_wipe_cache">Cache partitie: %s</string>
+    <string name="wipe_cache_msg">Op het einde, zal het systeem rebooten. Doorgaan?</string>
 
-    <string name="prefcat_flash_img">FLASH IMG FILE</string>
+    <string name="prefcat_flash_img">FLASH IMG BESTAND</string>
     <string name="kernel_img_title">Flash KERNEL</string>
-    <string name="ps_kernel_img">Flash boot.img files as kernel. Can choose individual boot.img file or any zip file that contains boot.img</string>
+    <string name="ps_kernel_img">Flash boot.img bestanden als kernel. Kan individuele boot.img bestanden kiezen of elk zip bestand dat boot.img bevat</string>
     <string name="recovery_img_title">Flash RECOVERY</string>
-    <string name="ps_recovery_img">Flash recovery.img files as recovery. Can choose individual recovery.img file or any zip file that contains recovery.img</string>
-    <string name="btn_choose">Choose %s</string>
-    <string name="unsupported_info">Your device is not supported.</string>
-    <string name="flash_info">will be flashed on partition\n%s\n as</string>
+    <string name="ps_recovery_img">Flash recovery.img bestanden als recovery. Kan individuele recovery.img bestanden kiezen of elk zip bestand dat recovery.img bevat</string>
+    <string name="btn_choose">Kies %s</string>
+    <string name="unsupported_info">Uw toestel word niet ondersteund.</string>
+    <string name="flash_info">zal geflashed worden op partitie\n%s\n als</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
-    <string name="bkexit">Press again to exit</string>
+    <string name="bkexit">Druk opnieuw om te verlaten</string>
 
-    <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
-    <string name="residual_files_title">Clean residual files</string>
-    <string name="btncleanall">Clean all</string>
-    <string name="clean_files_msg">Residual files from %s will be deleted. Continue?</string>
-    <string name="filesstr">file(s)</string>
-    <string name="no_residuals">No residual files</string>
+    <string name="prefcat_residual_files">RESIDUALE BESTANDEN OPRUIMEN</string>
+    <string name="residual_files_title">Residuele bestanden opruimen</string>
+    <string name="btncleanall">Alles opruimen</string>
+    <string name="clean_files_msg">Residuele bestanden van %s zullen worden verwijdert. Doorgaan?</string>
+    <string name="filesstr">bestand(en)</string>
+    <string name="no_residuals">Geen residuele bestanden</string>
 
-    <string name="prefcat_optim_db">OPTIMIZE DBs</string>
-    <string name="optim_db_title">Optimize Databases</string>
-    <string name="ps_optim_db">This will optimize databases by using SQL command VACUUM.</string>
+    <string name="prefcat_optim_db">OPTIMALIZEREN DBs</string>
+    <string name="optim_db_title">Optimalizeren Databases</string>
+    <string name="ps_optim_db">Dit zal databases optimalizeren met het SQL commando VACUUM.</string>
 
     <string-array name="residual_info">
-        <item>Contains Android system log files</item>
-        <item>Contains log files from crashed apps</item>
-        <item>Contains constantly generated log files</item>
-        <item>Contains statistics about what apps you started</item>
-        <item>Contains traces from \'application not responding\' events</item>
-        <item>Contains temporary files</item>
+        <item>Bevat Android systeem log-files</item>
+        <item>Bevat log-files van gecrashte apps</item>
+        <item>Bevat constant gemaakte log-files</item>
+        <item>Bevat statistieken over welke apps je starte</item>
+        <item>Bevat sporen van applicaties die niet reageren\' events</item>
+        <item>Bevat tijdelijke bestanden</item>
     </string-array>
-    <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
-    <string name="fix_perms_title">Fix permissions</string>
-    <string name="fix_perms_msg">Operation may take several minutes. Continue?</string>
-    <string name="preflogg_fix_perms">Enable logging</string>
+    <string name="prefcat_fix_perms">HERSTEL MACHTIGINGEN</string>
+    <string name="fix_perms_title">Herstel machtigingen</string>
+    <string name="fix_perms_msg">Operatie kan enkele minuten duren. Doorgaan?</string>
+    <string name="preflogg_fix_perms">Activeer Logboek</string>
 
-    <string name="free">free %s</string>
-    <string name="used">used %s</string>
+    <string name="free">vrij %s</string>
+    <string name="used">gebruikt %s</string>
 
     <!-- 2.1.0 -->
-    <string name="verify">Verifying…</string>
-    <string name="bad_zip">%s not found in zip file !</string>
-    <string name="closebtn">Close</string>
-    <string name="delallbtn">Delete all</string>
-    <string name="del_file_msg">%s will be deleted. Continue?</string>
+    <string name="verify">Verifieren…</string>
+    <string name="bad_zip">%s niet gevonden in zip bestand !</string>
+    <string name="closebtn">Sluiten</string>
+    <string name="delallbtn">Alles verwijderen</string>
+    <string name="del_file_msg">%s zal worden verwijderd. Doorgaan?</string>
     <string-array name="batt_status">
-        <item>Unknown</item>
-        <item>Unknown</item>
-        <item>Charging</item>
-        <item>Discharging</item>
-        <item>Full</item>
-        <item>Not charging</item>
+        <item>Onbekend</item>
+        <item>Onbekend</item>
+        <item>Opladen</item>
+        <item>Ontladen</item>
+        <item>Vol</item>
+        <item>Niet aan het laden</item>
     </string-array>
     <!-- 2.1.2 -->
     <!-- ksm -->
     <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
-    <string name="pt_run_ksm">Enable KSM</string>
-    <string name="ksm_adv_title">Settings</string>
-    <string name="ksm_fullscans">Full Scans:</string>
-    <string name="ksm_pagshared">Pages Shared:</string>
-    <string name="ksm_pagsharing">Pages Sharing:</string>
-    <string name="ksm_pagunshared">Pages Unshared:</string>
-    <string name="ksm_pagvolatile">Pages Volatile:</string>
-    <string name="ksm_pagtoscan">Pages to Scan:</string>
-    <string name="ksm_sleep">Sleep (ms):</string>
+    <string name="pt_run_ksm">Inschakelen KSM</string>
+    <string name="ksm_adv_title">Instellingen</string>
+    <string name="ksm_fullscans">Volledige Scans:</string>
+    <string name="ksm_pagshared">Gedeelde Pagina's:</string>
+    <string name="ksm_pagsharing">Pagina's Delend:</string>
+    <string name="ksm_pagunshared">Niet Gedeelde Pagina's:</string>
+    <string name="ksm_pagvolatile">Vergankelijke Pagina's:</string>
+    <string name="ksm_pagtoscan">Te Scannen Pagina's:</string>
+    <string name="ksm_sleep">Slaap (ms):</string>
 
     <!-- PC Settings -->
-    <string name="pt_use_light_theme">Use light theme</string>
-    <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>
-    <string name="pt_widget_bg_color">Widget bg color</string>
-    <string name="pt_widget_text_color">Widget text color</string>
-    <string name="pt_ver">"Version - "</string>
+    <string name="pt_use_light_theme">Gebruik licht thema</string>
+    <string name="ps_use_light_theme">als aangevinkt, Zal Performance Control een licht Holo thema gebruiken</string>
+    <string name="pt_widget_bg_color">Widget ag kleur</string>
+    <string name="pt_widget_text_color">Widget tekst kleur</string>
+    <string name="pt_ver">"Versie - "</string>
     <!-- Color picker -->
-    <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Press on Color to apply</string>
+    <string name="dialog_color_picker">Kleur Kiezer</string>
+    <string name="press_color_to_apply">Druk op kleur om toe te passen</string>
     <string name="arrow_right">→</string>
     <string name="arrow_down">↓</string>
     <string name="hex">Hex:</string>
     <string name="hex_hint">#FF000000</string>
-    <string name="set">Set</string>
+    <string name="set">Stel in</string>
     <string name="ics_color">Holo</string>
 
 </resources>
