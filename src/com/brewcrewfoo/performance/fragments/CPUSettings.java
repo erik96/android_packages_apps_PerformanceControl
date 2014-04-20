@@ -262,6 +262,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         final StringBuilder sb = new StringBuilder();
         switch (seekBar.getId()){
             case R.id.max_slider:
+                updateSharedPrefs(PREF_MAX_CPU+MainActivity.curcpu, MainActivity.mMaxFreqSetting[MainActivity.curcpu]);
                 sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append(";\n");
                 if (mIsDynFreq) {
                     sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
@@ -271,6 +272,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 }
                 break;
             case R.id.min_slider:
+                updateSharedPrefs(PREF_MIN_CPU+MainActivity.curcpu, MainActivity.mMinFreqSetting[MainActivity.curcpu]);
                 sb.append("busybox echo ").append(MainActivity.mMinFreqSetting[MainActivity.curcpu]).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append(";\n");
                 if (mIsDynFreq) {
                     sb.append("busybox echo ").append(MainActivity.mMinFreqSetting[MainActivity.curcpu]).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
@@ -394,7 +396,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         }
         mMaxSpeedText.setText(Helpers.toMHz(current));
         MainActivity.mMaxFreqSetting[MainActivity.curcpu] = current;
-        updateSharedPrefs(PREF_MAX_CPU+MainActivity.curcpu, current);
+        //updateSharedPrefs(PREF_MAX_CPU+MainActivity.curcpu, current);
     }
 
     public void setMinSpeed(int progress) {
@@ -408,7 +410,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         }
         mMinSpeedText.setText(Helpers.toMHz(current));
         MainActivity.mMinFreqSetting[MainActivity.curcpu] = current;
-        updateSharedPrefs(PREF_MIN_CPU+MainActivity.curcpu, current);
+        //updateSharedPrefs(PREF_MIN_CPU+MainActivity.curcpu, current);
     }
 
 
