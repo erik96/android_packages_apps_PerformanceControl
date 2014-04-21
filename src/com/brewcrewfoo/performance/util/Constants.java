@@ -21,7 +21,7 @@ package com.brewcrewfoo.performance.util;
 public interface Constants {
 
     public static final String TAG = "PerformanceControl";
-    public static final String VERSION_NUM = "2.1.14";
+    public static final String VERSION_NUM = "2.1.15";
     //hide flashing kernel/recovery options
     // NO_FLASH=true > hide flash options
     // NO_FLASH=false > show flash options
@@ -242,6 +242,12 @@ public interface Constants {
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
+
+    //Krait undervolt
+    public static final String KRAIT_ON_PATH = "/sys/module/acpuclock_krait/parameters/boost";
+    public static final String KRAIT_LOWER_PATH = "/sys/module/acpuclock_krait/parameters/lower_uV";
+    public static final String KRAIT_HIGH_PATH = "/sys/module/acpuclock_krait/parameters/higher_uV";
+    public static final String KRAIT_THRES_PATH = "/sys/module/acpuclock_krait/parameters/higher_khz_thres";
 
     public static final String INTENT_PP="com.h0rn3t.performanceprofile.change_system";
 }
