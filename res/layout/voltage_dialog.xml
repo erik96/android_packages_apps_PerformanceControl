@@ -39,12 +39,9 @@ Copyright (C) 2012  James Roberts
 
             <EditText
                     android:id="@+id/voltageEdit"
-                    android:layout_width="60.0dip"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:paddingRight="5.0dip"
-                    android:paddingTop="10.0dip"/>
+                    android:inputType="number" />
 
             <SeekBar
                     android:id="@+id/voltageSeek"
@@ -52,22 +49,19 @@ Copyright (C) 2012  James Roberts
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/voltageEdit"
                     android:max="100"
-                    android:paddingLeft="10.0dip"
-                    android:paddingTop="12.0dip"
-                    android:progress="50"/>
+                android:progress="50"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                     android:id="@+id/voltageMeter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/voltageSeek"
-                    android:paddingLeft="14.0dip"
-                    android:paddingTop="40.0dip"
-                    android:shadowColor="#ffffffff"
-                    android:shadowRadius="3.0"
-                    android:textColor="#ffffffff"
-                    android:textSize="18.0dip"
-                    android:typeface="monospace"/>
+                android:textSize="18.0dip"
+                android:layout_below="@+id/voltageSeek"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
         </RelativeLayout>
     </LinearLayout>
 
