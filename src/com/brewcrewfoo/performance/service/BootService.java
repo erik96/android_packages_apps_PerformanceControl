@@ -24,6 +24,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -520,9 +521,15 @@ public class BootService extends Service implements Constants {
                     nm.notify(1337, n);//1337
                 }
             }
-            Intent intent = new Intent(INTENT_PP);
-            intent.putExtra("from",TAG);
-            c.sendBroadcast(intent);
+            PackageManager pm = c.getPackageManager();
+            try {
+                pm.getPackageInfo("com.h0rn3t.performanceprofile", PackageManager.GET_ACTIVITIES);
+                Intent intent = new Intent(INTENT_PP);
+                intent.putExtra("from",TAG);
+                c.sendBroadcast(intent);
+            }
+            catch (PackageManager.NameNotFoundException e) { }
+
 
             stopSelf();
         }

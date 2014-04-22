@@ -406,4 +406,10 @@ translation by Stefano187
     <string name="ksm_sleep_times">Sleep times:</string>
     <string name="ksm_pages_scanned">Pages Scanned:</string>
     <string name="info_auto_sd">Leave blank for autodetection</string>
+    <!--2.1.15-->
+    <string name="krait">Undervolting Settings</string>
+    <string name="pt_krait_thres">Threshold frequency</string>
+    <string name="ps_krait_thres">Above this voltage for higher freq. will be used. Else voltage for lower freq. will be used</string>
+    <string name="pt_krait_hi">Voltage for higher frequencies</string>
+    <string name="pt_krait_lo">Voltage for lower frequencies</string>
 </resources>
