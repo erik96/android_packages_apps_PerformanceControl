@@ -255,6 +255,25 @@ public class BootService extends Service implements Constants {
                     }
                 }
             }
+            if (new File(KRAIT_ON_PATH).exists()) {
+                if (preferences.getBoolean("krait_uv_boot", false)) {
+                    if(preferences.getBoolean("pref_krait_boost", false)){
+                        sb.append("busybox echo n > ").append(KRAIT_ON_PATH).append(";\n");
+                    }
+                    else{
+                        sb.append("busybox echo y > ").append(KRAIT_ON_PATH).append(";\n");
+                    }
+                    if(new File(KRAIT_THRES_PATH).exists()){
+                        sb.append("busybox echo ").append(preferences.getString("pref_krait_thres",Helpers.readOneLine(KRAIT_THRES_PATH))).append(" > ").append(KRAIT_THRES_PATH).append(";\n");
+                    }
+                    if(new File(KRAIT_HIGH_PATH).exists()){
+                        sb.append("busybox echo ").append(preferences.getString("pref_krait_hi",Helpers.readOneLine(KRAIT_HIGH_PATH))).append(" > ").append(KRAIT_HIGH_PATH).append(";\n");
+                    }
+                    if(new File(KRAIT_LOWER_PATH).exists()){
+                        sb.append("busybox echo ").append(preferences.getString("pref_krait_lo",Helpers.readOneLine(KRAIT_LOWER_PATH))).append(" > ").append(KRAIT_LOWER_PATH).append(";\n");
+                    }
+                }
+            }
             if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
                 s = preferences.getString(PREF_READ_AHEAD,Helpers.readOneLine(READ_AHEAD_PATH));
                 for(byte i=0;i<2;i++){

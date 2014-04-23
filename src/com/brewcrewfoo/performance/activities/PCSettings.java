@@ -69,6 +69,7 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
     private String det="";
     private Boolean isupdate=false;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -291,22 +292,18 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
                     mVersion.setSummary(getString(R.string.no_update));
                     e.printStackTrace();
                 }
-
             }
-
         }
         @Override
-        protected void onPreExecute() {
-        }
+        protected void onPreExecute() { }
         @Override
-        protected void onProgressUpdate(Void... values) {
-        }
+        protected void onProgressUpdate(Void... values) { }
     }
     public boolean testver(String v){
         int i=0;
         final String[] sv1=VERSION_NUM.replace(" ",".").split("\\.");
         final String[] sv2=v.split("\\.");
-        if(sv1.length!=sv2.length) return true;
+        //if(sv1.length>sv2.length) return true;
         while(i<sv2.length){
             if(sv1[i].equals(sv2[i])) i++;
             else return (Integer.parseInt(sv1[i]) <= Integer.parseInt(sv2[i]));

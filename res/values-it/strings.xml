@@ -342,6 +342,15 @@ translation by Stefano187
     <string name="mpdecision">MPDECISION</string>
     <string name="pt_mpdecision">Abilita MPDecision</string>
 
+    <string name="intelliplug">INTELLIPLUG</string>
+    <string name="pt_intelliplug">Enable Intelliplug</string>
+    <string name="ecomode">ECOMODE</string>
+    <string name="pt_ecomode">Enable EcoMode</string>
+    <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
+    <string name="pt_so_max">Screen off maximum frequency</string>
+    <string name="ps_so_minmax">Current:</string>
+    <string name="pt_so_min">Screen off minimum frequency</string>
+
     <string name="prefcat_touchscr">TOUCHSCREEN</string>
     <string name="ps_touchscr">Controllo del TouchScreen</string>
     <string name="ps_touchscr_boot">Se abilitato ripristinerà tutte le impostazioni touchcreen al riavvio</string>
@@ -396,7 +405,7 @@ translation by Stefano187
         <item>On</item>
         <item>Agressive</item>
     </string-array>
-    <string name="pt_gpu_fmax">GPU maxim frequency</string>
+    <string name="pt_gpu_fmax">GPU maximum frequency</string>
     <string name="ps_gpu_fmax">Current: %s</string>
     <string name="pt_gpugov_set">GPU Control</string>
     <!-- 2.1.13-->
@@ -408,8 +417,11 @@ translation by Stefano187
     <string name="info_auto_sd">Leave blank for autodetection</string>
     <!--2.1.15-->
     <string name="krait">Undervolting Settings</string>
+    <string name="pt_krait_boost">Decrease voltage</string>
+    <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
     <string name="pt_krait_thres">Threshold frequency</string>
-    <string name="ps_krait_thres">Above this voltage for higher freq. will be used. Else voltage for lower freq. will be used</string>
     <string name="pt_krait_hi">Voltage for higher frequencies</string>
+    <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
     <string name="pt_krait_lo">Voltage for lower frequencies</string>
+    <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
 </resources>

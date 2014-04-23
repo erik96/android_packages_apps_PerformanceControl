@@ -4,7 +4,9 @@ package com.brewcrewfoo.performance.fragments;
  * Created by h0rn3t on 02.01.2014.
  * http://forum.xda-developers.com/member.php?u=4674443
  */
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,9 +18,13 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.ParamActivity;
@@ -33,14 +39,17 @@ import java.io.File;
 public class CPUAdvanced extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener,Constants {
 
     SharedPreferences mPreferences;
-    private CheckBoxPreference mMpdecision,mIntelliplug,mEcomode,mGenHP;
-    private Preference mHotplugset,mGpuGovset;
-    private ListPreference mSOmax,mSOmin,lmcps,lcpuq,lgpufmax;
-    private String pso="";
+    private CheckBoxPreference mMpdecision,mIntelliplug,mEcomode,mGenHP,mKraitBoost;
+    private Preference mHotplugset,mGpuGovset,mKraitHi,mKraitLo;
+    private ListPreference mSOmax,mSOmin,lmcps,lcpuq,lgpufmax,mKraitThres;
     private Context context;
     private String hotpath=Helpers.hotplug_path();
-    final private CharSequence[] vmcps={"0","1","2"};
+    private final CharSequence[] vmcps={"0","1","2"};
     private GPUClass gpu;
+    private String ps="";
+    private final int vstep=12500;
+    private final int vmin=0;
+    private final int nvsteps=25;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.cpu_advanced);
 
-        pso=getString(R.string.ps_so_minmax);
+        final String availableFrequencies = Helpers.readOneLine(STEPS_PATH);
 
         mSOmax = (ListPreference) findPreference("pref_so_max");
         mSOmin = (ListPreference) findPreference("pref_so_min");
@@ -60,7 +69,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         mMpdecision = (CheckBoxPreference) findPreference("pref_mpdecision");
         mIntelliplug = (CheckBoxPreference) findPreference("pref_intelliplug");
         mEcomode = (CheckBoxPreference) findPreference("pref_ecomode");
-        //mMcPS = (CheckBoxPreference) findPreference("pref_mc_ps");
+
         lmcps = (ListPreference) findPreference("pref_mcps");
         lcpuq = (ListPreference) findPreference("pref_cpuquiet");
         mHotplugset = findPreference("pref_hotplug");
@@ -68,12 +77,18 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         lgpufmax = (ListPreference) findPreference("pref_gpu_fmax");
         mGpuGovset = findPreference("pref_gpugov_set");
 
+        mKraitThres = (ListPreference) findPreference("pref_krait_thres");
+        mKraitBoost = (CheckBoxPreference) findPreference("pref_krait_boost");
+        mKraitHi = findPreference("pref_krait_hi");
+        mKraitLo = findPreference("pref_krait_lo");
+
+        ps=getString(R.string.ps_so_minmax);
+
         if (!new File(SO_MAX_FREQ).exists() || !new File(SO_MIN_FREQ).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("so_min_max");
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
-            final String availableFrequencies = Helpers.readOneLine(STEPS_PATH);
             if (availableFrequencies != null) {
                 CharSequence[] entries = availableFrequencies.split(" ");
                 mSOmax.setEntries(entries);
@@ -84,8 +99,8 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
                 final String readsomin=Helpers.readOneLine(SO_MIN_FREQ);
                 mSOmax.setValue(readsomax);
                 mSOmin.setValue(readsomin);
-                mSOmax.setSummary(pso+ readsomax+" kHz");
-                mSOmin.setSummary(pso+ readsomin+" kHz");
+                mSOmax.setSummary(ps+readsomax+" kHz");
+                mSOmin.setSummary(ps+readsomin+" kHz");
             }
         }
 
@@ -159,9 +174,49 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lgpufmax.setValue(s);
             lgpufmax.setSummary(getString(R.string.ps_gpu_fmax, Helpers.toMHz(String.valueOf(Integer.parseInt(s.toString()) / 1000))));
         }
+
         if(gpu.gpugovset_path()==null){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("gpugovset");
             getPreferenceScreen().removePreference(hideCat);
+        }
+
+        PreferenceCategory Cat = (PreferenceCategory) findPreference("uv_krait");
+        if(!new File(KRAIT_ON_PATH).exists()){
+            getPreferenceScreen().removePreference(Cat);
+        }
+        else {
+
+            mKraitBoost.setChecked(Helpers.readOneLine(KRAIT_ON_PATH).equalsIgnoreCase("N"));
+
+            if(!new File(KRAIT_THRES_PATH).exists()){
+                Cat.removePreference(mKraitThres);
+            }
+            else{
+                if (availableFrequencies != null) {
+                    CharSequence[] entries = availableFrequencies.split(" ");
+                    mKraitThres.setEntries(entries);
+                    mKraitThres.setEntryValues(entries);
+                    final String readthres =Helpers.readOneLine(KRAIT_THRES_PATH);
+                    mKraitThres.setValue(readthres);
+                    mKraitThres.setSummary(ps+readthres+" kHz");
+                }
+            }
+            if(!new File(KRAIT_HIGH_PATH).exists()){
+                Cat.removePreference(mKraitHi);
+            }
+            else{
+                final String s=Helpers.readOneLine(KRAIT_HIGH_PATH);
+                mKraitHi.setSummary(getString(R.string.ps_krait_hi,s));
+                mPreferences.edit().putString("pref_krait_hi",s).commit();
+            }
+            if(!new File(KRAIT_LOWER_PATH).exists()){
+                Cat.removePreference(mKraitLo);
+            }
+            else{
+                final String s=Helpers.readOneLine(KRAIT_LOWER_PATH);
+                mKraitLo.setSummary(getString(R.string.ps_krait_lo,s));
+                mPreferences.edit().putString("pref_krait_lo",s).commit();
+            }
         }
     }
 
@@ -243,6 +298,25 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             i.putExtra("pref","gpuparam");
             startActivity(i);
         }
+        else if(preference==mKraitBoost) {
+            if (Helpers.readOneLine(KRAIT_ON_PATH).equalsIgnoreCase("N")){
+                new CMDProcessor().su.runWaitFor("busybox echo y > " + KRAIT_ON_PATH);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo n > " + KRAIT_ON_PATH);
+            }
+            return true;
+        }
+        else if (preference == mKraitHi) {
+            final int currentProgress =Integer.parseInt(Helpers.readOneLine(KRAIT_HIGH_PATH));
+            showDialog(currentProgress, vmin, vstep, nvsteps, getString(R.string.pt_krait_hi), "pref_krait_hi");
+            return true;
+        }
+        else if (preference == mKraitLo) {
+            final int currentProgress =Integer.parseInt(Helpers.readOneLine(KRAIT_LOWER_PATH));
+            showDialog(currentProgress, vmin, vstep, nvsteps, getString(R.string.pt_krait_lo), "pref_krait_lo");
+            return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -253,14 +327,14 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             if (!values.equals(Helpers.readOneLine(SO_MAX_FREQ))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + SO_MAX_FREQ);
             }
-            mSOmax.setSummary(pso + values + " kHz");
+            mSOmax.setSummary(ps+values+" kHz");
         }
         else if (key.equals("pref_so_min")) {
             final String values = mSOmin.getValue();
             if (!values.equals(Helpers.readOneLine(SO_MIN_FREQ))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + SO_MIN_FREQ);
             }
-            mSOmin.setSummary(pso + values + " kHz");
+            mSOmin.setSummary(ps+values+" kHz");
         }
         else if(key.equals("pref_mcps")){
             final String values = lmcps.getValue();
@@ -283,8 +357,80 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             }
             lgpufmax.setSummary(getString(R.string.ps_gpu_fmax,Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000))));
         }
+        else if(key.equals("pref_krait_thres")){
+            final String values = mKraitThres.getValue();
+            if (!values.equals(Helpers.readOneLine(KRAIT_THRES_PATH))){
+                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + KRAIT_THRES_PATH);
+            }
+            mKraitThres.setSummary(ps+values+" kHz");
+        }
+
     }
 
 
+    private static int getNearestStepIndex(final int value,final int min,final int step,final int total) {
+        int index = 0;
+        for (int k=0;k<total;k++) {
+            if (value > (k*step+min)) index++;
+            else break;
+        }
+        return index;
+    }
+
+    protected void showDialog(final int curval,final int min,final int step,final int total,final String titlu,final String key) {
+        AlertDialog dialog = null;
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
+
+        final SeekBar voltageSeek = (SeekBar) voltageDialog.findViewById(R.id.voltageSeek);
+        final TextView voltageMeter = (TextView) voltageDialog.findViewById(R.id.voltageMeter);
+
+        voltageMeter.setText(String.valueOf(curval) + " μV");
+        voltageSeek.setMax(total);
+        voltageSeek.setProgress(getNearestStepIndex(curval,vmin,vstep,nvsteps));
+        voltageSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
+                if (fromUser) {
+                    final String volt = Integer.toString(progress*step+min);
+                    voltageMeter.setText(volt + " μV");
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        dialog = new AlertDialog.Builder(context)
+                .setTitle(titlu)
+                .setView(voltageDialog)
+                .setPositiveButton(getResources().getString(R.string.ps_volt_save),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                                final String value = Integer.toString(voltageSeek.getProgress() * step + min);
+                                SharedPreferences.Editor editor = mPreferences.edit();
+                                editor.putString(key, value).commit();
+                                if(key.equals("pref_krait_hi")){
+                                    mKraitHi.setSummary(getString(R.string.ps_krait_hi, value));
+                                    new CMDProcessor().su.runWaitFor("busybox echo "+value+" > " + KRAIT_HIGH_PATH);
+                                }
+                                else if(key.equals("pref_krait_lo")){
+                                    mKraitLo.setSummary(getString(R.string.ps_krait_lo, value));
+                                    new CMDProcessor().su.runWaitFor("busybox echo "+value+" > " + KRAIT_LOWER_PATH);
+                                }
+                            }
+                        }
+                )
+                .setNegativeButton(getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                            }
+                        }
+                ).create();
+
+        if (dialog != null) {dialog.show();}
+    }
 }
 

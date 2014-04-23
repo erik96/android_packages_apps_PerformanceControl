@@ -53,12 +53,8 @@ import java.io.File;
 public class Advanced extends PreferenceFragment implements OnSharedPreferenceChangeListener, Constants {
     SharedPreferences mPreferences;
 	private Preference mBltimeout,mViber,mPFK,mDynamicWriteBackActive,mDynamicWriteBackSuspend,mVM,mTouchScr;
-	private CheckBoxPreference mBltouch;
-
-    private CheckBoxPreference mBln,mDynamicWriteBackOn,mDsync,mWifiPM;
+    private CheckBoxPreference mBltouch,mBln,mDynamicWriteBackOn,mDsync,mWifiPM;
 	private ListPreference mReadAhead;
-	private int mSeekbarProgress;
-	private EditText settingText;
 	private String sreadahead;
     private String BLN_PATH,VIBE_PATH,WIFIPM_PATH;
     private Context context;
@@ -376,6 +372,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         Resources res = context.getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ok);
+        final EditText settingText;
         LayoutInflater factory = LayoutInflater.from(context);
         final View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
 
@@ -430,7 +427,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
-				mSeekbarProgress = seekbar.getProgress();
+				final int mSeekbarProgress = seekbar.getProgress();
 				if(fromUser){
 					settingText.setText(Integer.toString(mSeekbarProgress+min));
 				}
@@ -475,8 +472,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
                         v=Helpers.readOneLine(path);
                     }
                     final SharedPreferences.Editor editor = mPreferences.edit();
-                    editor.putInt(key, Integer.parseInt(v));
-                    editor.commit();
+                    editor.putInt(key, Integer.parseInt(v)).commit();
                     pref.setSummary(v);
 
                 }

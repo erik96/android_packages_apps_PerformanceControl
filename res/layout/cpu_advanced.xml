@@ -131,4 +131,32 @@
             android:key="pref_gpugov_set"
             android:title="@string/pt_gpugov_set"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="uv_krait"
+        android:title="@string/krait">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_krait_boost"
+            android:summary="@string/ps_krait_boost"
+            android:title="@string/pt_krait_boost"/>
+        <ListPreference
+            android:dialogTitle="@string/pt_krait_thres"
+            android:key="pref_krait_thres"
+            android:persistent="true"
+            android:title="@string/pt_krait_thres"/>
+        <Preference
+            android:key="pref_krait_lo"
+            android:summary="@string/ps_krait_lo"
+            android:title="@string/pt_krait_lo"/>
+        <Preference
+            android:key="pref_krait_hi"
+            android:summary="@string/ps_krait_hi"
+            android:title="@string/pt_krait_hi"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="krait_uv_boot"
+            android:summary="@string/ps_restore_boot"
+            android:title="@string/sob"/>
+    </PreferenceCategory>
 </PreferenceScreen>
