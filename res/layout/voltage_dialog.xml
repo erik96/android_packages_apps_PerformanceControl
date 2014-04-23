@@ -37,20 +37,12 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:paddingTop="10.0dip">
 
-            <EditText
-                    android:id="@+id/voltageEdit"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
             <SeekBar
                     android:id="@+id/voltageSeek"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/voltageEdit"
-                    android:max="100"
+                android:max="100"
                 android:progress="50"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp" />
 
             <TextView
