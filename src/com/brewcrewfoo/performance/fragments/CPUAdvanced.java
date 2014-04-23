@@ -172,7 +172,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lgpufmax.setEntryValues(gpu.gpuclk_values());
             final String s=Helpers.readOneLine(gpu.gpuclk_path());
             lgpufmax.setValue(s);
-            lgpufmax.setSummary(getString(R.string.ps_gpu_fmax, Helpers.toMHz(String.valueOf(Integer.parseInt(s.toString()) / 1000))));
+            lgpufmax.setSummary(getString(R.string.ps_gpu_fmax, Helpers.toMHz(String.valueOf(Integer.parseInt(s) / 1000))));
         }
 
         if(gpu.gpugovset_path()==null){
