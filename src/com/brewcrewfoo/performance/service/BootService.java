@@ -24,7 +24,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -195,12 +194,12 @@ public class BootService extends Service implements Constants {
             }
             if (new File(MC_PS).exists()) {
                 if(preferences.getBoolean("pref_mc_ps", false)){
-                    sb.append("busybox echo "+preferences.getString("pref_mcps",Helpers.readOneLine(MC_PS))+" > ").append(MC_PS).append(";\n");
+                    sb.append("busybox echo ").append(preferences.getString("pref_mcps", Helpers.readOneLine(MC_PS))).append(" > ").append(MC_PS).append(";\n");
                 }
             }
             if(gpu.gpuclk_path()!=null){
                 if(preferences.getBoolean("gpu_fmax_boot",false)){
-                    sb.append("busybox echo "+preferences.getString("pref_gpu_fmax",Helpers.readOneLine(gpu.gpuclk_path()))+" > ").append(gpu.gpuclk_path()).append(";\n");
+                    sb.append("busybox echo ").append(preferences.getString("pref_gpu_fmax", Helpers.readOneLine(gpu.gpuclk_path()))).append(" > ").append(gpu.gpuclk_path()).append(";\n");
                 }
             }
             if(gpu.gpugovset_path()!=null){
@@ -540,15 +539,14 @@ public class BootService extends Service implements Constants {
                     nm.notify(1337, n);//1337
                 }
             }
-            PackageManager pm = c.getPackageManager();
+            /*PackageManager pm = c.getPackageManager();
             try {
                 pm.getPackageInfo("com.h0rn3t.performanceprofile", PackageManager.GET_ACTIVITIES);
                 Intent intent = new Intent(INTENT_PP);
                 intent.putExtra("from",TAG);
                 c.sendBroadcast(intent);
             }
-            catch (PackageManager.NameNotFoundException e) { }
-
+            catch (PackageManager.NameNotFoundException e) { }*/
 
             stopSelf();
         }

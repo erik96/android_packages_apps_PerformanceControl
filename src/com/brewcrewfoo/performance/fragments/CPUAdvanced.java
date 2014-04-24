@@ -367,7 +367,6 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
 
     }
 
-
     private static int getNearestStepIndex(final int value,final int min,final int step,final int total) {
         int index = 0;
         for (int k=0;k<total;k++) {
@@ -378,7 +377,6 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
     }
 
     protected void showDialog(final int curval,final int min,final int step,final int total,final String titlu,final String key) {
-        AlertDialog dialog = null;
         final LayoutInflater factory = LayoutInflater.from(context);
         final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
@@ -401,7 +399,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        dialog = new AlertDialog.Builder(context)
+        new AlertDialog.Builder(context)
                 .setTitle(titlu)
                 .setView(voltageDialog)
                 .setPositiveButton(getResources().getString(R.string.ps_volt_save),
@@ -428,9 +426,8 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
                                 dialog.cancel();
                             }
                         }
-                ).create();
+                ).create().show();
 
-        if (dialog != null) {dialog.show();}
     }
 }
 
