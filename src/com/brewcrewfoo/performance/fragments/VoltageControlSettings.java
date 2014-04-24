@@ -252,7 +252,6 @@ public class VoltageControlSettings extends Fragment implements Constants {
     }
 
     protected void showDialog(final int min,final int step,final int total) {
-        AlertDialog dialog = null;
         final LayoutInflater factory = LayoutInflater.from(context);
         final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
@@ -266,19 +265,19 @@ public class VoltageControlSettings extends Fragment implements Constants {
         voltageSeek.setMax(total);
         voltageSeek.setProgress(getNearestStepIndex(savedVolt,vmin,vstep,nvsteps));
         voltageSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-                            @Override
-                            public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
-                                if (fromUser) {
-                                    final String volt = Integer.toString(progress*step+min);
-                                    voltageMeter.setText(volt + " mV");
-                                }
-                            }
-                            @Override
-                            public void onStartTrackingTouch(SeekBar seekBar) { }
-                            @Override
-                            public void onStopTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
+                if (fromUser) {
+                    final String volt = Integer.toString(progress*step+min);
+                    voltageMeter.setText(volt + " mV");
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        dialog = new AlertDialog.Builder(context)
+        new AlertDialog.Builder(context)
                 .setTitle(mVoltage.getFreq()+ getResources().getString(R.string.ps_volt_mhz_voltage))
                 .setView(voltageDialog)
                 .setPositiveButton(getResources().getString(R.string.ps_volt_save),
@@ -298,9 +297,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                 dialog.cancel();
                             }
                         }
-                ).create();
-
-        if (dialog != null) {dialog.show();}
+                ).create().show();
     }
 
     public class ListAdapter extends BaseAdapter {
