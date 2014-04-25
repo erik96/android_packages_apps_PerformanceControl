@@ -65,13 +65,10 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
         mPagerTabStrip.setDrawFullUnderline(true);
 
-        if(savedInstanceState!=null) {
-            TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
-            mViewPager.setAdapter(titleAdapter);
-            mViewPager.setCurrentItem(0);
-        }
-        else{
+        if(savedInstanceState==null) {
             checkForSu();
+        }
+        else {
             TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
@@ -193,7 +190,12 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
                 String r= data.getStringExtra("r");
-                if(r!=null && r.equals("ok")) return;
+                if(r!=null && r.equals("ok")){
+                    TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+                    mViewPager.setAdapter(titleAdapter);
+                    mViewPager.setCurrentItem(0);
+                    return;
+                }
             }
         }
         finish();
@@ -204,9 +206,14 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 startActivityForResult(intent, 1);
         }
         else{
-                if(!Helpers.checkSu()) {
-                    Intent intent = new Intent(MainActivity.this, checkSU.class);
-                    startActivityForResult(intent, 1);
+            if(!Helpers.checkSu()) {
+                Intent intent = new Intent(MainActivity.this, checkSU.class);
+                startActivityForResult(intent, 1);
+            }
+            else{
+                    TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+                    mViewPager.setAdapter(titleAdapter);
+                    mViewPager.setCurrentItem(0);
                 }
         }
     }
