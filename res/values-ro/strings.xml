@@ -334,12 +334,12 @@ Translation by Laurentiu1996
     <string name="pt_mpdecision">Activaţi MPDecision</string>
 
     <string name="intelliplug">INTELLIPLUG</string>
-    <string name="pt_intelliplug">Enable Intelliplug</string>
+    <string name="pt_intelliplug">Activaţi Intelliplug</string>
     <string name="ecomode">ECOMODE</string>
-    <string name="pt_ecomode">Enable EcoMode</string>
+    <string name="pt_ecomode">Activaţi EcoMode</string>
     <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
     <string name="pt_so_max">Screen off maximum frequency</string>
-    <string name="ps_so_minmax">Actual:</string>
+    <string name="ps_so_minmax">"Actual: "</string>
     <string name="pt_so_min">Screen off minimum frequency</string>
 
     <string name="prefcat_touchscr">TOUCHSCREEN</string>

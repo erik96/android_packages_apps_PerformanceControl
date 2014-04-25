@@ -347,7 +347,7 @@ Translation by DaniPhii
     <string name="pt_ecomode">Enable EcoMode</string>
     <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
     <string name="pt_so_max">Screen off maximum frequency</string>
-    <string name="ps_so_minmax">Current:</string>
+    <string name="ps_so_minmax">"Current: "</string>
     <string name="pt_so_min">Screen off minimum frequency</string>
 
     <string name="prefcat_touchscr">PANTALLA TÁCTIL</string>
