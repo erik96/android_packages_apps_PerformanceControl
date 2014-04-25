@@ -81,12 +81,9 @@ public class BootService extends Service implements Constants {
             final GPUClass gpu=new GPUClass();
             String s;
 
-            int ksm=0;
-            String ksmpath=KSM_RUN_PATH;
-            if (new File(UKSM_RUN_PATH+"/run").exists()) {
-                ksm=1;
-                ksmpath=UKSM_RUN_PATH;
-            }
+            String ksmpath = KSM_RUN_PATH;
+            if (new File(UKSM_RUN_PATH+"/run").exists()) ksmpath = UKSM_RUN_PATH;
+
             if(!Helpers.binExist("mpdecision").equals(NOT_FOUND) && preferences.getBoolean("mpdecision_boot",false)){
                 if(preferences.getBoolean("pref_mpdecision",false)){
                     if(!Helpers.moduleActive("mpdecision")){
