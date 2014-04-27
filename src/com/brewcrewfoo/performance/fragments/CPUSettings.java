@@ -482,7 +482,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         editor.putString(var, value).commit();
 
         Intent intent = new Intent(INTENT_PP);
-        intent.putExtra("from",TAG);
+        intent.putExtra("from",getString(R.string.app_name));
         context.sendBroadcast(intent);
         //Helpers.updateAppWidget(context);
     }

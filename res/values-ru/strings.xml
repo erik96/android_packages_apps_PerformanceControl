@@ -387,21 +387,20 @@
     <string name="pt_hp">Общие Горячие Подключения</string>
     <string name="ps_hp">Отключить одно ядро когда экран выключен</string>
     <string name="pt_cpuquiet">Говернор CPUQuiet</string>
-    <string name="ps_cpuquiet">Управляет какие ядра доступны и когда | Текущий: %s</string>
+    <string name="ps_cpuquiet">Управляет какие ядра доступны и когда | Текущий: </string>
     <string name="pt_hotplug">Управление Горячими Подключениями</string>
     <string name="thermal">ТЕМПЕРАТУРА</string>
     <string name="pt_thermal">Настройки Температуры</string>
     <string name="mt_mem_usage">Использование Памяти</string>
     <string name="pt_drop_caches">Очистить Кэш</string>
     <string name="oom_default">Стандартные Значения</string>
-    <string name="ps_mc_ps">Сгрупируйте задания для найменьшей нагрузки ядер | Текущий: %s</string>
+    <string name="ps_mc_ps">Сгрупируйте задания для найменьшей нагрузки ядер | Текущий: </string>
     <string-array name="mc_ps_array">
         <item>Выкл</item>
         <item>Вкл</item>
         <item>Агрессивный</item>
     </string-array>
     <string name="pt_gpu_fmax">Максимальная Частота GPU</string>
-    <string name="ps_gpu_fmax">Текущий: %s</string>
     <string name="pt_gpugov_set">Управление GPU</string>
     <!-- 2.1.13-->
     <string name="pt_int_sd">Внутренняя Память</string>

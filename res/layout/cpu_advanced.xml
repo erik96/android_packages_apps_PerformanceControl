@@ -63,7 +63,6 @@
             android:dialogTitle="@string/pt_cpuquiet"
             android:key="pref_cpuquiet"
             android:persistent="true"
-            android:summary="@string/ps_cpuquiet"
             android:title="@string/pt_cpuquiet"/>
         <CheckBoxPreference
             android:defaultValue="false"
@@ -99,7 +98,6 @@
             android:dialogTitle="@string/pt_mc_ps"
             android:key="pref_mcps"
             android:persistent="true"
-            android:summary="@string/ps_mc_ps"
             android:title="@string/pt_mc_ps"/>
         <CheckBoxPreference
             android:defaultValue="false"
@@ -115,7 +113,6 @@
             android:dialogTitle="@string/pt_gpu_fmax"
             android:key="pref_gpu_fmax"
             android:persistent="true"
-            android:summary="@string/ps_gpu_fmax"
             android:title="@string/pt_gpu_fmax"/>
         <CheckBoxPreference
             android:defaultValue="false"

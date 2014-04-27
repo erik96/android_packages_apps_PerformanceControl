@@ -47,6 +47,8 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
     private final CharSequence[] vmcps={"0","1","2"};
     private GPUClass gpu;
     private String ps="";
+    private String ps_cpuquiet="";
+    private String ps_mc_ps="";
     private final int vstep=12500;
     private final int vmin=0;
     private final int nvsteps=25;
@@ -83,6 +85,9 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         mKraitLo = findPreference("pref_krait_lo");
 
         ps=getString(R.string.ps_so_minmax);
+        ps_cpuquiet=getString(R.string.ps_cpuquiet);
+        ps_mc_ps=getString(R.string.ps_mc_ps);
+
 
         if (!new File(SO_MAX_FREQ).exists() || !new File(SO_MIN_FREQ).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("so_min_max");
@@ -139,7 +144,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lmcps.setEntries(getResources().getStringArray(R.array.mc_ps_array));
             lmcps.setEntryValues(vmcps);
             lmcps.setValue(Helpers.readOneLine(MC_PS));
-            lmcps.setSummary(getString(R.string.ps_mc_ps,lmcps.getEntry().toString()));
+            lmcps.setSummary(ps_mc_ps+lmcps.getEntry().toString());
         }
         if(!new File(GEN_HP).exists()){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("hp");
@@ -160,7 +165,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lcpuq.setEntries(govs);
             lcpuq.setEntryValues(govs);
             lcpuq.setValue(s);
-            lcpuq.setSummary(getString(R.string.ps_cpuquiet,s));
+            lcpuq.setSummary(ps_cpuquiet+s);
         }
         gpu = new GPUClass();
         if(gpu.gpuclk_path()==null){
@@ -172,7 +177,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lgpufmax.setEntryValues(gpu.gpuclk_values());
             final String s=Helpers.readOneLine(gpu.gpuclk_path());
             lgpufmax.setValue(s);
-            lgpufmax.setSummary(getString(R.string.ps_gpu_fmax, Helpers.toMHz(String.valueOf(Integer.parseInt(s) / 1000))));
+            lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(s) / 1000)));
         }
 
         if(gpu.gpugovset_path()==null){
@@ -341,21 +346,21 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             if (!values.equals(Helpers.readOneLine(MC_PS))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + MC_PS);
             }
-            lmcps.setSummary(getString(R.string.ps_mc_ps,lmcps.getEntry()));
+            lmcps.setSummary(ps_mc_ps+lmcps.getEntry());
         }
         else if(key.equals("pref_cpuquiet")){
             final String values = lcpuq.getValue();
             if (!values.equals(Helpers.readOneLine(CPU_QUIET_CUR))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + CPU_QUIET_CUR);
             }
-            lcpuq.setSummary(getString(R.string.ps_cpuquiet,values));
+            lcpuq.setSummary(ps_cpuquiet+values);
         }
         else if(key.equals("pref_gpu_fmax")){
             final String values = lgpufmax.getValue();
             if (!values.equals(Helpers.readOneLine(gpu.gpuclk_path()))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + gpu.gpuclk_path());
             }
-            lgpufmax.setSummary(getString(R.string.ps_gpu_fmax,Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000))));
+            lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000)));
         }
         else if(key.equals("pref_krait_thres")){
             final String values = mKraitThres.getValue();
