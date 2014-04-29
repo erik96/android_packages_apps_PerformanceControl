@@ -406,16 +406,16 @@
     <string name="pt_int_sd">Внутренняя Память</string>
     <string name="pt_ext_sd">Внешняя Память</string>
     <string name="save_batt">Энергосбережение</string>
-    <string name="ksm_sleep_times">Sleep times:</string>
-    <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="ksm_sleep_times">Время Сна:</string>
+    <string name="ksm_pages_scanned">Отсканировано:</string>
+    <string name="info_auto_sd">Оставьте пустым для автоопределения</string>
     <!--2.1.15-->
-    <string name="krait">Undervolting Settings</string>
-    <string name="pt_krait_boost">Decrease voltage</string>
-    <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
-    <string name="pt_krait_thres">Threshold frequency</string>
-    <string name="pt_krait_hi">Voltage for higher frequencies</string>
-    <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
-    <string name="pt_krait_lo">Voltage for lower frequencies</string>
-    <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
+    <string name="krait">Настройки Снижения Вольтажа</string>
+    <string name="pt_krait_boost">Снизить Вольтаж</string>
+    <string name="ps_krait_boost">Вольтаж уменьшен на 25mV для Обычного и Быстрого чипов если они активны</string>
+    <string name="pt_krait_thres">Предельная Частота</string>
+    <string name="pt_krait_hi">Вольтаж для висших частот</string>
+    <string name="ps_krait_hi">Применить для частот высших чем порог | Текущий: %s μV</string>
+    <string name="pt_krait_lo">Вольтаж для низших частот</string>
+    <string name="ps_krait_lo">Применить для частот низших чем порог | Текущий: %s μV</string>
 </resources>
