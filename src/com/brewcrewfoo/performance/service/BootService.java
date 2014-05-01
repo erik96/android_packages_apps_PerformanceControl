@@ -96,27 +96,30 @@ public class BootService extends Service implements Constants {
                     }
                 }
             }
+
             if (preferences.getBoolean(CPU_SOB, false)) {
                 for (int i = 0; i < ncpus; i++) {
-                    if(new File(CPU_ON_PATH.replace("cpu0","cpu"+i)).exists() && i>0){
-                        if(preferences.getString("cpuon"+i, "0").equals("1")){
-                            sb.append("set_val \"").append(CPU_ON_PATH.replace("cpu0", "cpu" + i)).append("\" \"1\";\n");
-                        }
+                    boolean fon=new File(CPU_ON_PATH.replace("cpu0","cpu"+i)).exists();
+                    if(fon && i>0){
+                        sb.append("set_val \"").append(CPU_ON_PATH.replace("cpu0", "cpu" + i)).append("\" \"1\";\n");
                     }
                     if (new File(MAX_FREQ_PATH.replace("cpu0","cpu"+i)).exists()) {
                         final String max = preferences.getString(PREF_MAX_CPU+i, Helpers.readOneLine(MAX_FREQ_PATH).replace("cpu0","cpu"+i));
-                        sb.append("busybox echo ").append(max).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                        sb.append("set_val \"").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append("\" \"").append(max).append("\";\n");
+                        //sb.append("busybox echo ").append(max).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                     }
                     if (new File(MIN_FREQ_PATH.replace("cpu0","cpu"+i)).exists()) {
                         final String min = preferences.getString(PREF_MIN_CPU+i, Helpers.readOneLine(MIN_FREQ_PATH).replace("cpu0","cpu"+i));
-                        sb.append("busybox echo ").append(min).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                        sb.append("set_val \"").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append("\" \"").append(min).append("\";\n");
+                        //sb.append("busybox echo ").append(min).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    }
+                    if(fon && i>0 && preferences.getString("cpuon" + i, "0").equals("0")) {
+                        sb.append("set_val \"").append(CPU_ON_PATH.replace("cpu0", "cpu" + i)).append("\" \"0\";\n");
                     }
 
                     //sb.append("busybox echo ").append(gov).append(" > ").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                     sb.append("set_val \"").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append("\" \"").append(gov).append("\";\n");
                 }
-
-
                 if (new File(TEGRA_MAX_FREQ_PATH).exists()) {
                     final String tegramax=preferences.getString(PREF_MAX_CPU+"0", Helpers.readOneLine(TEGRA_MAX_FREQ_PATH));
                     sb.append("busybox echo ").append(tegramax).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
