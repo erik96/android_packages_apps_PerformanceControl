@@ -203,6 +203,9 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
             }
             return true;
         }
+        else if(key.equals("pref_donate")){
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PAYPAL+PAYPAL_BTN)));
+        }
         return false;
     }
 

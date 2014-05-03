@@ -422,4 +422,7 @@ Translation by DaniPhii
     <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
     <string name="pt_krait_lo">Voltage for lower frequencies</string>
     <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
+    <!--2.1.16-->
+    <string name="donor">Donate with PayPal</string>
+    <string name="paypal">If you find this app useful</string>
 </resources>
