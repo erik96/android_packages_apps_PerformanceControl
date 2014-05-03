@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Translation by DaniPhii
+Translation by DaniPhii & Garcia98
 -->
 
 <resources>
@@ -27,7 +27,7 @@ Translation by DaniPhii
     <string name="mt_restore">Restaurar</string>
     <string name="mt_plus25">Disminuir 25 mV</string>
     <string name="mt_minus25">Aumentar 25 mV</string>
-    <!-- Ajustes de CPUs -->
+    <!-- Ajustes de CPU -->
     <string name="current_speed">Velocidad CPU actual</string>
     <string name="current_max">Frecuencia máxima: </string>
     <string name="current_min">Frecuencia mínima: </string>
@@ -58,10 +58,10 @@ Translation by DaniPhii
 
     <string name="ps_fast_charge_boot">Carga rápida</string>
     <string name="fast_charge_warning">¡NO PODRÁS CONECTAR AL PC TRAS CADA REINICIO!
-	    \n\n¡Cuando la carga rápida está activada, SOLO puedes cargar el teléfono!
+	    \n\n¡Cuando la carga rápida está activada, SÓLO puedes cargar el teléfono!
     </string>
     <string name="fast_charge_notification_title">¡Carga rápida activada!</string>
-    <string name="fast_charge_notification_message">¡El teléfono solo se cargará!</string>
+    <string name="fast_charge_notification_message">¡El teléfono sólo se cargará!</string>
 
     <!-- Umbrales de memoria -->
     <string name="prefcat_oom">MATADOR DE PROCESOS</string>
@@ -381,48 +381,48 @@ Translation by DaniPhii
     <string name="ps_zram_info">El servicio ZRAM debe detenerse para cambiar el tamaño del disco</string>
     <!-- beta 2 -->
     <!-- 2.1.10-->
-    <string name="prefcat_wifi_pm">WiFi SLEEP POWER MODE</string>
-    <string name="pt_wifi_pm">WiFi PM</string>
-    <string name="prefcat_mc_ps">MULTICORE POWER SAVING</string>
-    <string name="pt_mc_ps">Multicore Power Saving</string>
-    <string name="mt_io_ctrl">IO Scheduler Settings</string>
+    <string name="prefcat_wifi_pm">WiFi MODO AHORRO DE ENERGÍA</string>
+    <string name="pt_wifi_pm">WiFi, ahorro de energía</string>
+    <string name="prefcat_mc_ps">MULTINÚCLEO MODO AHORRO DE ENERGÍA</string>
+    <string name="pt_mc_ps">Multinúcleo, ahorro de energía</string>
+    <string name="mt_io_ctrl">Ajustes del planificador E/S</string>
     <!-- 2.1.11-->
-    <string name="hotplug">HOTPLUG</string>
-    <string name="pt_hp">Generic Hotplug</string>
-    <string name="ps_hp">Disable one core when screen is off</string>
-    <string name="pt_cpuquiet">CPUQuiet Governor</string>
-    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: </string>
-    <string name="pt_hotplug">Hotplug Control</string>
-    <string name="thermal">THERMAL</string>
-    <string name="pt_thermal">Thermal Control</string>
-    <string name="mt_mem_usage">Memory Usage</string>
-    <string name="pt_drop_caches">Clean drop caches</string>
-    <string name="oom_default">Default values</string>
-    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: </string>
+    <string name="hotplug">CONEXIÓN EN CALIENTE</string>
+    <string name="pt_hp">Conexión en caliente genérica</string>
+    <string name="ps_hp">Suspender un núcleo cuando la pantalla está apagada</string>
+    <string name="pt_cpuquiet">Gobernador CPUQuiet</string>
+    <string name="ps_cpuquiet">Controla qué núcleos del CPU están disponibles y cuando lo están | Current: </string>
+    <string name="pt_hotplug">Control de la conexión en caliente</string>
+    <string name="thermal">TÉRMICO</string>
+    <string name="pt_thermal">Control térmico</string>
+    <string name="mt_mem_usage">Uso de memoria</string>
+    <string name="pt_drop_caches">Limpiar drop cachés</string>
+    <string name="oom_default">Valores por defecto</string>
+    <string name="ps_mc_ps">Intentar agrupar las tareas en los menos núcleos posibles | Current: </string>
     <string-array name="mc_ps_array">
-        <item>Off</item>
-        <item>On</item>
-        <item>Agressive</item>
+        <item>Apagado</item>
+        <item>Encendido</item>
+        <item>Agresivo</item>
     </string-array>
-    <string name="pt_gpu_fmax">GPU maximum frequency</string>
-    <string name="pt_gpugov_set">GPU Control</string>
+    <string name="pt_gpu_fmax">Máxima frecuencia de GPU</string>
+    <string name="pt_gpugov_set">Control de GPU</string>
     <!-- 2.1.13-->
-    <string name="pt_int_sd">Internal SD Card</string>
-    <string name="pt_ext_sd">External SD Card</string>
-    <string name="save_batt">Power Saving</string>
-    <string name="ksm_sleep_times">Sleep times:</string>
-    <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="pt_int_sd">Tarjeta SD interna</string>
+    <string name="pt_ext_sd">Tarjeta SD externa</string>
+    <string name="save_batt">Ahorro de energía</string>
+    <string name="ksm_sleep_times">Veces hibernadas:</string>
+    <string name="ksm_pages_scanned">Páginas escaneadas:</string>
+    <string name="info_auto_sd">En blanco para detectar automáticamente</string>
     <!--2.1.15-->
-    <string name="krait">Undervolting Settings</string>
-    <string name="pt_krait_boost">Decrease voltage</string>
-    <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
-    <string name="pt_krait_thres">Threshold frequency</string>
-    <string name="pt_krait_hi">Voltage for higher frequencies</string>
-    <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
-    <string name="pt_krait_lo">Voltage for lower frequencies</string>
-    <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
+    <string name="krait">Ajustes de "undervoltage"</string>
+    <string name="pt_krait_boost">Disminuir voltaje</string>
+    <string name="ps_krait_boost">El voltaje es disminuido en 25mV para Nominal, Rápido and Más rápido bin chips si se activa</string>
+    <string name="pt_krait_thres">Umbral de frecuencia</string>
+    <string name="pt_krait_hi">Voltaje para frecuencias mayores</string>
+    <string name="ps_krait_hi">Aplícalo para frecuencias mayores que el umbral | Current: %s μV</string>
+    <string name="pt_krait_lo">Voltaje para frecuencias menores</string>
+    <string name="ps_krait_lo">Aplícalo para frecuencias menores que el umbral | Current: %s μV</string>
     <!--2.1.16-->
-    <string name="donor">Donate with PayPal</string>
-    <string name="paypal">If you find this app useful</string>
+    <string name="donor">Dona con PayPal</string>
+    <string name="paypal">Si encuentras útil esta app</string>
 </resources>
