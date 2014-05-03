@@ -48,6 +48,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
     private GPUClass gpu;
     private String ps="";
     private String ps_cpuquiet="";
+    private String app="";
     private String ps_mc_ps="";
     private final int vstep=12500;
     private final int vmin=0;
@@ -87,6 +88,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         ps=getString(R.string.ps_so_minmax);
         ps_cpuquiet=getString(R.string.ps_cpuquiet);
         ps_mc_ps=getString(R.string.ps_mc_ps);
+        app=getString(R.string.app_name);
 
 
         if (!new File(SO_MAX_FREQ).exists() || !new File(SO_MIN_FREQ).exists()) {
@@ -177,7 +179,8 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             lgpufmax.setEntryValues(gpu.gpuclk_values());
             final String s=Helpers.readOneLine(gpu.gpuclk_path());
             lgpufmax.setValue(s);
-            lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(s) / 1000)));
+            //lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(s) / 1000)));
+            lgpufmax.setSummary(ps+lgpufmax.getEntry());
         }
 
         if(gpu.gpugovset_path()==null){
@@ -360,7 +363,12 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             if (!values.equals(Helpers.readOneLine(gpu.gpuclk_path()))){
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + gpu.gpuclk_path());
             }
-            lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000)));
+            //lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000)));
+            lgpufmax.setSummary(ps+lgpufmax.getEntry());
+
+            Intent intent = new Intent(INTENT_PP);
+            intent.putExtra("from",app);
+            context.sendBroadcast(intent);
         }
         else if(key.equals("pref_krait_thres")){
             final String values = mKraitThres.getValue();

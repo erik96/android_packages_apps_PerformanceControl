@@ -18,13 +18,13 @@ Copyright (C) 2012  James Roberts
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <Preference android:key="version_info"/>
 
-    <!--<Preference android:key="pref_donate"
+    <Preference android:key="pref_donate"
         android:summary="@string/paypal"
-        android:title="@string/donor"/>-->
+        android:title="@string/donor"/>
 
     <Preference
         android:key="visible_tabs"
@@ -33,25 +33,23 @@ Copyright (C) 2012  James Roberts
     <Preference
         android:key="int_sd"
         android:title="@string/pt_int_sd"/>
+
     <Preference
         android:key="ext_sd"
         android:title="@string/pt_ext_sd"/>
+
     <CheckBoxPreference
-            android:key="use_light_theme"
-            android:summary="@string/ps_use_light_theme"
-            android:title="@string/pt_use_light_theme"/>
+        android:key="use_light_theme"
+        android:summary="@string/ps_use_light_theme"
+        android:title="@string/pt_use_light_theme"/>
 
     <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:defaultValue="#ff000000"
-            android:key="widget_bg_color"
-            android:title="@string/pt_widget_bg_color"/>
+        android:defaultValue="#ff000000"
+        android:key="widget_bg_color"
+        android:title="@string/pt_widget_bg_color"/>
     <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:defaultValue="#ff808080"
-            android:key="widget_text_color"
-            android:title="@string/pt_widget_text_color"/>
-
-
-
-
+        android:defaultValue="#ff808080"
+        android:key="widget_text_color"
+        android:title="@string/pt_widget_text_color"/>
 
 </PreferenceScreen>
