@@ -219,7 +219,7 @@ public class BootService extends Service implements Constants {
             if (preferences.getBoolean(VOLTAGE_SOB, false)) {
 
                 if(Helpers.voltageFileExists()){
-                    final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
+                    final List<Voltage> volts = VoltageControlSettings.bootgetVolts(preferences);
                     final String vddpath=Helpers.getVoltagePath();
                     if (vddpath.equals(VDD_PATH)) {
                         for (final Voltage volt : volts) {
@@ -539,15 +539,6 @@ public class BootService extends Service implements Constants {
                     nm.notify(1337, n);//1337
                 }
             }
-            /*PackageManager pm = c.getPackageManager();
-            try {
-                pm.getPackageInfo("com.h0rn3t.performanceprofile", PackageManager.GET_ACTIVITIES);
-                Intent intent = new Intent(INTENT_PP);
-                intent.putExtra("from",TAG);
-                c.sendBroadcast(intent);
-            }
-            catch (PackageManager.NameNotFoundException e) { }*/
-
             stopSelf();
         }
 	}

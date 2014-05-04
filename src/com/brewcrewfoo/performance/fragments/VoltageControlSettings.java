@@ -29,9 +29,12 @@ public class VoltageControlSettings extends Fragment implements Constants {
     SharedPreferences mPreferences;
     private Voltage mVoltage;
     private Context context;
-    private final int vstep=25;
-    private final int vmin=600;
-    private final int nvsteps=40;
+    private int vstep=25;
+    private int mstep=25;
+    private int vmin=600;
+    private int nvsteps=40;
+    private String um=" mV";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -160,10 +163,10 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 startActivity(intent);
                 break;
             case R.id.volt_increase:
-                IncreasebyStep(25);
+                IncreasebyStep(mstep);
                 break;
             case R.id.volt_decrease:
-                IncreasebyStep(-25);
+                IncreasebyStep(-1*mstep);
                 break;
             case R.id.reset:
                 new AlertDialog.Builder(getActivity())
@@ -209,10 +212,55 @@ public class VoltageControlSettings extends Fragment implements Constants {
         mAdapter.notifyDataSetChanged();
     }
 
-    public static List<Voltage> getVolts(final SharedPreferences preferences) {
+    private List<Voltage> getVolts(final SharedPreferences preferences) {
         final List<Voltage> volts = new ArrayList<Voltage>();
+        final String vddpath=Helpers.getVoltagePath();
+        boolean ismicro=false;
         try {
-            final String tablevdd = Helpers.readFileViaShell(Helpers.getVoltagePath(), false);
+            final String tablevdd = Helpers.readFileViaShell(vddpath, false);
+            if(tablevdd!=null){
+                for (final String line : tablevdd.split("\n")) {
+                    if (line!=null && line.contains(":")) {
+                        final String[] values = line.split(":");
+                        String freq = values[0].trim();
+                        if(freq.contains("mhz")){
+                            freq = values[0].replace("mhz", "").trim();
+                            freq=String.valueOf(Integer.parseInt(freq)*1000);
+                        }
+
+                        final String currentMv = values[1].replace("mV", "").trim();
+                        if(currentMv.length()>5){
+                            ismicro=true;
+                        }
+                        final String savedMv = preferences.getString(freq,currentMv);
+                        final Voltage voltage = new Voltage();
+                        voltage.setFreq(freq);
+                        voltage.setCurrentMV(currentMv);
+                        voltage.setSavedMV(savedMv);
+                        volts.add(voltage);
+                    }
+                }
+                if(ismicro){
+                    vstep=12500;
+                    mstep=25000;
+                    nvsteps=80;
+                    vmin=600000;
+                    um=" μV";
+                }
+            }
+        }
+        catch (Exception e) {
+            Log.d(TAG, vddpath + " error reading");
+        }
+
+        return volts;
+   }
+
+    public static List<Voltage> bootgetVolts(final SharedPreferences preferences) {
+        final List<Voltage> volts = new ArrayList<Voltage>();
+        final String vddpath=Helpers.getVoltagePath();
+        try {
+            final String tablevdd = Helpers.readFileViaShell(vddpath, false);
             if(tablevdd!=null){
                 for (final String line : tablevdd.split("\n")) {
 
@@ -225,6 +273,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         }
 
                         final String currentMv = values[1].replace("mV", "").trim();
+
                         final String savedMv = preferences.getString(freq,currentMv);
                         final Voltage voltage = new Voltage();
                         voltage.setFreq(freq);
@@ -236,13 +285,13 @@ public class VoltageControlSettings extends Fragment implements Constants {
             }
         }
         catch (Exception e) {
-            Log.d(TAG, Helpers.getVoltagePath() + " error reading");
+            Log.d(TAG, vddpath + " error reading");
         }
 
         return volts;
-   }
+    }
 
-    private static int getNearestStepIndex(final int value,final int min,final int step,final int total) {
+    private int getNearestStepIndex(final int value,final int min,final int step,final int total) {
         int index = 0;
         for (int k=0;k<total;k++) {
             if (value > (k*step+min)) index++;
@@ -251,7 +300,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         return index;
     }
 
-    protected void showDialog(final int min,final int step,final int total) {
+    private void showDialog(final int min,final int step,final int total) {
         final LayoutInflater factory = LayoutInflater.from(context);
         final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
@@ -261,7 +310,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         final String savedMv = mVoltage.getSavedMV();
         final int savedVolt = Integer.parseInt(savedMv);
 
-        voltageMeter.setText(savedMv + " mV");
+        voltageMeter.setText(savedMv + um);
         voltageSeek.setMax(total);
         voltageSeek.setProgress(getNearestStepIndex(savedVolt,vmin,vstep,nvsteps));
         voltageSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -269,7 +318,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
             public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
                 if (fromUser) {
                     final String volt = Integer.toString(progress*step+min);
-                    voltageMeter.setText(volt + " mV");
+                    voltageMeter.setText(volt + um);
                 }
             }
             @Override
@@ -278,7 +327,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
         new AlertDialog.Builder(context)
-                .setTitle(mVoltage.getFreq()+ getResources().getString(R.string.ps_volt_mhz_voltage))
+                .setTitle(mVoltage.getFreq()+ " kHz")
                 .setView(voltageDialog)
                 .setPositiveButton(getResources().getString(R.string.ps_volt_save),
                         new DialogInterface.OnClickListener() {
@@ -356,15 +405,15 @@ public class VoltageControlSettings extends Fragment implements Constants {
             private TextView mSavedMV;
 
             public void setFreq(final String freq) {
-                mFreq.setText(freq + " Hz");
+                mFreq.setText(freq + " kHz");
             }
 
             public void setCurrentMV(final String currentMv) {
-                mCurrentMV.setText(getResources().getString(R.string.ps_volt_current_voltage) + currentMv + " mV");
+                mCurrentMV.setText(getResources().getString(R.string.ps_volt_current_voltage) + currentMv + um);
             }
 
             public void setSavedMV(final String savedMv) {
-                mSavedMV.setText(getResources().getString(R.string.ps_volt_setting_to_apply) + savedMv + " mV");
+                mSavedMV.setText(getResources().getString(R.string.ps_volt_setting_to_apply) + savedMv + um);
             }
         }
     }
