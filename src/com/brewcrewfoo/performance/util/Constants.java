@@ -50,6 +50,8 @@ public interface Constants {
     //Dynamic frequency scaling
     public static final String DYN_MAX_FREQ_PATH = "/sys/power/cpufreq_max_limit";
     public static final String DYN_MIN_FREQ_PATH = "/sys/power/cpufreq_min_limit";
+
+    public static final String HARD_LIMIT_PATH="/sys/kernel/cpufreq/hardlimit";
     
     public static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
 

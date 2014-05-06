@@ -132,6 +132,10 @@ public class BootService extends Service implements Constants {
                     final String min0=preferences.getString(PREF_MIN_CPU+"0", Helpers.readOneLine(MIN_FREQ_PATH));
                     sb.append("busybox echo ").append(min0).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
                 }
+                if(new File(HARD_LIMIT_PATH).exists()){
+                    final String max0=preferences.getString(PREF_MAX_CPU+"0", Helpers.readOneLine(HARD_LIMIT_PATH));
+                    sb.append("busybox echo ").append(max0).append(" > ").append(HARD_LIMIT_PATH).append(";\n");
+                }
                 for(byte i=0;i<2; i++){
                     if (new File(IO_SCHEDULER_PATH.replace("mmcblk0","mmcblk"+i)).exists()){
                         sb.append("busybox echo ").append(io).append(" > ").append(IO_SCHEDULER_PATH.replace("mmcblk0","mmcblk"+i)).append(";\n");
