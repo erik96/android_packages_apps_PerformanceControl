@@ -388,38 +388,38 @@ Translation by Rhonin86 & Evisceration
     <string name="pt_hp">Generic Hotplug</string>
     <string name="ps_hp">Disable one core when screen is off</string>
     <string name="pt_cpuquiet">CPUQuiet Governor</string>
-    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: </string>
+    <string name="ps_cpuquiet">Kontrolliert wann und welche CPU Kerne aktiviert sind | Aktuell: </string>
     <string name="pt_hotplug">Hotplug Control</string>
     <string name="thermal">THERMAL</string>
     <string name="pt_thermal">Thermal Control</string>
     <string name="mt_mem_usage">Memory Usage</string>
     <string name="pt_drop_caches">Clean drop caches</string>
-    <string name="oom_default">Default values</string>
+    <string name="oom_default">Standardwerte</string>
     <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: </string>
     <string-array name="mc_ps_array">
-        <item>Off</item>
-        <item>On</item>
-        <item>Agressive</item>
+        <item>Aus</item>
+        <item>An</item>
+        <item>Agressiv</item>
     </string-array>
     <string name="pt_gpu_fmax">GPU maximum frequency</string>
     <string name="pt_gpugov_set">GPU Control</string>
     <!-- 2.1.13-->
-    <string name="pt_int_sd">Internal SD Card</string>
-    <string name="pt_ext_sd">External SD Card</string>
-    <string name="save_batt">Power Saving</string>
+    <string name="pt_int_sd">Interne SD Card</string>
+    <string name="pt_ext_sd">Externe SD Card</string>
+    <string name="save_batt">Energie sparen</string>
     <string name="ksm_sleep_times">Sleep times:</string>
-    <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="ksm_pages_scanned">Gescannte Seiten:</string>
+    <string name="info_auto_sd">Leer lassen für die automatische Erkennung</string>
     <!--2.1.15-->
-    <string name="krait">Undervolting Settings</string>
-    <string name="pt_krait_boost">Decrease voltage</string>
+    <string name="krait">Undervolting Einstellungen</string>
+    <string name="pt_krait_boost">Spannung verringern</string>
     <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
     <string name="pt_krait_thres">Threshold frequency</string>
-    <string name="pt_krait_hi">Voltage for higher frequencies</string>
+    <string name="pt_krait_hi">Spannung für höhere Frequenzen</string>
     <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
-    <string name="pt_krait_lo">Voltage for lower frequencies</string>
+    <string name="pt_krait_lo">Spannung für niedrigere Frequenzen</string>
     <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
     <!--2.1.16-->
-    <string name="donor">Donate with PayPal</string>
-    <string name="paypal">If you find this app useful</string>
+    <string name="donor">Spenden mit PayPal</string>
+    <string name="paypal">Wenn Sie diese App nützlich finden</string>
 </resources>
