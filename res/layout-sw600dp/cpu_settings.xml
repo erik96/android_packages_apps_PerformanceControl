@@ -26,7 +26,7 @@ Copyright (C) 2012  James Roberts
             android:paddingRight="20dp">
 
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/speed"
@@ -35,25 +35,25 @@ Copyright (C) 2012  James Roberts
             android:gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/current_speed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="85sp"
-            android:gravity="center_horizontal"
-            android:layout_weight="0.9" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/curcpu"
-            android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/pc_blue"
-            android:textSize="16dp"
-            android:layout_alignParentEnd="true"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginRight="20dp" />
+            android:padding="10dp"
+            android:layout_alignParentLeft="true" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/current_speed"
+            android:layout_height="wrap_content"
+            android:textSize="85sp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/curcpu" />
+
+    </RelativeLayout>
 
 
     <LinearLayout
