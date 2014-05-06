@@ -118,4 +118,5 @@ elif busybox [ "$arg" == "-getcpu" ]; then
 elif busybox [ "$arg" == "-getprop" ]; then
     get_prop "$2";
 fi;
+
 exit;
