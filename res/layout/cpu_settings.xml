@@ -48,12 +48,13 @@ Copyright (C) 2012  James Roberts
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/curcpu"
-                android:textColor="@color/pc_blue"
+                android:textColor="@color/pc_white"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:gravity="center_horizontal|bottom"
                 android:layout_alignParentLeft="true"
-                android:padding="10dp" />
+                android:background="@drawable/blue_corners"
+                android:layout_marginLeft="2dp" />
 
             <TextView
                 android:id="@+id/current_speed"
