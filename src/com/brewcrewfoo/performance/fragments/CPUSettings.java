@@ -54,7 +54,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         mAvailableFrequencies = new String[0];
-        final String availableFrequenciesLine = Helpers.readOneLine(STEPS_PATH);
+        String availableFrequenciesLine = Helpers.readOneLine(STEPS_PATH);
         if (availableFrequenciesLine != null) {
             mAvailableFrequencies = availableFrequenciesLine.split(" ");
             Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
@@ -63,6 +63,22 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                     return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
                 }
             });
+        }
+        else{
+            availableFrequenciesLine=Helpers.readFileViaShell(TIME_IN_STATE_PATH,false);
+            if (availableFrequenciesLine != null) {
+                int i=0;
+                for(String line:availableFrequenciesLine.split("\n")){
+                    mAvailableFrequencies[i]=line.split(" ")[0].trim();
+                    i++;
+                }
+                Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
+                    @Override
+                    public int compare(String object1, String object2) {
+                        return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
+                    }
+                });
+            }
         }
 
         if(savedInstanceState!=null) {
