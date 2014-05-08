@@ -419,6 +419,6 @@
     <string name="pt_krait_lo">Вольтаж для низших частот</string>
     <string name="ps_krait_lo">Применить для частот низших чем порог | Текущий: %s μV</string>
     <!--2.1.16-->
-    <string name="donor">Donate with PayPal</string>
-    <string name="paypal">If you find this app useful</string>
+    <string name="donor">Помощь с помощью PayPal</string>
+    <string name="paypal">Если вы считаете это приложение полезным</string>
 </resources>
