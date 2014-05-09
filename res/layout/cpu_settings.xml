@@ -54,7 +54,7 @@ Copyright (C) 2012  James Roberts
                 android:gravity="center_horizontal|bottom"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/blue_corners"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/current_speed"
