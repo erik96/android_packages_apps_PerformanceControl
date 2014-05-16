@@ -537,10 +537,10 @@ public class BootService extends Service implements Constants {
                             .setAutoCancel(true)
                             .setContentTitle(contentTitle)
                             .setContentText(contentText)
-                            .setSmallIcon(R.drawable.ic_notify)
+                            .setSmallIcon(R.drawable.ic_fastcharge)
                             .setWhen(System.currentTimeMillis()).getNotification();
                     NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.notify(1337, n);//1337
+                    nm.notify(1337, n);
                 }
             }
             stopSelf();

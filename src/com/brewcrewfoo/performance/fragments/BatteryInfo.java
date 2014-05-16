@@ -215,7 +215,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                                 .setAutoCancel(true)
                                 .setContentTitle(contentTitle)
                                 .setContentText(contentText)
-                                .setSmallIcon(R.drawable.ic_notify)
+                                .setSmallIcon(R.drawable.ic_fastcharge)
                                 .setWhen(System.currentTimeMillis()).getNotification();
                         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         nm.notify(1337, n);//1337
