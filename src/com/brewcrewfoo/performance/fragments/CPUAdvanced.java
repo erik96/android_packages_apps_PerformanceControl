@@ -111,7 +111,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             }
         }
 
-        if (Helpers.binExist("mpdecision").equals(NOT_FOUND)){
+        if (Helpers.binExist("mpdecision")==null){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("mpdecision");
             getPreferenceScreen().removePreference(hideCat);
         }

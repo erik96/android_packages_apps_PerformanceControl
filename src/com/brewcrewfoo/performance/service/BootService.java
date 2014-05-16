@@ -84,7 +84,7 @@ public class BootService extends Service implements Constants {
             String ksmpath = KSM_RUN_PATH;
             if (new File(UKSM_RUN_PATH+"/run").exists()) ksmpath = UKSM_RUN_PATH;
 
-            if(!Helpers.binExist("mpdecision").equals(NOT_FOUND) && preferences.getBoolean("mpdecision_boot",false)){
+            if(Helpers.binExist("mpdecision")!=null && preferences.getBoolean("mpdecision_boot",false)){
                 if(preferences.getBoolean("pref_mpdecision",false)){
                     if(!Helpers.moduleActive("mpdecision")){
                         sb.append("mpdecisionstart;\n");

@@ -106,12 +106,10 @@ public interface Constants {
     public static final String[] KSM_FULLSCANS_PATH = {"/sys/kernel/mm/ksm/full_scans","/sys/kernel/mm/uksm/full_scans"};
     public static final String[] KSM_PAGESSHARED_PATH = {"/sys/kernel/mm/ksm/pages_shared","/sys/kernel/mm/uksm/pages_shared"};
     public static final String[] KSM_PAGESSHARING_PATH = {"/sys/kernel/mm/ksm/pages_sharing","/sys/kernel/mm/uksm/pages_sharing"};
-    public static final String[] KSM_PAGESTOSCAN_PATH = {"/sys/kernel/mm/ksm/pages_to_scan","/sys/kernel/mm/uksm/pages_to_scan"};
     public static final String[] KSM_PAGESUNSHERED_PATH = {"/sys/kernel/mm/ksm/pages_unshared","/sys/kernel/mm/uksm/pages_unshared"};
     public static final String[] KSM_PAGESVOLATILE_PATH = {"/sys/kernel/mm/ksm/pages_volatile","/sys/kernel/mm/uksm/pages_volatile"};
     public static final String[] KSM_SLEEP_TIMES_PATH = {"/sys/kernel/mm/ksm/sleep_times","/sys/kernel/mm/uksm/sleep_times"};
     public static final String[] KSM_PAGESSCANNED_PATH = {"/sys/kernel/mm/ksm/pages_scanned","/sys/kernel/mm/uksm/pages_scanned"};
-    public static final String[] KSM_SLEEP_PATH = {"/sys/kernel/mm/ksm/sleep_millisecs","/sys/kernel/mm/uksm/sleep_millisecs"};
     public static final String PREF_RUN_KSM = "pref_run_ksm";
     public static final String KSM_SOB = "ksm_boot";
 
@@ -186,7 +184,7 @@ public interface Constants {
     //Tools
     public static final String PREF_SH = "pref_sh";
     public static final String PREF_WIPE_CACHE = "pref_wipe_cache";
-    public static final String NOT_FOUND = "not found";
+    //public static final String NOT_FOUND = "not found";
     public static final String FLASH_KERNEL = "pref_kernel_img";
     public static final String FLASH_RECOVERY = "pref_recovery_img";
     public static final String RESIDUAL_FILES="pref_residual_files";

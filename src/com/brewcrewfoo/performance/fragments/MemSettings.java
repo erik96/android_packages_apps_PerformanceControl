@@ -170,7 +170,7 @@ public class MemSettings extends PreferenceFragment implements OnSharedPreferenc
             //mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+Helpers.readOneLine(KSM_PAGESTOSCAN_PATH[ksm])+" | "+getString(R.string.ksm_sleep)+" "+Helpers.readOneLine(KSM_SLEEP_PATH[ksm]));
 
         }
-        ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
+        ispm=(Helpers.binExist("pm")!=null);
 
         if(!Helpers.isZRAM()){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("zram");

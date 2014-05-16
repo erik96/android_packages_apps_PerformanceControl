@@ -101,11 +101,11 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         mlogcat= findPreference("pref_dmesg");
         mlogcat.setSummary(getString(R.string.ps_logs,dn));
 
-        if(Helpers.binExist("dd").equals(NOT_FOUND) || NO_FLASH){
+        if(Helpers.binExist("dd")==null || NO_FLASH){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
             getPreferenceScreen().removePreference(hideCat);
         }
-        if(Helpers.binExist("pm").equals(NOT_FOUND)){
+        if(Helpers.binExist("pm")==null){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_freezer");
             getPreferenceScreen().removePreference(hideCat);
         }
@@ -113,7 +113,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_build_prop");
             getPreferenceScreen().removePreference(hideCat);
         }
-        if(Helpers.binExist("sysctl").equals(NOT_FOUND)){
+        if(Helpers.binExist("sysctl")==null){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_sysctl");
             getPreferenceScreen().removePreference(hideCat);
         }

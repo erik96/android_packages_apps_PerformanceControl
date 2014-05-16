@@ -40,7 +40,7 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
         @Override
         protected String doInBackground(String... params) {
             final Boolean canSu = Helpers.checkSu();
-            final Boolean canBb = !Helpers.binExist("busybox").equals(NOT_FOUND);
+            final Boolean canBb = Helpers.binExist("busybox")!=null;
             if (canSu && canBb) return "ok";
             else return "nok";
         }

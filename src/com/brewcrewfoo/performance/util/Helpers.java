@@ -226,13 +226,13 @@ public class Helpers implements Constants {
         }
     }
     public static String binExist(String b) {
-        CMDProcessor.CommandResult cr = null;
-        cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
-        if (cr.success() && cr.stdout!=null && cr.stdout.contains(b)){
-            Log.d(TAG, b + " detected on: "+cr.stdout);
-            return  cr.stdout;
+        CMDProcessor.CommandResult cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
+        if (cr.success() && cr.stdout != null && cr.stdout.contains(b)) {
+            Log.d(TAG, b + " detected on: " + cr.stdout);
+            return cr.stdout;
+        } else {
+            return null;
         }
-        else{ return NOT_FOUND;}
     }
 
     public static Boolean moduleActive(String b) {
