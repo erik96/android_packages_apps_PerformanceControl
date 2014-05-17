@@ -195,6 +195,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             if(resultCode == RESULT_OK){
                 String r= data.getStringExtra("r");
                 if(r!=null && r.equals("ok")){
+                    getCPUval();
                     TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
                     mViewPager.setAdapter(titleAdapter);
                     mViewPager.setCurrentItem(0);
