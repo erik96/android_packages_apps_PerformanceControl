@@ -18,14 +18,12 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -207,22 +205,19 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                 @Override
                 public void onCheckedChanged(CompoundButton v,boolean checked) {
                     mPreferences.edit().putBoolean(PREF_FASTCHARGE,checked).apply();
+                    final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (checked){
                         new CMDProcessor().su.runWaitFor("busybox echo 1 > " + mFastChargePath);
-                        CharSequence contentTitle = context.getText(R.string.fast_charge_notification_title);
-                        CharSequence contentText = context.getText(R.string.fast_charge_notification_message);
                         Notification n = new Notification.Builder(context)
-                                .setAutoCancel(true)
-                                .setContentTitle(contentTitle)
-                                .setContentText(contentText)
+                                .setContentTitle(context.getText(R.string.app_name))
+                                .setContentText(context.getText(R.string.fast_charge_notification_title))
                                 .setSmallIcon(R.drawable.ic_fastcharge)
                                 .setWhen(System.currentTimeMillis()).getNotification();
-                        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        n.flags = Notification.FLAG_NO_CLEAR;
                         nm.notify(1337, n);//1337
                     }
                     else{
                         new CMDProcessor().su.runWaitFor("busybox echo 0 > " + mFastChargePath);
-                        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         nm.cancel(1337);
                     }
                 }
