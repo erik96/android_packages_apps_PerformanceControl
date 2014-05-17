@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.*;
@@ -223,6 +224,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     }
     private void getCPUval(){
         final String r=Helpers.readCPU(this,nCpus);
+        Log.d(TAG, "utils: " + r);
         if(r!=null){
             String allFreq=r.split(":")[nCpus*5];
             if(allFreq.trim().contains(" ")){
@@ -243,8 +245,6 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         }
                     });
                 }
-
-
             }
             for (int i = 0; i < nCpus; i++){
                 if(Integer.parseInt(r.split(":")[i*5])<0)
