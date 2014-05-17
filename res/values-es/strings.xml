@@ -425,4 +425,9 @@ Translation by DaniPhii & Garcia98
     <!--2.1.16-->
     <string name="donor">Dona con PayPal</string>
     <string name="paypal">Si encuentras útil esta app</string>
+    <!--2.1.18-->
+    <string name="liveoc">Live OC</string>
+    <string name="oc_value">OC Value (%)</string>
+    <string name="oc_target_low">OC Target Low</string>
+    <string name="oc_target_high">OC Target High</string>
 </resources>

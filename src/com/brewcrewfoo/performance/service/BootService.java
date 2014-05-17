@@ -96,7 +96,23 @@ public class BootService extends Service implements Constants {
                     }
                 }
             }
-
+            int oc=-1000;
+            if(new File(OC_VALUE_PATH).exists()) {
+                oc=Integer.parseInt(Helpers.readOneLine(OC_VALUE_PATH));
+                sb.append("busybox echo 100 > ").append(OC_VALUE_PATH).append(";\n");
+            }
+            if(new File(OC_HIGH_PATH).exists()) {
+                if (preferences.getBoolean("oc_live_boot", false)) {
+                    s=preferences.getString("pref_oc_high", Helpers.readOneLine(OC_HIGH_PATH));
+                    sb.append("busybox echo ").append(s).append(" > ").append(OC_HIGH_PATH).append(";\n");
+                }
+            }
+            if(new File(OC_LOW_PATH).exists()) {
+                if (preferences.getBoolean("oc_live_boot", false)) {
+                    s=preferences.getString("pref_oc_low", Helpers.readOneLine(OC_LOW_PATH));
+                    sb.append("busybox echo ").append(s).append(" > ").append(OC_LOW_PATH).append(";\n");
+                }
+            }
             if (preferences.getBoolean(CPU_SOB, false)) {
                 for (int i = 0; i < ncpus; i++) {
                     boolean fon=new File(CPU_ON_PATH.replace("cpu0","cpu"+i)).exists();
@@ -140,6 +156,12 @@ public class BootService extends Service implements Constants {
                     if (new File(IO_SCHEDULER_PATH.replace("mmcblk0","mmcblk"+i)).exists()){
                         sb.append("busybox echo ").append(io).append(" > ").append(IO_SCHEDULER_PATH.replace("mmcblk0","mmcblk"+i)).append(";\n");
                     }
+                }
+            }
+            if(new File(OC_VALUE_PATH).exists() && oc!=100 && oc>-1000) {
+                if (preferences.getBoolean("oc_live_boot", false)) {
+                    s = preferences.getString("pref_oc_val", Integer.toString(oc));
+                    sb.append("busybox echo ").append(s).append(" > ").append(OC_VALUE_PATH).append(";\n");
                 }
             }
             if (preferences.getBoolean("so_minmax_boot", false)) {
@@ -522,24 +544,31 @@ public class BootService extends Service implements Constants {
         }
         @Override
         protected void onPreExecute() {
-            Toast.makeText(c, TAG+ " start boot sequence", Toast.LENGTH_SHORT).show();
+            if(preferences.getBoolean("boot_mode",true)){
+                final NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification n = new Notification.Builder(c)
+                        .setContentTitle(c.getText(R.string.app_name))
+                        .setContentText("start boot sequence...")
+                        .setSmallIcon(R.drawable.ic_notify)
+                        .setWhen(System.currentTimeMillis()).getNotification();
+                nm.notify(1338, n);
+            }
+            //Toast.makeText(c, TAG+ " start boot sequence", Toast.LENGTH_SHORT).show();
         }
     	@Override
     	protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast.makeText(c, TAG+ " boot complete", Toast.LENGTH_SHORT).show();
+            final NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancelAll();
+            //Toast.makeText(c, TAG+ " boot complete", Toast.LENGTH_SHORT).show();
             if (FASTCHARGE_PATH!=null) {
                 if(Helpers.readOneLine(FASTCHARGE_PATH).equals("1")){
-                    // add notification to warn user they can only charge
-                    CharSequence contentTitle = c.getText(R.string.fast_charge_notification_title);
-                    CharSequence contentText = c.getText(R.string.fast_charge_notification_message);
                     Notification n = new Notification.Builder(c)
-                            .setAutoCancel(true)
-                            .setContentTitle(contentTitle)
-                            .setContentText(contentText)
+                            .setContentTitle(c.getText(R.string.app_name))
+                            .setContentText(c.getText(R.string.fast_charge_notification_title))
                             .setSmallIcon(R.drawable.ic_fastcharge)
                             .setWhen(System.currentTimeMillis()).getNotification();
-                    NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    n.flags = Notification.FLAG_NO_CLEAR;
                     nm.notify(1337, n);
                 }
             }

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -18,15 +19,21 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.activities.ParamActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -40,8 +47,8 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
 
     SharedPreferences mPreferences;
     private CheckBoxPreference mMpdecision,mIntelliplug,mEcomode,mGenHP,mKraitBoost;
-    private Preference mHotplugset,mGpuGovset,mKraitHi,mKraitLo;
-    private ListPreference mSOmax,mSOmin,lmcps,lcpuq,lgpufmax,mKraitThres;
+    private Preference mHotplugset,mGpuGovset,mKraitHi,mKraitLo,mOCval;
+    private ListPreference mSOmax,mSOmin,lmcps,lcpuq,lgpufmax,mKraitThres,mOClow,mOChigh;
     private Context context;
     private String hotpath=Helpers.hotplug_path();
     private final CharSequence[] vmcps={"0","1","2"};
@@ -64,10 +71,12 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.cpu_advanced);
 
-        final String availableFrequencies = Helpers.readOneLine(STEPS_PATH);
 
         mSOmax = (ListPreference) findPreference("pref_so_max");
         mSOmin = (ListPreference) findPreference("pref_so_min");
+        mOClow = (ListPreference) findPreference("pref_oc_low");
+        mOChigh = (ListPreference) findPreference("pref_oc_high");
+        mOCval = findPreference("pref_oc_val");
 
         mMpdecision = (CheckBoxPreference) findPreference("pref_mpdecision");
         mIntelliplug = (CheckBoxPreference) findPreference("pref_intelliplug");
@@ -90,14 +99,13 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         ps_mc_ps=getString(R.string.ps_mc_ps);
         app=getString(R.string.app_name);
 
+        final CharSequence[] entries = MainActivity.mAvailableFrequencies;
 
         if (!new File(SO_MAX_FREQ).exists() || !new File(SO_MIN_FREQ).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("so_min_max");
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
-            if (availableFrequencies != null) {
-                CharSequence[] entries = availableFrequencies.split(" ");
                 mSOmax.setEntries(entries);
                 mSOmax.setEntryValues(entries);
                 mSOmin.setEntries(entries);
@@ -108,8 +116,42 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
                 mSOmin.setValue(readsomin);
                 mSOmax.setSummary(ps+readsomax+" kHz");
                 mSOmin.setSummary(ps+readsomin+" kHz");
+        }
+
+        //live OC
+        if(!new File(OC_VALUE_PATH).exists()){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("oc_live");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else {
+            final String voc = Helpers.readOneLine(OC_VALUE_PATH);
+            mOCval.setSummary(ps+voc);
+
+            if(!new File(OC_HIGH_PATH).exists()){
+                PreferenceCategory hideCat = (PreferenceCategory) findPreference("oc_live");
+                hideCat.removePreference(mOChigh);
+            }
+            else{
+                mOChigh.setEntries(entries);
+                mOChigh.setEntryValues(entries);
+                final String readsomax = Helpers.readOneLine(OC_HIGH_PATH);
+                mOChigh.setValue(readsomax);
+                mOChigh.setSummary(ps + readsomax + " kHz");
+
+            }
+            if(!new File(OC_LOW_PATH).exists()){
+                PreferenceCategory hideCat = (PreferenceCategory) findPreference("oc_live");
+                hideCat.removePreference(mOClow);
+            }
+            else {
+                mOClow.setEntries(entries);
+                mOClow.setEntryValues(entries);
+                final String readsomin = Helpers.readOneLine(OC_LOW_PATH);
+                mOClow.setValue(readsomin);
+                mOClow.setSummary(ps + readsomin + " kHz");
             }
         }
+        //----
 
         if (Helpers.binExist("mpdecision")==null){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("mpdecision");
@@ -200,14 +242,11 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
                 Cat.removePreference(mKraitThres);
             }
             else{
-                if (availableFrequencies != null) {
-                    CharSequence[] entries = availableFrequencies.split(" ");
-                    mKraitThres.setEntries(entries);
-                    mKraitThres.setEntryValues(entries);
-                    final String readthres =Helpers.readOneLine(KRAIT_THRES_PATH);
-                    mKraitThres.setValue(readthres);
-                    mKraitThres.setSummary(ps+readthres+" kHz");
-                }
+                mKraitThres.setEntries(entries);
+                mKraitThres.setEntryValues(entries);
+                final String readthres =Helpers.readOneLine(KRAIT_THRES_PATH);
+                mKraitThres.setValue(readthres);
+                mKraitThres.setSummary(ps+readthres+" kHz");
             }
             if(!new File(KRAIT_HIGH_PATH).exists()){
                 Cat.removePreference(mKraitHi);
@@ -254,7 +293,10 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference==mMpdecision) {
+        if (preference==mOCval) {
+            openDialog(getString(R.string.oc_value),80,150,preference,OC_VALUE_PATH,"pref_oc_val");
+        }
+        else if (preference==mMpdecision) {
             if(mMpdecision.isChecked()){
                 final StringBuilder sb = new StringBuilder();
                 sb.append("mpdecisionstart;\n");
@@ -331,53 +373,42 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
         if (key.equals("pref_so_max")) {
-            final String values = mSOmax.getValue();
-            if (!values.equals(Helpers.readOneLine(SO_MAX_FREQ))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + SO_MAX_FREQ);
-            }
-            mSOmax.setSummary(ps+values+" kHz");
+            setlistPref(mSOmax,SO_MAX_FREQ,ps+mSOmax.getValue()+" kHz");
         }
         else if (key.equals("pref_so_min")) {
-            final String values = mSOmin.getValue();
-            if (!values.equals(Helpers.readOneLine(SO_MIN_FREQ))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + SO_MIN_FREQ);
-            }
-            mSOmin.setSummary(ps+values+" kHz");
+            setlistPref(mSOmin,SO_MIN_FREQ,ps+mSOmin.getValue()+" kHz");
+        }
+        else if (key.equals("pref_oc_low")) {
+            setlistPref(mOClow,OC_LOW_PATH,ps+mOClow.getValue()+" kHz");
+        }
+        else if (key.equals("pref_oc_high")) {
+            setlistPref(mOChigh,OC_HIGH_PATH,ps+mOChigh.getValue()+" kHz");
         }
         else if(key.equals("pref_mcps")){
-            final String values = lmcps.getValue();
-            if (!values.equals(Helpers.readOneLine(MC_PS))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + MC_PS);
-            }
-            lmcps.setSummary(ps_mc_ps+lmcps.getEntry());
+            setlistPref(lmcps,MC_PS,ps_mc_ps+lmcps.getEntry());
         }
         else if(key.equals("pref_cpuquiet")){
-            final String values = lcpuq.getValue();
-            if (!values.equals(Helpers.readOneLine(CPU_QUIET_CUR))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + CPU_QUIET_CUR);
-            }
-            lcpuq.setSummary(ps_cpuquiet+values);
+            setlistPref(lcpuq,CPU_QUIET_CUR,ps_cpuquiet+lcpuq.getValue());
         }
         else if(key.equals("pref_gpu_fmax")){
-            final String values = lgpufmax.getValue();
-            if (!values.equals(Helpers.readOneLine(gpu.gpuclk_path()))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + gpu.gpuclk_path());
-            }
-            //lgpufmax.setSummary(ps+Helpers.toMHz(String.valueOf(Integer.parseInt(values) / 1000)));
-            lgpufmax.setSummary(ps+lgpufmax.getEntry());
+            setlistPref(lgpufmax,gpu.gpuclk_path(),ps+lgpufmax.getEntry());
 
             Intent intent = new Intent(INTENT_PP);
             intent.putExtra("from",app);
             context.sendBroadcast(intent);
         }
         else if(key.equals("pref_krait_thres")){
-            final String values = mKraitThres.getValue();
-            if (!values.equals(Helpers.readOneLine(KRAIT_THRES_PATH))){
-                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + KRAIT_THRES_PATH);
-            }
-            mKraitThres.setSummary(ps+values+" kHz");
+            setlistPref(mKraitThres,KRAIT_THRES_PATH,ps+ mKraitThres.getValue()+" kHz");
         }
 
+    }
+
+    private void setlistPref(ListPreference l,String p,String s){
+        final String v=l.getValue();
+        if (!v.equals(Helpers.readOneLine(p))){
+            new CMDProcessor().su.runWaitFor("busybox echo "+v+" > " + p);
+        }
+        l.setSummary(s);
     }
 
     private static int getNearestStepIndex(final int value,final int min,final int step,final int total) {
@@ -441,6 +472,109 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
                         }
                 ).create().show();
 
+    }
+
+
+    public void openDialog(String title, final int min, final int max, final Preference pref, final String path, final String key) {
+        Resources res = context.getResources();
+        String cancel = res.getString(R.string.cancel);
+        String ok = res.getString(R.string.ok);
+        final EditText settingText;
+        LayoutInflater factory = LayoutInflater.from(context);
+        final View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
+
+        final SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
+        int currentProgress = Integer.parseInt(Helpers.readOneLine(path));
+        seekbar.setMax(max-min);
+        if(currentProgress>max) currentProgress=max-min;
+        else if(currentProgress<min) currentProgress=0;
+        else currentProgress=currentProgress-min;
+
+        seekbar.setProgress(currentProgress);
+
+        settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
+        settingText.setText(Integer.toString(currentProgress+min));
+
+        settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    int val = Integer.parseInt(settingText.getText().toString())-min;
+                    seekbar.setProgress(val);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        settingText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    int val = Integer.parseInt(s.toString());
+                    if (val > max) {
+                        s.replace(0, s.length(), Integer.toString(max));
+                        val=max;
+                    }
+                    seekbar.setProgress(val-min);
+                }
+                catch (NumberFormatException ex) {
+                }
+            }
+        });
+
+        SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
+                final int mSeekbarProgress = seekbar.getProgress();
+                if(fromUser){
+                    settingText.setText(Integer.toString(mSeekbarProgress+min));
+                }
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekbar) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekbar) {
+            }
+        };
+        seekbar.setOnSeekBarChangeListener(seekBarChangeListener);
+
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setView(alphaDialog)
+                .setNegativeButton(cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // nothing
+                            }
+                        })
+                .setPositiveButton(ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int val = min;
+                        if (!settingText.getText().toString().equals(""))
+                            val = Integer.parseInt(settingText.getText().toString());
+                        if (val < min) val = min;
+                        seekbar.setProgress(val - min);
+                        int newProgress = seekbar.getProgress() + min;
+                        new CMDProcessor().su.runWaitFor("busybox echo " + Integer.toString(newProgress) + " > " + path);
+                        final String v=Helpers.readOneLine(path);
+                        mPreferences.edit().putString(key, v).commit();
+                        pref.setSummary(v);
+
+                    }
+                }).create().show();
     }
 }
 

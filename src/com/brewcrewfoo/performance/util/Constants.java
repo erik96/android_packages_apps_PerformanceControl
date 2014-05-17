@@ -40,7 +40,7 @@ public interface Constants {
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String TEGRA_MAX_FREQ_PATH = "/sys/module/cpu_tegra/parameters/cpu_user_cap";
     public static final String MIN_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
-    public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
+    //public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String IO_SCHEDULER_PATH = "/sys/block/mmcblk0/queue/scheduler";
@@ -251,6 +251,11 @@ public interface Constants {
     public static final String KRAIT_LOWER_PATH = "/sys/module/acpuclock_krait/parameters/lower_uV";
     public static final String KRAIT_HIGH_PATH = "/sys/module/acpuclock_krait/parameters/higher_uV";
     public static final String KRAIT_THRES_PATH = "/sys/module/acpuclock_krait/parameters/higher_khz_thres";
+
+    //live oc
+    public static final String OC_VALUE_PATH = "/sys/class/misc/liveoc/oc_value";
+    public static final String OC_HIGH_PATH = "/sys/class/misc/liveoc/oc_target_high";
+    public static final String OC_LOW_PATH = "/sys/class/misc/liveoc/oc_target_low";
 
     public static final String INTENT_PP="com.h0rn3t.performanceprofile.change_system";
 }

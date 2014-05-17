@@ -25,6 +25,29 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="oc_live"
+        android:title="@string/liveoc">
+        <Preference
+            android:key="pref_oc_val"
+            android:title="@string/oc_value"/>
+        <ListPreference
+            android:dialogTitle="@string/oc_target_low"
+            android:key="pref_oc_low"
+            android:persistent="true"
+            android:title="@string/oc_target_low"/>
+        <ListPreference
+            android:dialogTitle="@string/oc_target_high"
+            android:key="pref_oc_high"
+            android:persistent="true"
+            android:title="@string/oc_target_high"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="oc_live_boot"
+            android:summary="@string/ps_blx_boot"
+            android:title="@string/sob"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="mpdecision"
         android:title="@string/mpdecision">
         <CheckBoxPreference

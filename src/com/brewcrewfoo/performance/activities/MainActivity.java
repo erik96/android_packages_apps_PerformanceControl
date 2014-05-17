@@ -36,6 +36,8 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
@@ -51,6 +53,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static String[] mMaxFreqSetting=new String[nCpus];
     public static String[] mMinFreqSetting=new String[nCpus];
     public static String[] mCPUon=new String[nCpus];
+    public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
 
     @Override
@@ -211,10 +214,57 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 startActivityForResult(intent, 1);
             }
             else{
-                    TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
-                    mViewPager.setAdapter(titleAdapter);
-                    mViewPager.setCurrentItem(0);
+                getCPUval();
+                TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+                mViewPager.setAdapter(titleAdapter);
+                mViewPager.setCurrentItem(0);
+            }
+        }
+    }
+    private void getCPUval(){
+        final String r=Helpers.readCPU(this,nCpus);
+        if(r!=null){
+            String allFreq=r.split(":")[nCpus*5];
+            if(allFreq.trim().contains(" ")){
+                mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
+            }
+            else {
+                allFreq=Helpers.readFileViaShell(TIME_IN_STATE_PATH,false);
+                if (allFreq != null) {
+                    int i=0;
+                    for(String line:allFreq.split("\n")){
+                        mAvailableFrequencies[i]=line.split(" ")[0].trim();
+                        i++;
+                    }
+                    Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
+                        @Override
+                        public int compare(String object1, String object2) {
+                            return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
+                        }
+                    });
                 }
+
+
+            }
+            for (int i = 0; i < nCpus; i++){
+                if(Integer.parseInt(r.split(":")[i*5])<0)
+                    mMinFreqSetting[i]=mAvailableFrequencies[0];
+                else
+                    mMinFreqSetting[i]=r.split(":")[i*5];
+
+                if(Integer.parseInt(r.split(":")[i*5+1])<0)
+                    mMaxFreqSetting[i]=mAvailableFrequencies[mAvailableFrequencies.length-1];
+                else
+                    mMaxFreqSetting[i]=r.split(":")[i*5+1];
+
+                /*if(new File(HARD_LIMIT_PATH).exists()){
+                    mMaxFreqSetting[i]=Helpers.readOneLine(HARD_LIMIT_PATH);
+                }*/
+
+                mCurGovernor[i]=r.split(":")[i*5+2];
+                mCurIO[i]=r.split(":")[i*5+3];
+                mCPUon[i]=r.split(":")[i*5+4];
+            }
         }
     }
 }

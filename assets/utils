@@ -64,7 +64,12 @@ get_cpu(){
     local r="";
     local gov=`busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`;
     local io=`busybox awk -F'[][]' '{print $2}' /sys/block/mmcblk0/queue/scheduler`;
-
+    local oc="";
+    if busybox [ -f /sys/class/misc/liveoc/oc_value ]; then
+        oc=`busybox cat /sys/class/misc/liveoc/oc_value`;
+        busybox echo 100 > /sys/class/misc/liveoc/oc_value;
+    fi;
+    local allfreq=`busybox cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies`;
     for c in `busybox seq 0 $ncpus`; do
 
         if busybox [ -f /sys/devices/system/cpu/cpu$c/cpufreq/scaling_max_freq ]; then
@@ -75,6 +80,9 @@ get_cpu(){
         fi;
         if busybox [ -f /sys/power/cpufreq_max_limit ]; then
             max=`busybox cat /sys/power/cpufreq_max_limit`;
+        fi;
+        if busybox [ -f /sys/kernel/cpufreq/hardlimit ]; then
+            max=`busybox cat /sys/kernel/cpufreq/hardlimit`;
         fi;
         if busybox [ "X$max" == "X" ]; then
             max=0;
@@ -106,7 +114,10 @@ get_cpu(){
             r="$r:$min:$max:$gov:$io:$online";
         fi;
     done;
-echo "$r";
+if busybox [ -f /sys/class/misc/liveoc/oc_value ]; then
+    busybox echo $oc > /sys/class/misc/liveoc/oc_value;
+fi;
+echo "$r:$allfreq";
 }
 
 arg=$1;
