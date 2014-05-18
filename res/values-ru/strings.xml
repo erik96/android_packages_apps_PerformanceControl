@@ -426,4 +426,7 @@
     <string name="oc_value">Размер рагона ЦП (%)</string>
     <string name="oc_target_low">Низкая Цель Разгона ЦП</string>
     <string name="oc_target_high">Высокая Цель Разгона ЦП</string>
+
+    <string name="pt_initd">Use init.d script</string>
+    <string name="pt_script_name">Script name</string>
 </resources>
