@@ -21,6 +21,7 @@ package com.brewcrewfoo.performance.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.util.Log;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.*;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
+import com.brewcrewfoo.performance.util.BootClass;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
@@ -41,11 +43,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+
 public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
 
-    SharedPreferences mPreferences;
-    PagerTabStrip mPagerTabStrip;
-    ViewPager mViewPager;
+    Context c=this;
+    private SharedPreferences mPreferences;
+    private ViewPager mViewPager;
     private boolean mIsLightTheme;
     public static Boolean thide=false;
     public static final int nCpus=Helpers.getNumOfCpus();
@@ -64,7 +67,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         setTheme();
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
+        PagerTabStrip mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
         mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
         mPagerTabStrip.setDrawFullUnderline(true);
@@ -152,12 +155,23 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         super.onPause();
     }
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+    @Override
+    public void onStop() {
+        if(mPreferences.getBoolean("boot_mode",false)) new BootClass(c,mPreferences).writeScript();
+        super.onStop();
+    }
+    @Override
     public void onResume() {
         super.onResume();
+
         if (isThemeChanged() || thide) {
             thide=false;
             Helpers.restartPC(this);
         }
+
     }
 
     /**
@@ -223,30 +237,12 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             }
         }
     }
-    private void getCPUval(){
+    private synchronized void getCPUval(){
         final String r=Helpers.readCPU(this,nCpus);
-        Log.d(TAG, "utils: " + r);
-        if(r!=null){
-            String allFreq=r.split(":")[nCpus*5];
-            if(allFreq.trim().contains(" ")){
-                mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
-            }
-            else {
-                allFreq=Helpers.readFileViaShell(TIME_IN_STATE_PATH,false);
-                if (allFreq != null) {
-                    int i=0;
-                    for(String line:allFreq.split("\n")){
-                        mAvailableFrequencies[i]=line.split(" ")[0].trim();
-                        i++;
-                    }
-                    Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
-                        @Override
-                        public int compare(String object1, String object2) {
-                            return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
-                        }
-                    });
-                }
-            }
+        Log.d(TAG, "utils read: " + r);
+        if(r.contains(":")){
+            mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
+
             for (int i = 0; i < nCpus; i++){
                 if(Integer.parseInt(r.split(":")[i*5])<0)
                     mMinFreqSetting[i]=mAvailableFrequencies[0];
