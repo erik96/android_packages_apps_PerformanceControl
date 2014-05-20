@@ -347,11 +347,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     }
     @Override
     public void onResume() {
+        super.onResume();
         if (mCurCPUThread == null) {
             mCurCPUThread = new CurCPUThread();
             mCurCPUThread.start();
         }
-        super.onResume();
     }
 
     @Override

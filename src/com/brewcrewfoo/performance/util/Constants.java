@@ -258,6 +258,7 @@ public interface Constants {
     public static final String OC_LOW_PATH = "/sys/class/misc/liveoc/oc_target_low";
 
     public static final String INTENT_PP="com.h0rn3t.performanceprofile.change_system";
+    public static final String INIT_D="system/etc/init.d/";
 }
 
 

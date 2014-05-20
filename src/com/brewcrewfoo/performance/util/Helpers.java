@@ -307,7 +307,7 @@ public class Helpers implements Constants {
             e.printStackTrace();
         }
     }
-    public static void get_assetsBinary(String fn,Context c){
+    public synchronized static void get_assetsBinary(String fn,Context c){
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {
