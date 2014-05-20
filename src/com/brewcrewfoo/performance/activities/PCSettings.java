@@ -95,12 +95,12 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
 
         final File initd=new File(INIT_D);
         mInitd = (CheckBoxPreference) findPreference("boot_mode");
-        //if(initd.exists() && initd.isDirectory()) {
-        //    mInitd.setSummary(INIT_D + mPreferences.getString("script_name", "99PC"));
-        //}
-        //else{
+        if(initd.exists() && initd.isDirectory()) {
+            mInitd.setSummary(INIT_D + mPreferences.getString("script_name", "99PC"));
+        }
+        else{
             getPreferenceScreen().removePreference(mInitd);
-        //}
+        }
 
         if(!NO_UPDATE){
             mVersion.setSummary(getString(R.string.chk_update));
