@@ -16,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +29,9 @@ import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.PackAdapter;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 
 public class FreezerActivity extends Activity implements Constants, AdapterView.OnItemClickListener,ActivityThemeChangeInterface {
@@ -46,7 +48,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     private PackAdapter adapter;
     private int curpos;
     private Boolean freeze;
-    private String  packs;
     private String pn;
     private String titlu;
     private ProgressDialog progressDialog;
@@ -61,7 +62,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
 
         Intent i=getIntent();
         freeze=i.getBooleanExtra("freeze",false);
-        packs=i.getStringExtra("packs");
 
         pmList=new String[] {};
         packageManager = getPackageManager();
@@ -103,23 +103,13 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(!freeze) return false;
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.freezer_menu, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.freez_sys) {
-            if(packs.equals("sys")) return false;
-            packs="sys";
-        }
-        if (item.getItemId() == R.id.freez_usr) {
-            if(packs.equals("usr")) return false;
-            packs="usr";
-        }
-        new GetPacksOperation().execute();
+
         return true;
     }
 
@@ -131,12 +121,13 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -d | cut -d':' -f2`");
             }
             else{
-                if(packs.equals("sys")){
+                cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -e | cut -d':' -f2`");
+                /*if(packs.equals("sys")){
                     cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s -e | cut -d':' -f2`");
                 }
                 else{
                     cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 -e | cut -d':' -f2`");
-                }
+                }*/
             }
             if(cr.success()&& !cr.stdout.equals(""))
                 return cr.stdout;
@@ -145,24 +136,24 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
 
         @Override
         protected void onPostExecute(String result) {
-            if(result!=null)
-                pmList =result.split(" ");
             linlaHeaderProgress.setVisibility(View.GONE);
+            if(result!=null) pmList =result.split(" ");
             if(pmList.length>0){
+                Arrays.sort(pmList, new Comparator<String>() {
+                    @Override
+                    public int compare(String object1, String object2) {
+                        return object1.compareTo(object2);
+                    }
+                });
                 adapter = new PackAdapter(FreezerActivity.this, pmList, packageManager);
                 packList.setAdapter(adapter);
                 linNopack.setVisibility(View.GONE);
                 llist.setVisibility(LinearLayout.VISIBLE);
                 if(!freeze){
-                    itxt.setText(getString(R.string.ps_unfreeze));
+                    itxt.setText(getString(R.string.pt_unfreeze));
                 }
                 else{
-                    if(packs.equals("sys")){
-                        itxt.setText(getString(R.string.mt_system_packs));
-                    }
-                    else{
-                        itxt.setText(getString(R.string.mt_user_packs));
-                    }
+                    itxt.setText(getString(R.string.pt_freeze));
                 }
             }
             else{
