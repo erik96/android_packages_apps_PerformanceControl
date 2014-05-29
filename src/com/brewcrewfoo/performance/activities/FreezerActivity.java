@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,8 +28,10 @@ import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.PackAdapter;
+import com.brewcrewfoo.performance.util.PackItem;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 
@@ -42,8 +43,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     private LinearLayout linlaHeaderProgress;
     private LinearLayout linNopack,llist;
     private TextView itxt;
-    private String pmList[];
-    private PackageManager packageManager;
+    private ArrayList<PackItem> list = new ArrayList<PackItem>();
     private ListView packList;
     private PackAdapter adapter;
     private int curpos;
@@ -62,9 +62,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
 
         Intent i=getIntent();
         freeze=i.getBooleanExtra("freeze",false);
-
-        pmList=new String[] {};
-        packageManager = getPackageManager();
 
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         linNopack = (LinearLayout) findViewById(R.id.noproc);
@@ -129,23 +126,26 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
                     cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 -e | cut -d':' -f2`");
                 }*/
             }
-            if(cr.success()&& !cr.stdout.equals(""))
-                return cr.stdout;
+            list.clear();
+            if(cr.success()&& !cr.stdout.equals("")){
+                    for(String p:cr.stdout.split(" ")){
+                        list.add(new PackItem(p));
+                    }
+                    Collections.sort(list, new Comparator<PackItem>() {
+                        public int compare(PackItem s1, PackItem s2) {
+                            return s1.getAppName().compareTo(s2.getAppName());
+                        }
+                    });
+            }
             return null;
+
         }
 
         @Override
         protected void onPostExecute(String result) {
-            linlaHeaderProgress.setVisibility(View.GONE);
-            if(result!=null) pmList =result.split(" ");
-            if(pmList.length>0){
-                Arrays.sort(pmList, new Comparator<String>() {
-                    @Override
-                    public int compare(String object1, String object2) {
-                        return object1.compareTo(object2);
-                    }
-                });
-                adapter = new PackAdapter(FreezerActivity.this, pmList, packageManager);
+
+            if(list.size()>0){
+                adapter = new PackAdapter(FreezerActivity.this, list);
                 packList.setAdapter(adapter);
                 linNopack.setVisibility(View.GONE);
                 llist.setVisibility(LinearLayout.VISIBLE);
@@ -159,6 +159,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
             else{
                 linNopack.setVisibility(View.VISIBLE);
             }
+            linlaHeaderProgress.setVisibility(View.GONE);
         }
 
         @Override
@@ -251,8 +252,8 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
                 progressDialog.dismiss();
             }
             if(result.equals("ok")){
-                adapter.delItem(curpos);
-                adapter.notifyDataSetChanged();
+                adapter.delItem(list,curpos);
+                //adapter.notifyDataSetChanged();
                 if(adapter.isEmpty()){
                     llist.setVisibility(LinearLayout.GONE);
                     linNopack.setVisibility(View.VISIBLE);

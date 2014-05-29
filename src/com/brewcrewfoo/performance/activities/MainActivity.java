@@ -44,7 +44,7 @@ import java.util.List;
 
 public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
 
-    Context c=this;
+    public static Context c;
     private SharedPreferences mPreferences;
     private ViewPager mViewPager;
     private boolean mIsLightTheme;
@@ -61,6 +61,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        c=this;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         setContentView(R.layout.activity_main);
