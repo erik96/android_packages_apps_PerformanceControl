@@ -215,7 +215,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                                 .setSmallIcon(R.drawable.ic_fastcharge)
                                 .setWhen(System.currentTimeMillis()).getNotification();
                         n.flags = Notification.FLAG_NO_CLEAR;
-                        nm.notify(1337, n);//1337
+                        nm.notify(1337, n);
                     }
                     else{
                         new CMDProcessor().su.runWaitFor("busybox echo 0 > " + mFastChargePath);

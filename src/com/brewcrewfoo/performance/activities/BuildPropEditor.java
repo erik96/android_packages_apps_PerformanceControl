@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class BuildPropEditor extends Activity implements Constants, AdapterView.
     private String[] oggs={};
     private String dn;
     private String buildname="build";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,10 @@ public class BuildPropEditor extends Activity implements Constants, AdapterView.
 
         tools.setVisibility(View.GONE);
         search.setVisibility(View.GONE);
+        Switch bootset= (Switch) findViewById(R.id.applyAtBoot);
+        bootset.setVisibility(View.GONE);
+        TextView tbootset=(TextView) findViewById(R.id.set_on_boot);
+        tbootset.setVisibility(View.GONE);
 
         new GetPropOperation().execute();
 

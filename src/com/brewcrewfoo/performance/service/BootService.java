@@ -56,7 +56,7 @@ public class BootService extends Service implements Constants {
             this.c = c;
             this.preferences = PreferenceManager.getDefaultSharedPreferences(c);
         }
-        @SuppressWarnings("deprecation")
+
         @Override
         protected String doInBackground(Void... args) {
             if(!preferences.getBoolean("boot_mode",false)) Helpers.shExec(new BootClass(c,preferences).getScript(),c,true);

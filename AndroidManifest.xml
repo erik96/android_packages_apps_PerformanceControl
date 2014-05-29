@@ -47,7 +47,7 @@
         <activity android:name="com.brewcrewfoo.performance.activities.iResidualsActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.SysctlEditor" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <receiver android:name=".service.BootReceiver">
+        <receiver android:name=".service.BootReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
