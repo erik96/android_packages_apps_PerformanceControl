@@ -57,6 +57,8 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static String[] mCPUon=new String[nCpus];
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
+    private boolean pref_changed=false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,10 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
         }
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceChangeListener mPreferenceListener = new PreferenceChangeListener();
+        mPreferences.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
     @Override
     public void onSaveInstanceState(Bundle saveState) {
@@ -159,7 +165,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     }
     @Override
     public void onStop() {
-        if(mPreferences.getBoolean("boot_mode",false)) new BootClass(c,mPreferences).writeScript();
+        if(mPreferences.getBoolean("boot_mode",false) && pref_changed) new BootClass(c,mPreferences).writeScript();
         super.onStop();
     }
     @Override
@@ -261,6 +267,13 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 mCurIO[i]=r.split(":")[i*5+3];
                 mCPUon[i]=r.split(":")[i*5+4];
             }
+        }
+    }
+    private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            //Toast.makeText(c,"Changed: "+key,Toast.LENGTH_LONG).show();
+            pref_changed=true;
         }
     }
 }
