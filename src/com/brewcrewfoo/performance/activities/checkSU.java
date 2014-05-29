@@ -46,10 +46,6 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
         }
         @Override
         protected void onPostExecute(String result) {
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("r",result);
-            setResult(RESULT_OK,returnIntent);
-
             if(result.equals("nok")){
                 mPreferences.edit().putBoolean("firstrun", true).commit();
                 info.setText(getString(R.string.su_failed_su_or_busybox));
@@ -57,6 +53,9 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
             }
             else{
                 mPreferences.edit().putBoolean("firstrun", false).commit();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("r",result);
+                setResult(RESULT_OK,returnIntent);
                 finish();
             }
 
