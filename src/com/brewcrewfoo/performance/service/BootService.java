@@ -68,8 +68,8 @@ public class BootService extends Service implements Constants {
             final NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             Notification n = new Notification.Builder(c)
                     .setContentTitle(c.getText(R.string.app_name))
-                    .setContentText("start boot sequence...")
-                    .setTicker("start boot sequence...")
+                    .setContentText("apply boot sequence")
+                    .setTicker("apply boot sequence")
                     .setSmallIcon(R.drawable.ic_notify)
                     .setWhen(System.currentTimeMillis()).getNotification();
             nm.notify(1338, n);
