@@ -69,6 +69,7 @@ public class BootService extends Service implements Constants {
             Notification n = new Notification.Builder(c)
                     .setContentTitle(c.getText(R.string.app_name))
                     .setContentText("start boot sequence...")
+                    .setTicker("start boot sequence...")
                     .setSmallIcon(R.drawable.ic_notify)
                     .setWhen(System.currentTimeMillis()).getNotification();
             nm.notify(1338, n);
@@ -86,6 +87,7 @@ public class BootService extends Service implements Constants {
                     Notification n = new Notification.Builder(c)
                             .setContentTitle(c.getText(R.string.app_name))
                             .setContentText(c.getText(R.string.fast_charge_notification_title))
+                            .setTicker(c.getText(R.string.fast_charge_notification_title))
                             .setSmallIcon(R.drawable.ic_fastcharge)
                             .setWhen(System.currentTimeMillis()).getNotification();
                     n.flags = Notification.FLAG_NO_CLEAR;

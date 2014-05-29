@@ -211,6 +211,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                         Notification n = new Notification.Builder(context)
                                 .setContentTitle(context.getText(R.string.app_name))
                                 .setContentText(context.getText(R.string.fast_charge_notification_title))
+                                .setTicker(context.getText(R.string.fast_charge_notification_title))
                                 .setSmallIcon(R.drawable.ic_fastcharge)
                                 .setWhen(System.currentTimeMillis()).getNotification();
                         n.flags = Notification.FLAG_NO_CLEAR;
