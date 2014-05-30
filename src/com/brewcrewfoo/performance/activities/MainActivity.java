@@ -275,7 +275,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            Toast.makeText(c, "Changed: " + key, Toast.LENGTH_LONG).show();
+            //Toast.makeText(c, "Changed: " + key, Toast.LENGTH_LONG).show();
             pref_changed=true;
         }
     }
