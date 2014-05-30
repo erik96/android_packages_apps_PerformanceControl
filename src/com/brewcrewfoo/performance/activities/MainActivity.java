@@ -58,6 +58,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
     private boolean pref_changed=false;
+    private PreferenceChangeListener mPreferenceListener;
 
 
     @Override
@@ -81,9 +82,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
         }
-
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        PreferenceChangeListener mPreferenceListener = new PreferenceChangeListener();
+        mPreferenceListener = new PreferenceChangeListener();
         mPreferences.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
     @Override
@@ -161,6 +160,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     }
     @Override
     public void onDestroy() {
+        mPreferences.unregisterOnSharedPreferenceChangeListener(mPreferenceListener);
         super.onDestroy();
     }
     @Override
