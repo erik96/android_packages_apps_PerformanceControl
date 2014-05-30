@@ -59,8 +59,18 @@ public class BootService extends Service implements Constants {
 
         @Override
         protected String doInBackground(Void... args) {
-            if(!preferences.getBoolean("boot_mode",false)) Helpers.shExec(new BootClass(c,preferences).getScript(),c,true);
-            return "";
+            if(!preferences.getBoolean("boot_mode",false)){
+                //bootservice
+                preferences.edit().putString(MINFREE_DEFAULT,Helpers.readOneLine(MINFREE_PATH)).commit();
+                Helpers.shExec(new BootClass(c,preferences).getScript(),c,true);
+            }
+            else{
+                //initd script
+                if(preferences.getBoolean(PREF_MINFREE_BOOT,false)) {
+                    preferences.edit().putString(MINFREE_DEFAULT,Helpers.readOneLine(MINFREE_PATH)).commit();
+                }
+            }
+            return null;
         }
         @Override
         protected void onPreExecute() {

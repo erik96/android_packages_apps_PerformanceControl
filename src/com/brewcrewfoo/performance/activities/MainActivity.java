@@ -30,6 +30,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.*;
@@ -165,7 +166,9 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     }
     @Override
     public void onStop() {
-        if(mPreferences.getBoolean("boot_mode",false) && pref_changed) new BootClass(c,mPreferences).writeScript();
+        if(mPreferences.getBoolean("boot_mode",false) && pref_changed){
+            new BootClass(c,mPreferences).writeScript();
+        }
         super.onStop();
     }
     @Override
@@ -272,7 +275,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     private class PreferenceChangeListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            //Toast.makeText(c,"Changed: "+key,Toast.LENGTH_LONG).show();
+            Toast.makeText(c, "Changed: " + key, Toast.LENGTH_LONG).show();
             pref_changed=true;
         }
     }

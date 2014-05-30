@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 
@@ -67,6 +68,7 @@ public class BootClass implements Constants {
             sb.append("busybox chmod 755 ").append(INIT_D).append(fn).append(";\n");
             sb.append("mount -o ro,remount /system;\n");
             Helpers.shExec(sb, c, true);
+            Toast.makeText(c, "init.d script updated", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -416,11 +418,11 @@ public class BootClass implements Constants {
             }
         }
         //read & save default values
-        s=Helpers.readOneLine(MINFREE_PATH);
-        preferences.edit().putString(MINFREE_DEFAULT,s).apply();
+        //s=Helpers.readOneLine(MINFREE_PATH);
+        //preferences.edit().putString(MINFREE_DEFAULT,s).apply();
 
         if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
-            sb.append("busybox echo ").append(preferences.getString(PREF_MINFREE, s)).append(" > ").append(MINFREE_PATH).append(";\n");
+            sb.append("busybox echo ").append(preferences.getString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH))).append(" > ").append(MINFREE_PATH).append(";\n");
         }
         if (new File(USER_PROC_PATH).exists()) {
             if (preferences.getBoolean(USER_PROC_SOB, false)) {
