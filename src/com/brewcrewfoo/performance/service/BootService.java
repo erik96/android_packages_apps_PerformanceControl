@@ -100,7 +100,7 @@ public class BootService extends Service implements Constants {
                             .setTicker(c.getText(R.string.fast_charge_notification_title))
                             .setSmallIcon(R.drawable.ic_fastcharge)
                             .setWhen(System.currentTimeMillis()).getNotification();
-                    n.flags = Notification.FLAG_NO_CLEAR;
+                    //n.flags = Notification.FLAG_NO_CLEAR;
                     nm.notify(1337, n);
                 }
             }
