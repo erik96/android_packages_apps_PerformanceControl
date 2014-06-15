@@ -116,5 +116,12 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p9</recovery>
         <cache>/dev/block/mmcblk0p12</cache>
     </device>
+    <!-- New devices added by Rizal Lovins -->
+	<device>
+        <model>LT25i,LT29i,LT30a,LT30p,C5302,C5303</model> <!-- Sony Xperia T-TL-TX-V-SP -->
+        <kernel>/dev/block/mmcblk0p4</kernel>
+        <recovery>/dev/block/mmcblk0p4</recovery>
+        <cache>/dev/block/mmcblk0p12</cache>
+    </device>
 
 </devices>
