@@ -66,7 +66,8 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private EditText settingText;
     private Boolean isrun=false;
     private ProgressDialog progressDialog;
-    private Preference mResidualFiles,mOptimDB,mlogcat;
+    private Preference mResidualFiles;
+    private Preference mOptimDB;
     private Context context;
     private String nf;
     private String dn;
@@ -96,10 +97,10 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         if (mStartTime>0)
             mOptimDB.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
 
-        mlogcat= findPreference("pref_logcat");
-        mlogcat.setSummary(getString(R.string.ps_logs,dn));
-        mlogcat= findPreference("pref_dmesg");
-        mlogcat.setSummary(getString(R.string.ps_logs,dn));
+        Preference mlogcat = findPreference("pref_logcat");
+        mlogcat.setSummary(getString(R.string.ps_logs, dn));
+        mlogcat = findPreference("pref_dmesg");
+        mlogcat.setSummary(getString(R.string.ps_logs, dn));
 
         if(Helpers.binExist("dd")==null || NO_FLASH){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
