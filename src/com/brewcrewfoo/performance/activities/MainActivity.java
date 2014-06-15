@@ -50,12 +50,17 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     private ViewPager mViewPager;
     private boolean mIsLightTheme;
     public static Boolean thide=false;
-    public static final int nCpus=Helpers.getNumOfCpus();
-    public static String[] mCurGovernor=new String[nCpus];
+    public static int nCpus=16;
+    public static ArrayList<String> mCurGovernor = new ArrayList<String>();
+    public static ArrayList<String> mCurIO = new ArrayList<String>();
+    public static ArrayList<String> mMaxFreqSetting = new ArrayList<String>();
+    public static ArrayList<String> mMinFreqSetting = new ArrayList<String>();
+    public static ArrayList<String> mCPUon = new ArrayList<String>();
+    /*public static String[] mCurGovernor=new String[nCpus];
     public static String[] mCurIO=new String[nCpus];
     public static String[] mMaxFreqSetting=new String[nCpus];
     public static String[] mMinFreqSetting=new String[nCpus];
-    public static String[] mCPUon=new String[nCpus];
+    public static String[] mCPUon=new String[nCpus];*/
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
     private boolean pref_changed=false;
@@ -167,7 +172,12 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     @Override
     public void onStop() {
         if(mPreferences.getBoolean("boot_mode",false) && pref_changed){
-            new BootClass(c,mPreferences).writeScript();
+            new Thread(new Runnable() {
+                public void run(){
+                    new BootClass(c,mPreferences).writeScript();
+                }
+            }).start();
+            Toast.makeText(c, "init.d script updated", Toast.LENGTH_SHORT).show();
         }
         super.onStop();
     }
@@ -245,30 +255,35 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             }
         }
     }
-    private synchronized void getCPUval(){
+    private void getCPUval(){
+        nCpus=Helpers.getNumOfCpus();
         final String r=Helpers.readCPU(this,nCpus);
         Log.d(TAG, "utils read: " + r);
         if(r.contains(":")){
             mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
-
+            mMaxFreqSetting.clear();
+            mMinFreqSetting.clear();
+            mCurGovernor.clear();
+            mCurIO.clear();
+            mCPUon.clear();
             for (int i = 0; i < nCpus; i++){
                 if(Integer.parseInt(r.split(":")[i*5])<0)
-                    mMinFreqSetting[i]=mAvailableFrequencies[0];
+                    mMinFreqSetting.add(i,mAvailableFrequencies[0]);
                 else
-                    mMinFreqSetting[i]=r.split(":")[i*5];
+                    mMinFreqSetting.add(i,r.split(":")[i*5]);
 
                 if(Integer.parseInt(r.split(":")[i*5+1])<0)
-                    mMaxFreqSetting[i]=mAvailableFrequencies[mAvailableFrequencies.length-1];
+                    mMaxFreqSetting.add(i,mAvailableFrequencies[mAvailableFrequencies.length-1]);
                 else
-                    mMaxFreqSetting[i]=r.split(":")[i*5+1];
+                    mMaxFreqSetting.add(i,r.split(":")[i*5+1]);
 
                 /*if(new File(HARD_LIMIT_PATH).exists()){
                     mMaxFreqSetting[i]=Helpers.readOneLine(HARD_LIMIT_PATH);
                 }*/
 
-                mCurGovernor[i]=r.split(":")[i*5+2];
-                mCurIO[i]=r.split(":")[i*5+3];
-                mCPUon[i]=r.split(":")[i*5+4];
+                mCurGovernor.add(i,r.split(":")[i*5+2]);
+                mCurIO.add(i,r.split(":")[i*5+3]);
+                mCPUon.add(i,r.split(":")[i*5+4]);
             }
         }
     }

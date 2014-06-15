@@ -50,11 +50,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
         if(savedInstanceState!=null) {
             MainActivity.curcpu=savedInstanceState.getInt("curcpu");
-            MainActivity.mMaxFreqSetting[MainActivity.curcpu]=savedInstanceState.getString("maxfreq");
-            MainActivity.mMinFreqSetting[MainActivity.curcpu]=savedInstanceState.getString("minfreq");
-            MainActivity.mCurGovernor[MainActivity.curcpu]=savedInstanceState.getString("governor");
-            MainActivity.mCurIO[MainActivity.curcpu]=savedInstanceState.getString("io");
-            MainActivity.mCPUon[MainActivity.curcpu]=savedInstanceState.getString("cpuon");
+            MainActivity.mMaxFreqSetting.set(MainActivity.curcpu,savedInstanceState.getString("maxfreq"));
+            MainActivity.mMinFreqSetting.set(MainActivity.curcpu,savedInstanceState.getString("minfreq"));
+            MainActivity.mCurGovernor.set(MainActivity.curcpu,savedInstanceState.getString("governor"));
+            MainActivity.mCurIO.set(MainActivity.curcpu,savedInstanceState.getString("io"));
+            MainActivity.mCPUon.set(MainActivity.curcpu,savedInstanceState.getString("cpuon"));
         }
 
         setHasOptionsMenu(true);
@@ -85,13 +85,13 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             public boolean onLongClick(View view) {
                 if(new File(CPU_ON_PATH.replace("cpu0","cpu"+MainActivity.curcpu)).exists() && MainActivity.curcpu>0){
                     final StringBuilder sb = new StringBuilder();
-                    if(MainActivity.mCPUon[MainActivity.curcpu].equals("1")){
+                    if(MainActivity.mCPUon.get(MainActivity.curcpu).equals("1")){
                         sb.append("set_val \"").append(CPU_ON_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"0\";\n");
-                        MainActivity.mCPUon[MainActivity.curcpu]="0";
+                        MainActivity.mCPUon.set(MainActivity.curcpu,"0");
                     }
                     else{
                         sb.append("set_val \"").append(CPU_ON_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"1\";\n");
-                        MainActivity.mCPUon[MainActivity.curcpu]="1";
+                        MainActivity.mCPUon.set(MainActivity.curcpu,"1");
                     }
                     Helpers.shExec(sb,context,true);
 
@@ -123,7 +123,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             governorAdapter.add(mAvailableGovernor.trim());
         }
         mGovernor.setAdapter(governorAdapter);
-        mGovernor.setSelection(Arrays.asList(mAvailableGovernors).indexOf(MainActivity.mCurGovernor[MainActivity.curcpu]));
+        mGovernor.setSelection(Arrays.asList(mAvailableGovernors).indexOf(MainActivity.mCurGovernor.get(MainActivity.curcpu)));
         mGovernor.post(new Runnable() {
             public void run() {
                 mGovernor.setOnItemSelectedListener(new GovListener());
@@ -140,7 +140,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             ioAdapter.add(aMAvailableIo);
         }
         mIo.setAdapter(ioAdapter);
-        mIo.setSelection(Arrays.asList(mAvailableIo).indexOf(MainActivity.mCurIO[MainActivity.curcpu]));
+        mIo.setSelection(Arrays.asList(mAvailableIo).indexOf(MainActivity.mCurIO.get(MainActivity.curcpu)));
         mIo.post(new Runnable() {
             public void run() {
                 mIo.setOnItemSelectedListener(new IOListener());
@@ -170,6 +170,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             }
         });
 
+        //if(MainActivity.mAvailableFrequencies==null) getCPUval();
         setCPUval(MainActivity.curcpu);
 
         return view;
@@ -192,10 +193,10 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 break;
             case R.id.gov_settings:
                 for (String aSupported : supported) {
-                    if (aSupported.equals(MainActivity.mCurGovernor[MainActivity.curcpu])) {
-                        if(new File(GOV_SETTINGS_PATH + MainActivity.mCurGovernor[MainActivity.curcpu]).exists()){
+                    if (aSupported.equals(MainActivity.mCurGovernor.get(MainActivity.curcpu))) {
+                        if(new File(GOV_SETTINGS_PATH + MainActivity.mCurGovernor.get(MainActivity.curcpu)).exists()){
                             intent = new Intent(context, GovSetActivity.class);
-                            intent.putExtra("curgov", MainActivity.mCurGovernor[MainActivity.curcpu]);
+                            intent.putExtra("curgov", MainActivity.mCurGovernor.get(MainActivity.curcpu));
                             startActivity(intent);
                         }
                         break;
@@ -205,7 +206,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             case R.id.io_settings:
                 if(new File(IO_TUNABLE_PATH).exists()){
                     intent = new Intent(context, IOSetActivity.class);
-                    intent.putExtra("curio", MainActivity.mCurIO[MainActivity.curcpu]);
+                    intent.putExtra("curio", MainActivity.mCurIO.get(MainActivity.curcpu));
                     startActivity(intent);
                 }
                 break;
@@ -246,25 +247,25 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         }
         switch (seekBar.getId()){
             case R.id.max_slider:
-                updateSharedPrefs(PREF_MAX_CPU+MainActivity.curcpu, MainActivity.mMaxFreqSetting[MainActivity.curcpu]);
-                sb.append("set_val \"").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append("\";\n");
+                updateSharedPrefs(PREF_MAX_CPU+MainActivity.curcpu, MainActivity.mMaxFreqSetting.get(MainActivity.curcpu));
+                sb.append("set_val \"").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"").append(MainActivity.mMaxFreqSetting.get(MainActivity.curcpu)).append("\";\n");
                 //sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append(";\n");
                 if (mIsTegra3) {
-                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
+                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting.get(MainActivity.curcpu)).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
                 }
                 if (mIsDynFreq) {
-                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
+                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting.get(MainActivity.curcpu)).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
                 }
                 if(new File(HARD_LIMIT_PATH).exists()){
-                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting[MainActivity.curcpu]).append(" > ").append(HARD_LIMIT_PATH).append(";\n");
+                    sb.append("busybox echo ").append(MainActivity.mMaxFreqSetting.get(MainActivity.curcpu)).append(" > ").append(HARD_LIMIT_PATH).append(";\n");
                 }
                 break;
             case R.id.min_slider:
-                updateSharedPrefs(PREF_MIN_CPU+MainActivity.curcpu, MainActivity.mMinFreqSetting[MainActivity.curcpu]);
-                sb.append("set_val \"").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"").append(MainActivity.mMinFreqSetting[MainActivity.curcpu]).append("\";\n");
+                updateSharedPrefs(PREF_MIN_CPU+MainActivity.curcpu, MainActivity.mMinFreqSetting.get(MainActivity.curcpu));
+                sb.append("set_val \"").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append("\" \"").append(MainActivity.mMinFreqSetting.get(MainActivity.curcpu)).append("\";\n");
                 //sb.append("busybox echo ").append(MainActivity.mMinFreqSetting[MainActivity.curcpu]).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + MainActivity.curcpu)).append(";\n");
                 if (mIsDynFreq) {
-                    sb.append("busybox echo ").append(MainActivity.mMinFreqSetting[MainActivity.curcpu]).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
+                    sb.append("busybox echo ").append(MainActivity.mMinFreqSetting.get(MainActivity.curcpu)).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
                 }
                 break;
         }
@@ -297,7 +298,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 sb.append("fi;\n");
             }
             Helpers.shExec(sb,context,true);
-            MainActivity.mCurGovernor[MainActivity.curcpu]=selected;
+            MainActivity.mCurGovernor.set(MainActivity.curcpu,selected);
             updateSharedPrefs(PREF_GOV, selected);
         }
         public void onNothingSelected(AdapterView<?> parent) {
@@ -329,7 +330,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 }
             }
 			Helpers.shExec(sb,context,true);
-            MainActivity.mCurIO[MainActivity.curcpu]=selected;
+            MainActivity.mCurIO.set(MainActivity.curcpu,selected);
             updateSharedPrefs(PREF_IO, selected);
         }
         public void onNothingSelected(AdapterView<?> parent) {
@@ -339,11 +340,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onSaveInstanceState(Bundle saveState) {
         super.onSaveInstanceState(saveState);
         saveState.putInt("curcpu",MainActivity.curcpu);
-        saveState.putString("maxfreq",MainActivity.mMaxFreqSetting[MainActivity.curcpu]);
-        saveState.putString("minfreq",MainActivity.mMinFreqSetting[MainActivity.curcpu]);
-        saveState.putString("governor",MainActivity.mCurGovernor[MainActivity.curcpu]);
-        saveState.putString("io",MainActivity.mCurIO[MainActivity.curcpu]);
-        saveState.putString("cpuon",MainActivity.mCPUon[MainActivity.curcpu]);
+        saveState.putString("maxfreq",MainActivity.mMaxFreqSetting.get(MainActivity.curcpu));
+        saveState.putString("minfreq",MainActivity.mMinFreqSetting.get(MainActivity.curcpu));
+        saveState.putString("governor",MainActivity.mCurGovernor.get(MainActivity.curcpu));
+        saveState.putString("io",MainActivity.mCurIO.get(MainActivity.curcpu));
+        saveState.putString("cpuon",MainActivity.mCPUon.get(MainActivity.curcpu));
     }
     @Override
     public void onResume() {
@@ -383,10 +384,10 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         if (progress <= minSliderProgress) {
             mMinSlider.setProgress(progress);
             mMinSpeedText.setText(Helpers.toMHz(current));
-            MainActivity.mMinFreqSetting[MainActivity.curcpu] = current;
+            MainActivity.mMinFreqSetting.set(MainActivity.curcpu,current);
         }
         mMaxSpeedText.setText(Helpers.toMHz(current));
-        MainActivity.mMaxFreqSetting[MainActivity.curcpu] = current;
+        MainActivity.mMaxFreqSetting.set(MainActivity.curcpu,current);
     }
 
     public void setMinSpeed(int progress) {
@@ -396,18 +397,18 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         if (progress >= maxSliderProgress) {
             mMaxSlider.setProgress(progress);
             mMaxSpeedText.setText(Helpers.toMHz(current));
-            MainActivity.mMaxFreqSetting[MainActivity.curcpu] = current;
+            MainActivity.mMaxFreqSetting.set(MainActivity.curcpu,current);
         }
         mMinSpeedText.setText(Helpers.toMHz(current));
-        MainActivity.mMinFreqSetting[MainActivity.curcpu] = current;
+        MainActivity.mMinFreqSetting.set(MainActivity.curcpu,current);
     }
 
     public void setCPUval(int i){
-        mMaxSpeedText.setText(Helpers.toMHz(MainActivity.mMaxFreqSetting[i]));
-        mMaxSlider.setProgress(Arrays.asList(MainActivity.mAvailableFrequencies).indexOf(MainActivity.mMaxFreqSetting[i]));
+        mMaxSpeedText.setText(Helpers.toMHz(MainActivity.mMaxFreqSetting.get(i)));
+        mMaxSlider.setProgress(Arrays.asList(MainActivity.mAvailableFrequencies).indexOf(MainActivity.mMaxFreqSetting.get(i)));
 
-        mMinSpeedText.setText(Helpers.toMHz(MainActivity.mMinFreqSetting[i]));
-        mMinSlider.setProgress(Arrays.asList(MainActivity.mAvailableFrequencies).indexOf(MainActivity.mMinFreqSetting[i]));
+        mMinSpeedText.setText(Helpers.toMHz(MainActivity.mMinFreqSetting.get(i)));
+        mMinSlider.setProgress(Arrays.asList(MainActivity.mAvailableFrequencies).indexOf(MainActivity.mMinFreqSetting.get(i)));
 
         if( MainActivity.curcpu>0 && (mIsDynFreq || new File(HARD_LIMIT_PATH).exists()) ){
             mMaxSlider.setEnabled(false);
@@ -420,12 +421,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mCurCpu.setText(Integer.toString(i+1));
         mCurCpu.setBackgroundResource(R.drawable.blue_corners);
 
-        if(MainActivity.mCPUon[MainActivity.curcpu].equals("0")){
+        if(MainActivity.mCPUon.get(MainActivity.curcpu).equals("0")){
             mCurCpu.setBackgroundResource(R.drawable.red_corners);
             mMaxSlider.setEnabled(false);
             mMinSlider.setEnabled(false);
         }
-        mPreferences.edit().putString("cpuon" + MainActivity.curcpu, MainActivity.mCPUon[MainActivity.curcpu]).apply();
+        mPreferences.edit().putString("cpuon" + MainActivity.curcpu, MainActivity.mCPUon.get(MainActivity.curcpu)).apply();
     }
 
     protected class CurCPUThread extends Thread {
@@ -473,11 +474,15 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         context.sendBroadcast(intent);
         //Helpers.updateAppWidget(context);
     }
+/*
+    private synchronized void getCPUval(){
+        final int nCpus=Helpers.getNumOfCpus();
+        final String r=Helpers.readCPU(context,nCpus);
+        Log.d(TAG, "utils read: " + r);
+        if(r.contains(":")){
+            MainActivity.mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
 
-/*    private void getCPUval(){
-        final String r=Helpers.readCPU(context,MainActivity.nCpus);
-        if(r!=null){
-            for (int i = 0; i < MainActivity.nCpus; i++){
+            for (int i = 0; i < nCpus; i++){
                 if(Integer.parseInt(r.split(":")[i*5])<0)
                     MainActivity.mMinFreqSetting[i]=MainActivity.mAvailableFrequencies[0];
                 else
@@ -487,16 +492,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                     MainActivity.mMaxFreqSetting[i]=MainActivity.mAvailableFrequencies[MainActivity.mAvailableFrequencies.length-1];
                 else
                     MainActivity.mMaxFreqSetting[i]=r.split(":")[i*5+1];
-
-                if(new File(HARD_LIMIT_PATH).exists()){
-                    MainActivity.mMaxFreqSetting[i]=Helpers.readOneLine(HARD_LIMIT_PATH);
-                }
-
                 MainActivity.mCurGovernor[i]=r.split(":")[i*5+2];
                 MainActivity.mCurIO[i]=r.split(":")[i*5+3];
                 MainActivity.mCPUon[i]=r.split(":")[i*5+4];
             }
         }
-    }*/
+    }
+*/
 }
 

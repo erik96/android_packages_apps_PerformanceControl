@@ -68,7 +68,7 @@ public class BootClass implements Constants {
             sb.append("busybox chmod 755 ").append(INIT_D).append(fn).append(";\n");
             sb.append("mount -o ro,remount /system;\n");
             Helpers.shExec(sb, c, true);
-            Toast.makeText(c, "init.d script updated", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(c, "init.d script updated", Toast.LENGTH_SHORT).show();
         }
     }
 
