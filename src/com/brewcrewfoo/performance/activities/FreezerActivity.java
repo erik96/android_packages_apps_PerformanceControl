@@ -88,7 +88,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
-        pn = (String) parent.getItemAtPosition(position);
+        final String pn=list.get(position).getPackName();
         curpos=position;
         if(freeze) {
             makedialog(titlu,getString(R.string.freeze_msg, pn));
@@ -233,10 +233,10 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr;
             if(freeze){
-                cr=new CMDProcessor().su.runWaitFor("pm disable "+pn+" 2> /dev/null");
+                cr=new CMDProcessor().su.runWaitFor("pm disable "+pn);
             }
             else{
-                cr=new CMDProcessor().su.runWaitFor("pm enable "+pn+" 2> /dev/null");
+                cr=new CMDProcessor().su.runWaitFor("pm enable "+pn);
             }
             if(cr.success()){
                 return "ok";

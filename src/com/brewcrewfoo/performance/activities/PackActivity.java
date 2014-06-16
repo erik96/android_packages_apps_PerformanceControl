@@ -151,7 +151,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
         final String told=packNames.getText().toString();
-        final String pn= (String) parent.getItemAtPosition(position);
+        final String pn=list.get(position).getPackName();
         if(told.equals("")){
             packNames.setText(pn);
         }
