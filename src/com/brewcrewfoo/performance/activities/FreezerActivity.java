@@ -88,7 +88,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
-        final String pn=list.get(position).getPackName();
+        pn=list.get(position).getPackName();
         curpos=position;
         if(freeze) {
             makedialog(titlu,getString(R.string.freeze_msg, pn));
@@ -233,17 +233,13 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr;
             if(freeze){
-                cr=new CMDProcessor().su.runWaitFor("pm disable "+pn);
+                cr = new CMDProcessor().su.runWaitFor("pm disable " + pn+ " 2> /dev/null");
             }
             else{
-                cr=new CMDProcessor().su.runWaitFor("pm enable "+pn);
+                cr = new CMDProcessor().su.runWaitFor("pm enable " + pn+ " 2> /dev/null");
             }
-            if(cr.success()){
-                return "ok";
-            }
-            else{
-                return null;
-            }
+            if(cr.success()){ return "ok";}
+            else{return "nok";}
         }
 
         @Override
@@ -252,8 +248,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
                 progressDialog.dismiss();
             }
             if(result.equals("ok")){
-                adapter.delItem(list,curpos);
-                //adapter.notifyDataSetChanged();
+                adapter.delItem(curpos);
                 if(adapter.isEmpty()){
                     llist.setVisibility(LinearLayout.GONE);
                     linNopack.setVisibility(View.VISIBLE);

@@ -27,7 +27,7 @@ public class PackAdapter extends ArrayAdapter<PackItem> {
         this.context = context;
         this.list = list;
     }
-    public void delItem(ArrayList<PackItem> list,int p){
+    public void delItem(int p){
         list.remove(p);
         notifyDataSetChanged();
     }
