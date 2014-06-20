@@ -64,6 +64,7 @@ public interface Constants {
     public static final String GOV_SETTINGS_PATH = "/sys/devices/system/cpu/cpufreq/";
 
     public static final String MC_PS="/sys/devices/system/cpu/sched_mc_power_savings";//multi core power saving
+    public static final String MSM_HOTPLUG="/sys/module/msm_hotplug/msm_enabled";
     public static final String INTELLI_PLUG="/sys/module/intelli_plug/parameters/intelli_plug_active";
     public static final String ECO_MODE="/sys/module/intelli_plug/parameters/eco_mode_active";
     public static final String GEN_HP="/sys/module/omap2plus_cpufreq/parameters/generic_hotplug";//generic hotplug

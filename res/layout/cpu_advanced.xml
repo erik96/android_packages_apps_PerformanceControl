@@ -62,6 +62,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="msmhotplug"
+        android:title="@string/msmhotplug">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_msmhotplug"
+            android:summary="@string/ps_dsync"
+            android:title="@string/pt_msmhotplug"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="hp"
         android:title="@string/pt_hp">
         <CheckBoxPreference
