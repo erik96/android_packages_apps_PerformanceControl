@@ -46,7 +46,7 @@ import java.io.File;
 public class CPUAdvanced extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener,Constants {
 
     SharedPreferences mPreferences;
-    private CheckBoxPreference mMpdecision,mIntelliplug,mEcomode,mGenHP,mKraitBoost;
+    private CheckBoxPreference mMpdecision,mIntelliplug,mMsmHotplug,mEcomode,mGenHP,mKraitBoost;
     private Preference mHotplugset,mGpuGovset,mKraitHi,mKraitLo,mOCval;
     private ListPreference mSOmax,mSOmin,lmcps,lcpuq,lgpufmax,mKraitThres,mOClow,mOChigh;
     private Context context;
@@ -79,6 +79,7 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
         mOCval = findPreference("pref_oc_val");
 
         mMpdecision = (CheckBoxPreference) findPreference("pref_mpdecision");
+        mMsmHotplug = (CheckBoxPreference) findPreference("pref_msmhotplug");
         mIntelliplug = (CheckBoxPreference) findPreference("pref_intelliplug");
         mEcomode = (CheckBoxPreference) findPreference("pref_ecomode");
 
@@ -161,6 +162,13 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             Boolean mpdon = Helpers.moduleActive("mpdecision");
             mMpdecision.setChecked(mpdon);
             mPreferences.edit().putBoolean("mpdecision",mpdon).apply();
+        }
+        if (!new File(MSM_HOTPLUG).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("msmhotplug");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mMsmHotplug.setChecked(Helpers.readOneLine(MSM_HOTPLUG).equals("1"));
         }
         if (!new File(INTELLI_PLUG).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("intelliplug");
@@ -314,6 +322,15 @@ public class CPUAdvanced extends PreferenceFragment implements SharedPreferences
             i.putExtra("pref","hotplug");
             startActivity(i);
         }
+        else if(preference==mMsmHotplug) {
+            if (Helpers.readOneLine(MSM_HOTPLUG).equals("0")){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + MSM_HOTPLUG);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + MSM_HOTPLUG);
+            }
+            return true;
+	}
         else if(preference==mIntelliplug) {
             if (Helpers.readOneLine(INTELLI_PLUG).equals("0")){
                 new CMDProcessor().su.runWaitFor("busybox echo 1 > " + INTELLI_PLUG);

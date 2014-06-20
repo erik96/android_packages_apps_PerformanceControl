@@ -338,6 +338,8 @@
     <string name="mpdecision">MPDECISION</string>
     <string name="pt_mpdecision">Enable MPDecision</string>
 
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Enable MSM Hotplug</string>
     <string name="intelliplug">INTELLIPLUG</string>
     <string name="pt_intelliplug">Enable Intelliplug</string>
     <string name="ecomode">ECOMODE</string>

@@ -208,6 +208,14 @@ public class BootClass implements Constants {
                 sb.append("busybox echo ").append(s).append(" > ").append(CPU_QUIET_CUR).append(";\n");
             }
         }
+        if (new File(MSM_HOTPLUG).exists()) {
+            if(preferences.getBoolean("pref_msmhotplug", false)){
+                sb.append("busybox echo 1 > ").append(MSM_HOTPLUG).append(";\n");
+            }
+            else{
+                sb.append("busybox echo 0 > ").append(MSM_HOTPLUG).append(";\n");
+            }
+        }
         if (new File(INTELLI_PLUG).exists()) {
             if(preferences.getBoolean("pref_intelliplug", false)){
                 sb.append("busybox echo 1 > ").append(INTELLI_PLUG).append(";\n");
