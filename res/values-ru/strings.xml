@@ -429,4 +429,5 @@
 
     <string name="pt_initd">Использовать скрипт init.d</string>
     <string name="pt_script_name">Имя Скрипта</string>
+    <string name="mt_calib">Calibrate</string>
 </resources>

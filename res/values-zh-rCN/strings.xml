@@ -434,4 +434,5 @@
 
     <string name="pt_initd">Use init.d script</string>
     <string name="pt_script_name">Script name</string>
+    <string name="mt_calib">Calibrate</string>
 </resources>
