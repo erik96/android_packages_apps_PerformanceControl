@@ -277,9 +277,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         protected void onPostExecute(String result) {
 
             if(result.equalsIgnoreCase("kernel")){
+                mPreferences.edit().putBoolean("booting",true).commit();
                 new CMDProcessor().su.runWaitFor("reboot");
             }
             else if(result.equalsIgnoreCase("recovery")){
+                mPreferences.edit().putBoolean("booting",true).commit();
                 new CMDProcessor().su.runWaitFor("reboot recovery");
             }
             else{

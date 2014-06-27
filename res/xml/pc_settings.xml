@@ -31,6 +31,11 @@ Copyright (C) 2012  James Roberts
         android:key="visible_tabs"
         android:title="@string/pt_show_tabs"/>
 
+    <CheckBoxPreference
+        android:key="boot_mode"
+        android:summary=""
+        android:title="@string/pt_initd"/>
+
     <Preference
         android:key="int_sd"
         android:title="@string/pt_int_sd"/>
@@ -38,11 +43,6 @@ Copyright (C) 2012  James Roberts
     <Preference
         android:key="ext_sd"
         android:title="@string/pt_ext_sd"/>
-
-    <CheckBoxPreference
-        android:key="boot_mode"
-        android:summary=""
-        android:title="@string/pt_initd"/>
 
     <CheckBoxPreference
         android:key="use_light_theme"

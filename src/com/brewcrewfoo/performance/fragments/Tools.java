@@ -465,6 +465,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             sb.append("busybox rm -rf /data/dalvik-cache/*\n");
             sb.append("busybox rm -rf /cache/*\n");
             sb.append("reboot\n");
+            mPreferences.edit().putBoolean("booting",true).commit();
             Helpers.shExec(sb,context,true);
             return null;
         }

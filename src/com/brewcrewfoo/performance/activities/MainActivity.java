@@ -1,21 +1,3 @@
-/*
- * Performance Control - An Android CPU Control application Copyright (C) 2012
- * James Roberts
- * 
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.brewcrewfoo.performance.activities;
 
 import android.app.Activity;
@@ -56,11 +38,6 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static ArrayList<String> mMaxFreqSetting = new ArrayList<String>();
     public static ArrayList<String> mMinFreqSetting = new ArrayList<String>();
     public static ArrayList<String> mCPUon = new ArrayList<String>();
-    /*public static String[] mCurGovernor=new String[nCpus];
-    public static String[] mCurIO=new String[nCpus];
-    public static String[] mMaxFreqSetting=new String[nCpus];
-    public static String[] mMinFreqSetting=new String[nCpus];
-    public static String[] mCPUon=new String[nCpus];*/
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
     private boolean pref_changed=false;
@@ -238,6 +215,19 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         finish();
     }
     private void checkForSu() {
+        if(mPreferences.getBoolean("theme_changed",false)){
+            mPreferences.edit().putBoolean("theme_changed",false).commit();
+            getCPUval();
+            TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+            mViewPager.setAdapter(titleAdapter);
+            mViewPager.setCurrentItem(0);
+        }
+        else {
+            Log.d(TAG, "check for su & busybox");
+            Intent intent = new Intent(MainActivity.this, checkSU.class);
+            startActivityForResult(intent, 1);
+        }
+        /*
         if (mPreferences.getBoolean("firstrun", true)) {
                 Intent intent = new Intent(MainActivity.this, checkSU.class);
                 startActivityForResult(intent, 1);
@@ -252,8 +242,8 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
                 mViewPager.setAdapter(titleAdapter);
                 mViewPager.setCurrentItem(0);
-            }
-        }
+           }
+        }*/
     }
     private void getCPUval(){
         nCpus=Helpers.getNumOfCpus();

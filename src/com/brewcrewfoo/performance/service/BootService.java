@@ -104,6 +104,7 @@ public class BootService extends Service implements Constants {
                     nm.notify(1337, n);
                 }
             }
+            preferences.edit().putBoolean("booting",false).commit();
             stopSelf();
         }
 	}

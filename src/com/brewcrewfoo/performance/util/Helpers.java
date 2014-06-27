@@ -228,11 +228,13 @@ public class Helpers implements Constants {
     public static String binExist(String b) {
         CMDProcessor.CommandResult cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
         if (cr.success() && cr.stdout != null && cr.stdout.contains(b)) {
-            Log.d(TAG, b + " detected on: " + cr.stdout);
-            return cr.stdout;
-        } else {
-            return null;
+            if (new File(cr.stdout).isFile()) {
+                Log.d(TAG, b + " detected on: " + cr.stdout);
+                return cr.stdout;
+            }
         }
+        Log.d(TAG, b + " detected on: " + cr.stdout);
+        return null;
     }
 
     public static Boolean moduleActive(String b) {
@@ -270,9 +272,7 @@ public class Helpers implements Constants {
         }
         return v;
     }
-    public static boolean showBattery() {
-	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
-    }
+
     public static boolean isZRAM() {
         CMDProcessor.CommandResult cr =new CMDProcessor().sh.runWaitFor(ISZRAM);
         if((cr.success() && cr.stdout!=null && cr.stdout.length()>0)||(new File("/dev/block/zram0/").exists())||(new File("/sys/block/zram0/").exists())) return true;
@@ -388,10 +388,14 @@ public class Helpers implements Constants {
     }
 
     public static boolean is_Tab_available(int i){
-        if(i==1) return (Helpers.getNumOfCpus()>=1);
-        else if(i==2) return Helpers.showBattery();
-        else if(i==4) return Helpers.voltageFileExists();
-        return true;
+        boolean flag=false;
+        switch (i){
+            case 1:flag=Helpers.getNumOfCpus()>=1;break;
+            //case 2:flag=Helpers.showBattery();break;
+            case 4:flag=Helpers.voltageFileExists();break;
+            default: flag=true;break;
+        }
+        return flag;
     }
 
     public static String bln_path() {

@@ -112,7 +112,8 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
         if (key.equals("use_light_theme")) {
-            Helpers.restartPC(this);
+            mPreferences.edit().putBoolean("theme_changed",true).commit();
+            finish();
             return true;
         }
         else if(key.equals("visible_tabs")){
