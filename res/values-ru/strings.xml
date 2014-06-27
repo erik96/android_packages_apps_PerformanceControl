@@ -429,5 +429,12 @@
 
     <string name="pt_initd">Использовать скрипт init.d</string>
     <string name="pt_script_name">Имя Скрипта</string>
-    <string name="mt_calib">Calibrate</string>
+    <string name="mt_calib">Калибрация</string>
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Activează MSM Hotplug</string>
+    <string name="mt_calib_nok">Dispozitivul trebuie sa fie cuplat la incarcator si incarcat complet.</string>
+    <string name="mt_calib_ok">Apasa pe butonul Calibrare, apoi deconecteaza dispozitivul de la incarcator.</string>
+    <string name="mt_calib_chk">Restarteaza după calibrare</string>
+    <string name="boot_wait">Asteptati pana secventa de boot este complată…</string>
+    <string name="no_file">%s nu există !</string>
 </resources>
