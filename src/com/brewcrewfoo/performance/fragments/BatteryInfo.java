@@ -18,12 +18,14 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -53,6 +55,8 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     private String mFastChargePath;
     private Context context;
     private BroadcastReceiver batteryInfoReceiver;
+    private int level,plugged;
+    private final String bstatfile="/data/system/batterystats.bin";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,19 +66,25 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         batteryInfoReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+
                 //int  health= intent.getIntExtra(BatteryManager.EXTRA_HEALTH,0);
                 //String  technology= intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
-                //int  plugged= intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
                 //boolean  present= intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
+                //int  rawvoltage= intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
+
+                plugged= intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
                 int  scale= intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
-                int  level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+                int  lev= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
                 int  status= intent.getIntExtra(BatteryManager.EXTRA_STATUS,0);
                 int  temperature= intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0);
-                int  rawvoltage= intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
 
-                level=level*scale/100;
+                level=lev*scale/100;
                 mbattery_percent.setText(level+"%");
-
+                if (new File(BAT_VOLT_PATH).exists()) {
+                    int volt = Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
+                    if (volt > 5000) volt = (int) Math.round(volt / 1000.0);// in microvolts
+                    mbattery_volt.setText(volt + " mV");
+                }
                 switch ((int) Math.ceil(level / 20.0)){
                     case 0:
                         mBattIcon.setImageResource(R.drawable.battery_0);
@@ -106,7 +116,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.batt_menu, menu);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -114,10 +124,57 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             case R.id.tablist:
                 Helpers.getTabList(getString(R.string.menu_tab),(ViewPager) getView().getParent(),getActivity());
                 break;
-                case R.id.app_settings:
+            case R.id.app_settings:
                 Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
-            break;
+                break;
+            case R.id.calib:
+                if(!new File(bstatfile).exists()){
+                    Toast.makeText(context,getString(R.string.no_file,bstatfile),Toast.LENGTH_SHORT);
+                    break;
+                }
+                if((level==100)&&(plugged!=0)) {
+                    //calibrate
+                    final LayoutInflater factory = LayoutInflater.from(context);
+                    final View cDialog = factory.inflate(R.layout.calib_dialog,null);
+                    final CheckBox sw = (CheckBox) cDialog.findViewById(R.id.sw);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle(getString(R.string.mt_calib))
+                            .setView(cDialog)
+                            .setMessage(getString(R.string.mt_calib_ok))
+                            .setNegativeButton(getString(R.string.cancel),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                            .setPositiveButton(getString(R.string.mt_calib),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            StringBuilder sb=new StringBuilder();
+                                            sb.append("busybox rm -r "+bstatfile+";\n");
+                                            if (sw.isChecked()) {
+                                                mPreferences.edit().putBoolean("booting",true).commit();
+                                                sb.append("reboot;\n");
+                                            }
+                                            Helpers.shExec(sb,context,true);
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+                else{
+                    new AlertDialog.Builder(context).setTitle(getString(R.string.mt_calib)).setMessage(getString(R.string.mt_calib_nok))
+                            .setPositiveButton(getString(R.string.ok),
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {}
+                                    }).create().show();
+                }
+                break;
         }
         return true;
     }
