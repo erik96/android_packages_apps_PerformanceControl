@@ -2,9 +2,7 @@
 <!--
 Translation by Laurentiu1996
 -->
-
 <resources>
-
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
     <string-array name="tabs">
@@ -87,8 +85,8 @@ Translation by Laurentiu1996
     <string name="ps_sys_proc">Lista cu numele proceselor sistemului (separate prin virgulă)</string>
     <string name="no_proc">Nu s-au găsit procese</string>
     <!-- bln -->
-    <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
-    <string name="pt_bln">Backlight Notification</string>
+    <string name="prefcat_bln">NOTIFICARE PRIN ILUMINARE TASTE</string>
+    <string name="pt_bln">Notificare prin iluminare taste</string>
     <!-- blx -->
     <string name="blx_info">Funcţia Extinderea duratei de viaţă a bateriei\nAutor Ezekeel</string>
     <string name="prefcat_blx">EXTINDEREA DURATEI DE VIAŢĂ A BATERIEI</string>
@@ -101,12 +99,12 @@ Translation by Laurentiu1996
     <string name="ps_dsync">Setarea va fi restaurată după repornire</string>
     <string name="pt_dsync">Dynamic Fsync</string>
     <!-- bl_timeout -->
-    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+    <string name="prefcat_bltimeout">DURATA ILUMINARE TASTE</string>
     <string name="ps_bltimeout">%s ms</string>
-    <string name="bltimeout_title">Backlight timeout (ms)</string>
+    <string name="bltimeout_title">Durată iluminare taste (ms)</string>
     <!-- bl_touch -->
-    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
-    <string name="pt_bltouch">Backlight on touchscreen</string>
+    <string name="prefcat_bltouch">ILUMINARE TASTE LA ATINGERE ECRAN</string>
+    <string name="pt_bltouch">Iluminare taste la atingere ecran</string>
     <!-- pfk -->
     <string name="pfk_info">Filtru Phantom Key Presses ver. %s\nAutor Cristoforo Cataldo (Christopher83)</string>
     <string name="prefcat_pfk">FILTRU PHANTOM KEY PRESSES</string>
@@ -169,7 +167,7 @@ Translation by Laurentiu1996
     <string name="total_state_time">TIMPUL TOTAL DE LUCRU</string>
     <string name="no_states_file_found">Frecvenţe indisponibile. Sunteţi sigur că telefonul este compatibil?\n\nDacă folosiţi un custom ROM sau kernel, încercaţi să contactaţi dezvolatorul pentru informare.
     </string>
-    <string name="deep_sleep">"Deep Sleep"</string>
+    <string name="deep_sleep">Deep Sleep</string>
     <!-- CPU info -->
     <string name="kernel_info">INFORMAŢII DESPRE LINUX KERNEL</string>
     <string name="cpu_info">Informaţii CPU</string>
@@ -325,9 +323,9 @@ Translation by Laurentiu1996
 
     <string name="prefcat_logs">SALVARE LOG-URI</string>
     <string name="logcat_title">Logcat</string>
-    <string name="logcat_msg">Logcat va fi salvat în %s. Continue?</string>
+    <string name="logcat_msg">Logcat va fi salvat în %s. Continuaţi?</string>
     <string name="dmesg_title">Dmesg</string>
-    <string name="dmesg_msg">Dmesg va fi salvat în %s. Continue?</string>
+    <string name="dmesg_msg">Dmesg va fi salvat în %s. Continuaţi?</string>
     <string name="ps_logs">Salvează log în %s.</string>
 
     <string name="mpdecision">MPDECISION</string>
@@ -337,13 +335,13 @@ Translation by Laurentiu1996
     <string name="pt_intelliplug">Activaţi Intelliplug</string>
     <string name="ecomode">ECOMODE</string>
     <string name="pt_ecomode">Activaţi EcoMode</string>
-    <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
-    <string name="pt_so_max">Screen off maximum frequency</string>
+    <string name="so_min_max">FRECVENTE ECRAN STINS</string>
+    <string name="pt_so_max">Frecvenţa maximă pentru ecran stins</string>
     <string name="ps_so_minmax">"Actual: "</string>
-    <string name="pt_so_min">Screen off minimum frequency</string>
+    <string name="pt_so_min">Frecvenţa minimă pentru ecran stins</string>
 
     <string name="prefcat_touchscr">TOUCHSCREEN</string>
-    <string name="ps_touchscr">TouchScreen Control</string>
+    <string name="ps_touchscr">Controlul TouchScreen</string>
     <string name="ps_touchscr_boot">Dacă este activată, va restabili toate setările la repornire</string>
     <string name="toucht1">Slide to Wake</string>
     <string name="toucht2">Sweep to Wake</string>
@@ -381,20 +379,20 @@ Translation by Laurentiu1996
     <!-- 2.1.11-->
     <string name="hotplug">HOTPLUG</string>
     <string name="pt_hp">Generic Hotplug</string>
-    <string name="ps_hp">Disable one core when screen is off</string>
+    <string name="ps_hp">Inactivează un nucleu cand ecranul este stins</string>
     <string name="pt_cpuquiet">CPUQuiet Governor</string>
-    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: </string>
-    <string name="pt_hotplug">Hotplug Control</string>
+    <string name="ps_cpuquiet">Controleză care nucleu este disponibil si cand | Actual: </string>
+    <string name="pt_hotplug">Controlul Hotplug</string>
     <string name="thermal">THERMAL</string>
     <string name="pt_thermal">Thermal Control</string>
-    <string name="mt_mem_usage">Memory Usage</string>
+    <string name="mt_mem_usage">Utilizare Memorie</string>
     <string name="pt_drop_caches">Clean drop caches</string>
-    <string name="oom_default">Default values</string>
-    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: </string>
+    <string name="oom_default">Valori initiale</string>
+    <string name="ps_mc_ps">Incearca gruparea proceselor in cat mai putine nuclee | Current: </string>
     <string-array name="mc_ps_array">
-        <item>Off</item>
-        <item>On</item>
-        <item>Agressive</item>
+        <item>Oprit</item>
+        <item>Pornit</item>
+        <item>Agresiv</item>
     </string-array>
     <string name="pt_gpu_fmax">Frecvenţa maximă GPU</string>
     <string name="pt_gpugov_set">Controlul GPU</string>
@@ -404,7 +402,7 @@ Translation by Laurentiu1996
     <string name="save_batt">Power Saving</string>
     <string name="ksm_sleep_times">Sleep times:</string>
     <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="info_auto_sd">Lăsati necompletat pentru autodetectare</string>
     <!--2.1.15-->
     <string name="krait">Undervolting Settings</string>
     <string name="pt_krait_boost">Decrease voltage</string>
@@ -415,15 +413,23 @@ Translation by Laurentiu1996
     <string name="pt_krait_lo">Voltage for lower frequencies</string>
     <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
     <!--2.1.16-->
-    <string name="donor">Donate with PayPal</string>
-    <string name="paypal">If you find this app useful</string>
+    <string name="donor">Donează folosind PayPal</string>
+    <string name="paypal">Dacă această aplicatie iti este folositoare</string>
     <!--2.1.18-->
     <string name="liveoc">Live OC</string>
     <string name="oc_value">OC Value (%)</string>
     <string name="oc_target_low">OC Target Low</string>
     <string name="oc_target_high">OC Target High</string>
 
-    <string name="pt_initd">Use init.d script</string>
-    <string name="pt_script_name">Script name</string>
+    <string name="pt_initd">Utilizează script init.d</string>
+    <string name="pt_script_name">Denumire fisier</string>
     <string name="mt_calib">Calibrare</string>
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Activează MSM Hotplug</string>
+    <string name="mt_calib_nok">Dispozitivul trebuie sa fie cuplat la incarcator si incarcat complet.</string>
+    <string name="mt_calib_ok">Apasa pe butonul Calibrare, apoi deconecteaza dispozitivul de la incarcator.</string>
+    <string name="mt_calib_chk">Restarteaza după calibrare</string>
+    <string name="boot_wait">Asteptati pana secventa de boot este complată…</string>
+    <string name="no_file">%s nu există !</string>
+
 </resources>

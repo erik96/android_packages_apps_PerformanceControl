@@ -431,4 +431,12 @@ Translation by Rhonin86 & Evisceration
     <string name="pt_initd">Use init.d script</string>
     <string name="pt_script_name">Script name</string>
     <string name="mt_calib">Calibrate</string>
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Enable MSM Hotplug</string>
+    <string name="mt_calib_nok">Your device must be plugged and fully charged.</string>
+    <string name="mt_calib_ok">Tap on Calibrate button then unplug the device.</string>
+    <string name="mt_calib_chk">Reboot after calibration</string>
+    <string name="boot_wait">Please wait until boot sequence is finished…</string>
+    <string name="no_file">%s does not exist !</string>
+
 </resources>
