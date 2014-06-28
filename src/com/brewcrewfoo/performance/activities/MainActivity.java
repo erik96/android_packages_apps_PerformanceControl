@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     private ViewPager mViewPager;
     private boolean mIsLightTheme;
     public static Boolean thide=false;
-    public static int nCpus=16;
+    public static int nCpus=1;
     public static ArrayList<String> mCurGovernor = new ArrayList<String>();
     public static ArrayList<String> mCurIO = new ArrayList<String>();
     public static ArrayList<String> mMaxFreqSetting = new ArrayList<String>();
@@ -42,6 +42,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static int curcpu=0;
     private boolean pref_changed=false;
     private PreferenceChangeListener mPreferenceListener;
+    private TitleAdapter titleAdapter;
 
 
     @Override
@@ -56,12 +57,12 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
         mPagerTabStrip.setDrawFullUnderline(true);
-
+        titleAdapter = new TitleAdapter(getFragmentManager());
         if(savedInstanceState==null) {
             checkForSu();
         }
         else {
-            TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
         }
@@ -200,16 +201,14 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                String r= data.getStringExtra("r");
-                if(r!=null && r.equals("ok")){
-                    getCPUval();
-                    TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
-                    mViewPager.setAdapter(titleAdapter);
-                    mViewPager.setCurrentItem(0);
-                    return;
-                }
+        if ((requestCode == 1)&&(resultCode == RESULT_OK)) {
+            String r= data.getStringExtra("r");
+            if(r!=null && r.equals("ok")){
+                getCPUval();
+                //TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+                mViewPager.setAdapter(titleAdapter);
+                mViewPager.setCurrentItem(0);
+                return;
             }
         }
         finish();
@@ -218,7 +217,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         if(mPreferences.getBoolean("theme_changed",false)){
             mPreferences.edit().putBoolean("theme_changed",false).commit();
             getCPUval();
-            TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
+            //TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
         }
@@ -227,23 +226,6 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             Intent intent = new Intent(MainActivity.this, checkSU.class);
             startActivityForResult(intent, 1);
         }
-        /*
-        if (mPreferences.getBoolean("firstrun", true)) {
-                Intent intent = new Intent(MainActivity.this, checkSU.class);
-                startActivityForResult(intent, 1);
-        }
-        else{
-            if(!Helpers.checkSu()) {
-                Intent intent = new Intent(MainActivity.this, checkSU.class);
-                startActivityForResult(intent, 1);
-            }
-            else{
-                getCPUval();
-                TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
-                mViewPager.setAdapter(titleAdapter);
-                mViewPager.setCurrentItem(0);
-           }
-        }*/
     }
     private void getCPUval(){
         nCpus=Helpers.getNumOfCpus();
