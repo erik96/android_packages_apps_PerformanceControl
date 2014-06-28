@@ -26,11 +26,7 @@ import java.util.List;
 
 
 public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
-
     public static Context c;
-    private SharedPreferences mPreferences;
-    private ViewPager mViewPager;
-    private boolean mIsLightTheme;
     public static Boolean thide=false;
     public static int nCpus=1;
     public static ArrayList<String> mCurGovernor = new ArrayList<String>();
@@ -40,6 +36,9 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static ArrayList<String> mCPUon = new ArrayList<String>();
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
+    private SharedPreferences mPreferences;
+    private ViewPager mViewPager;
+    private boolean mIsLightTheme;
     private boolean pref_changed=false;
     private PreferenceChangeListener mPreferenceListener;
     private TitleAdapter titleAdapter;

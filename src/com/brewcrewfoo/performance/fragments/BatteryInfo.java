@@ -56,6 +56,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     private Context context;
     private BroadcastReceiver batteryInfoReceiver;
     private int level,plugged;
+    private boolean no_settings=true;
     private final String bstatfile="/data/system/batterystats.bin";
 
     @Override
@@ -148,7 +149,8 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                                         public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
                                         }
-                                    })
+                                    }
+                            )
                             .setPositiveButton(getString(R.string.mt_calib),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -228,6 +230,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
         SeekBar mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
         if (new File(BLX_PATH).exists()) {
+            no_settings=false;
             mBlxSlider.setMax(100);
 
             mBlxVal = (TextView) view.findViewById(R.id.blx_val);
@@ -255,7 +258,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         }
         mFastChargePath=Helpers.fastcharge_path();
         if (mFastChargePath!=null) {
-
+            no_settings=false;
             mFastchargeOnBoot = (Switch) view.findViewById(R.id.fastcharge_sob);
             mFastchargeOnBoot.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, Helpers.readOneLine(mFastChargePath).equals("1")));
             mFastchargeOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -285,7 +288,10 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             LinearLayout mpart = (LinearLayout) view.findViewById(R.id.fastcharge_layout);
             mpart.setVisibility(LinearLayout.GONE);
          }
-
+        if(no_settings) {
+            LinearLayout ns = (LinearLayout) view.findViewById(R.id.no_settings);
+            ns.setVisibility(LinearLayout.VISIBLE);
+        }
 
         return view;
     }
