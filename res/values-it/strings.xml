@@ -442,5 +442,6 @@ translation by Stefano187
     <string name="mt_calib_chk">Reboot after calibration</string>
     <string name="boot_wait">Please wait until boot sequence is finished…</string>
     <string name="no_file">%s does not exist !</string>
+    <string name="no_settings">No advanced settings available</string>
 
 </resources>

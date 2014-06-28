@@ -431,5 +431,6 @@ Translation by Laurentiu1996
     <string name="mt_calib_chk">Restarteaza după calibrare</string>
     <string name="boot_wait">Asteptati pana secventa de boot este complată…</string>
     <string name="no_file">%s nu există !</string>
+    <string name="no_settings">Setari avansate indisponibile</string>
 
 </resources>
