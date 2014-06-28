@@ -52,12 +52,17 @@ public class PCWidget extends AppWidgetProvider implements Constants {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
-        int i=0;
         int nCpus=Helpers.getNumOfCpus();
-
+        int i=0;
         for (int awi : appWidgetIds) {
-            if((MainActivity.mMinFreqSetting.get(i)==null) || (MainActivity.mMaxFreqSetting.get(i)==null) || (MainActivity.mCurGovernor.get(i)==null) || (MainActivity.mCurIO.get(i)==null)){
-                final String r=Helpers.readCPU(context,nCpus);
+            String r;
+            if(MainActivity.mMinFreqSetting.isEmpty() || MainActivity.mMaxFreqSetting.isEmpty() || MainActivity.mCurGovernor.isEmpty() || MainActivity.mCurIO.isEmpty()){
+                try {
+                    r = Helpers.readCPU(context, nCpus);
+                }
+                catch (Exception e){
+                    r=null;
+                }
                 if(r!=null)
                     onUpdateWidget(context, appWidgetManager, awi, Helpers.toMHz(r.split(":")[i*5+1]), Helpers.toMHz(r.split(":")[i*5]), r.split(":")[i*5+2], r.split(":")[i*5+3],(i+1));
                 else

@@ -357,7 +357,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onPause() {
-        Helpers.updateAppWidget(context);
+        //Helpers.updateAppWidget(context);
         super.onPause();
     }
 
@@ -472,32 +472,8 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         Intent intent = new Intent(INTENT_PP);
         intent.putExtra("from",getString(R.string.app_name));
         context.sendBroadcast(intent);
-        //Helpers.updateAppWidget(context);
+        Helpers.updateAppWidget(context);
     }
-/*
-    private synchronized void getCPUval(){
-        final int nCpus=Helpers.getNumOfCpus();
-        final String r=Helpers.readCPU(context,nCpus);
-        Log.d(TAG, "utils read: " + r);
-        if(r.contains(":")){
-            MainActivity.mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");
 
-            for (int i = 0; i < nCpus; i++){
-                if(Integer.parseInt(r.split(":")[i*5])<0)
-                    MainActivity.mMinFreqSetting[i]=MainActivity.mAvailableFrequencies[0];
-                else
-                    MainActivity.mMinFreqSetting[i]=r.split(":")[i*5];
-
-                if(Integer.parseInt(r.split(":")[i*5+1])<0)
-                    MainActivity.mMaxFreqSetting[i]=MainActivity.mAvailableFrequencies[MainActivity.mAvailableFrequencies.length-1];
-                else
-                    MainActivity.mMaxFreqSetting[i]=r.split(":")[i*5+1];
-                MainActivity.mCurGovernor[i]=r.split(":")[i*5+2];
-                MainActivity.mCurIO[i]=r.split(":")[i*5+3];
-                MainActivity.mCPUon[i]=r.split(":")[i*5+4];
-            }
-        }
-    }
-*/
 }
 
