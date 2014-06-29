@@ -4,8 +4,10 @@ package com.brewcrewfoo.performance.activities;
  * Created by h0rn3t on 21.07.2013.
  */
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,11 +18,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.util.UnzipUtility;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -45,7 +50,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     private String part;
     private String tip;
     private String model;
-
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,8 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         deviceName.setText(Build.DEVICE);//Build.PRODUCT
 
         if(getPart(model)){
+            ImageView attn=(ImageView) findViewById(R.id.attn);
+            attn.setVisibility(View.GONE);
             if(tip.equalsIgnoreCase("kernel")){
                 flasherInfo.setText("boot.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
                 chooseBtn.setText(getString(R.string.btn_choose,"boot.img"));
@@ -82,7 +89,6 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             chooseBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    //------------
                     try{
                         Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
                         intent2.putExtra("mod",tip);
@@ -93,6 +99,12 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     catch(Exception e){
                         Log.e(TAG,"Error launching filechooser activity");
                     }
+                }
+            });
+            bkBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    //------backup------
                 }
             });
         }
@@ -245,5 +257,27 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         mIsLightTheme = is_light_theme;
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
+    }
+
+    private class backupOperation extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            final StringBuilder sb = new StringBuilder();
+            final String dn=mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath())+"/"+TAG+"/backup";
+            return true;
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(FlasherActivity.this, null, getString(R.string.wait));
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
     }
 }

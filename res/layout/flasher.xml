@@ -5,7 +5,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
     android:paddingLeft="40dp"
-    android:paddingRight="40dp">
+    android:paddingRight="40dp"
+    android:gravity="center_horizontal">
     <LinearLayout
             android:id="@+id/device"
             android:layout_width="match_parent"
@@ -31,6 +32,12 @@
             android:textSize="22sp"
             android:layout_marginTop="5dp"/>
         </LinearLayout>
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:id="@+id/attn"
+        android:src="@drawable/ic_attn" />
 
     <TextView
             android:id="@+id/flashinfo"
