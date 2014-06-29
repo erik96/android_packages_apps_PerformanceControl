@@ -263,6 +263,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             //Toast.makeText(c, "Changed: " + key, Toast.LENGTH_LONG).show();
             pref_changed=true;
+            Helpers.updateAppWidget(c);
         }
     }
 }
