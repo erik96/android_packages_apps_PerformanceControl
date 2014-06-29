@@ -54,10 +54,11 @@ public class ZramActivity extends Activity implements Constants, SeekBar.OnSeekB
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
+        setContentView(R.layout.zram_settings);
+
         if(savedInstanceState!=null) {
             showinfo=savedInstanceState.getBoolean("showinfo");
         }
-        setContentView(R.layout.zram_settings);
 
         nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);

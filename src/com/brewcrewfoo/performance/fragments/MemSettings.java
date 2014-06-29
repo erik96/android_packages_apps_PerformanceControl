@@ -82,6 +82,7 @@ public class MemSettings extends PreferenceFragment implements OnSharedPreferenc
     private String ksmpath=KSM_RUN_PATH;
     private float maxdisk = Helpers.getMem("MemTotal") / 1024;
     private int swap = Math.round(Helpers.getSwap() / 1024);
+    //private int swap = Math.round(Helpers.getMem("SwapTotal") / 1024);
     private int curdisk=0;
 	
     @Override
