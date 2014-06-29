@@ -36,7 +36,7 @@ public class ZramActivity extends Activity implements Constants, SeekBar.OnSeekB
     private boolean mIsLightTheme;
     final Context context = this;
     private CurThread mCurThread;
-    private TextView t1,t2,t3,t4,t5,tval1;
+    private TextView t1,t2,t3,t4,t5,tval1,cur;
     private SeekBar mdisksize;
     private int ncpus=Helpers.getNumOfCpus();
     private int curcpu=0;
@@ -75,6 +75,7 @@ public class ZramActivity extends Activity implements Constants, SeekBar.OnSeekB
         tval1=(TextView)findViewById(R.id.tval1);
         tval1.setText(getString(R.string.zram_disk_size,Helpers.ReadableByteCount(curdisk*1024*1024))+" ("+String.valueOf(percent)+"%)");
 
+        cur=(TextView)findViewById(R.id.cur);
         t1=(TextView)findViewById(R.id.t1);
         t2=(TextView)findViewById(R.id.t2);
         t3=(TextView)findViewById(R.id.t3);
@@ -330,6 +331,7 @@ public class ZramActivity extends Activity implements Constants, SeekBar.OnSeekB
     }
 
     public void set_values(){
+        cur.setText(getString(R.string.prefcat_zram)+" "+String.valueOf(curcpu));
         t1.setText(Helpers.ReadableByteCount(0));
         t2.setText("0");
         t3.setText(Helpers.ReadableByteCount(0));
