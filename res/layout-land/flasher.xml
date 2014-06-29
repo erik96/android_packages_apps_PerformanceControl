@@ -5,14 +5,14 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:baselineAligned="false"
-    android:weightSum="100">
+    android:weightSum="1">
     <LinearLayout
             android:id="@+id/device"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_weight="55">
+            android:layout_weight="0.55">
         <TextView
                 android:id="@+id/model"
                 android:layout_width="wrap_content"
@@ -37,26 +37,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_weight="45">
+        android:layout_weight=".45"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
     <TextView
             android:id="@+id/flashinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/unsupported_info"
             android:layout_gravity="center"
-            android:padding="20dp"
-            android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:textSize="16dp"/>
 
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_choose"
             android:id="@+id/chooseBtn"
-            android:layout_gravity="center_horizontal|bottom"/>
+            android:layout_gravity="bottom"
+        android:layout_marginTop="20dp" />
     </LinearLayout>
 
 </LinearLayout>
