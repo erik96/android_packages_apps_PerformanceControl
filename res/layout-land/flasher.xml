@@ -17,13 +17,13 @@
                 android:id="@+id/model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="54sp"
+                android:textSize="50sp"
                 android:layout_marginTop="20dp"/>
         <TextView
                 android:id="@+id/board"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
+                android:textSize="36sp"
                 android:layout_marginTop="5dp"/>
         <TextView
                 android:id="@+id/name"
@@ -35,20 +35,19 @@
     <LinearLayout
             android:id="@+id/file"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
         android:layout_weight=".45"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:gravity="center_vertical|center_horizontal">
     <TextView
             android:id="@+id/flashinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/unsupported_info"
             android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-            android:textAlignment="center"
+        android:textAlignment="center"
             android:gravity="center_horizontal"
             android:textSize="16dp"/>
 
@@ -59,6 +58,14 @@
             android:id="@+id/chooseBtn"
             android:layout_gravity="bottom"
         android:layout_marginTop="20dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fmt_backup"
+            android:id="@+id/bkBtn"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 </LinearLayout>

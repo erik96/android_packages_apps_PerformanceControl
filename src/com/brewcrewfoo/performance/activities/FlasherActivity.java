@@ -39,7 +39,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     TextView deviceName;
     TextView deviceModel;
     TextView deviceBoard;
-    Button chooseBtn;
+    Button chooseBtn,bkBtn;
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private String part;
@@ -62,7 +62,8 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         deviceModel=(TextView)findViewById(R.id.model);
         deviceBoard=(TextView)findViewById(R.id.board);
         chooseBtn=(Button) findViewById(R.id.chooseBtn);
-
+        bkBtn=(Button) findViewById(R.id.bkBtn);
+        bkBtn.setVisibility(View.GONE);
 
         model=Build.MODEL;
         deviceModel.setText(model);
@@ -97,6 +98,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         }
         else{
             chooseBtn.setVisibility(View.GONE);
+            bkBtn.setVisibility(View.GONE);
         }
     }
 

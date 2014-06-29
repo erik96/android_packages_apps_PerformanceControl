@@ -16,20 +16,20 @@
             android:id="@+id/model"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="54sp"
+            android:textSize="50sp"
             android:layout_marginTop="20dp"/>
     <TextView
             android:id="@+id/board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
+            android:textSize="36sp"
             android:layout_marginTop="5dp"/>
     <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="5dp"/>
         </LinearLayout>
 
     <TextView
@@ -50,5 +50,13 @@
             android:id="@+id/chooseBtn"
             android:layout_gravity="center_horizontal|bottom"
         android:layout_marginTop="20dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fmt_backup"
+        android:id="@+id/bkBtn"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
