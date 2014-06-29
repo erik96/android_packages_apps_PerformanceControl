@@ -37,7 +37,8 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:id="@+id/attn"
-        android:src="@drawable/ic_attn" />
+        android:src="@drawable/ic_attn"
+        android:layout_marginTop="20dp" />
 
     <TextView
             android:id="@+id/flashinfo"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/unsupported_info"
             android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:textSize="16dp"/>

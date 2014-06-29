@@ -439,5 +439,8 @@ Translation by Rhonin86 & Evisceration
     <string name="boot_wait">Please wait until boot sequence is finished…</string>
     <string name="no_file">%s does not exist !</string>
     <string name="no_settings">No advanced settings available</string>
+    <string name="bk_name">Backup name</string>
+    <string name="bk_ok">Backup operation succeeded.</string>
+    <string name="bk_nok">Error ! Backup operation failed.</string>
 
 </resources>

@@ -432,5 +432,8 @@ Translation by Laurentiu1996
     <string name="boot_wait">Asteptati pana secventa de boot este complată…</string>
     <string name="no_file">%s nu există !</string>
     <string name="no_settings">Setari avansate indisponibile</string>
+    <string name="bk_name">Backup name</string>
+    <string name="bk_ok">Backup operation succeeded.</string>
+    <string name="bk_nok">Error ! Backup operation failed.</string>
 
 </resources>

@@ -5,6 +5,7 @@ package com.brewcrewfoo.performance.activities;
  */
 
 import java.io.File;
+import java.io.FileFilter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -231,7 +232,14 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     }
                     nFile=dn+"/boot.img";
                     File destDir = new File(dn+"/system/lib/modules");
-                    File[]dirs = destDir.listFiles();
+                    File[]dirs = destDir.listFiles(
+                            new FileFilter() {
+                                @Override
+                                public boolean accept(File file) {
+                                    return file.getName().toLowerCase().endsWith(".ko");
+                                }
+                            }
+                    );
                     if((dirs!=null)&&(dirs.length>0)){
                         sb.append("mount -o rw,remount /system;\n");
                         sb.append("busybox rm -rf /system/lib/modules/*.ko;\n");
@@ -247,7 +255,28 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     sb.append("busybox rm -rf ").append(dn).append("/*;\n");
                 }
                 else{
-                    sb.append("dd if=").append(nFile).append(" of=").append(part).append(";\n");
+                    if(currentDir.getAbsolutePath().contains(TAG)){
+                        File[]dirs = currentDir.listFiles(
+                                new FileFilter() {
+                                    @Override
+                                    public boolean accept(File file) {
+                                        return file.getName().toLowerCase().endsWith(".ko");
+                                    }
+                                }
+                        );
+                        if((dirs!=null)&&(dirs.length>0)){
+                            sb.append("mount -o rw,remount /system;\n");
+                            sb.append("busybox rm -rf /system/lib/modules/*.ko;\n");
+                            for(File ff: dirs){
+                                if(ff.getName().toLowerCase().endsWith(".ko")){
+                                    sb.append("busybox cp \"").append(currentDir.getAbsolutePath()).append("/").append(ff.getName()).append("\" /system/lib/modules/").append(ff.getName()).append(";\n");
+                                    sb.append("busybox chmod 644 ").append("/system/lib/modules/").append(ff.getName()).append(";\n");
+                                }
+                            }
+                            sb.append("mount -o ro,remount /system;\n");
+                        }
+                    }
+                    sb.append("dd if=\"").append(nFile).append("\" of=").append(part).append(";\n");
                 }
 
             }
