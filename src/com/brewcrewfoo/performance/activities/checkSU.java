@@ -36,6 +36,7 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
         wait=(ProgressBar) findViewById(R.id.wait);
         info=(TextView) findViewById(R.id.info);
         attn=(ImageView) findViewById(R.id.attn);
+
         if(mPreferences.getBoolean("booting",false)) {
             info.setText(getString(R.string.boot_wait));
             wait.setVisibility(View.GONE);

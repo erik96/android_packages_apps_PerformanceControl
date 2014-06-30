@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.brewcrewfoo.performance.activities.checkSU"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.checkSU" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.MemUsageActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
