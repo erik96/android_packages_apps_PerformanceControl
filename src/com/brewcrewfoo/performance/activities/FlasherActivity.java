@@ -58,7 +58,8 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private String part,tip,model,bkname;
-    private ProgressDialog progressDialog;
+    private static ProgressDialog progressDialog;
+    private static boolean isdialog=false;
     String dn;
 
     @Override
@@ -229,6 +230,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
 
     @Override
     public void onResume() {
+        if(isdialog) progressDialog = ProgressDialog.show(FlasherActivity.this, null, getString(R.string.wait));
         super.onResume();
     }
 
@@ -344,6 +346,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         }
         @Override
         protected void onPostExecute(String result) {
+            isdialog=false;
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
@@ -357,6 +360,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(FlasherActivity.this, null, getString(R.string.wait));
+            isdialog=true;
         }
         @Override
         protected void onProgressUpdate(Void... values) {
