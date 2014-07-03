@@ -430,15 +430,15 @@
     <string name="pt_initd">Использовать скрипт init.d</string>
     <string name="pt_script_name">Имя Скрипта</string>
     <string name="mt_calib">Калибрация</string>
-    <string name="msmhotplug">MSM HOTPLUG</string>
-    <string name="pt_msmhotplug">Enable MSM Hotplug</string>
-    <string name="mt_calib_nok">Your device must be plugged and fully charged.</string>
-    <string name="mt_calib_ok">Tap on Calibrate button then unplug the device.</string>
-    <string name="mt_calib_chk">Reboot after calibration</string>
-    <string name="boot_wait">Please wait until boot sequence is finished…</string>
-    <string name="no_file">%s does not exist !</string>
-    <string name="no_settings">No advanced settings available</string>
-    <string name="bk_name">Backup name</string>
-    <string name="bk_ok">Backup operation succeeded.</string>
-    <string name="bk_nok">Error ! Backup operation failed.</string>
+    <string name="msmhotplug">Горячее подключение MSM</string>
+    <string name="pt_msmhotplug">Включить горячее подключение</string>
+    <string name="mt_calib_nok">Ваше устройство должно быть подключено и заряжено.</string>
+    <string name="mt_calib_ok">Нажмите на кнопку калибрации и потом отсоедините от зарядки.</string>
+    <string name="mt_calib_chk">Перезагрузка после калибрации</string>
+    <string name="boot_wait">Пожалуйста подождите время загрузки…</string>
+    <string name="no_file">%s не существует !</string>
+    <string name="no_settings">Нет расширенных настроек</string>
+    <string name="bk_name">Название резервной копии</string>
+    <string name="bk_ok">Резервная копия создана.</string>
+    <string name="bk_nok">Ошибка ! Операция прервана.</string>
 </resources>
