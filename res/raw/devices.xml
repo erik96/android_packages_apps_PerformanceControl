@@ -124,4 +124,11 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p12</cache>
     </device>
 
+    <!-- Galaxy Grand Duos GT-i9082 added by Triprex -->
+    <device>
+        <model>GT-i9082</model>
+        <kernel>/dev/block/mmcblk0p5</kernel>
+        <recovery>/dev/block/mmcblk0p6</recovery>
+        <cache>/dev/block/mmcblk0p18</cache>
+    </device>
 </devices>
