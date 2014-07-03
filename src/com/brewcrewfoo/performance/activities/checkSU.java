@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
             attn.setVisibility(View.VISIBLE);
         }
         else {
+
             new TestSU().execute();
         }
     }
@@ -50,6 +52,7 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
     private class TestSU extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
+            SystemClock.sleep(1000);
             final Boolean canSu = Helpers.checkSu();
             final Boolean canBb = Helpers.binExist("busybox")!=null;
             if (canSu && canBb) return "ok";
@@ -57,6 +60,7 @@ public class checkSU extends Activity implements Constants, ActivityThemeChangeI
         }
         @Override
         protected void onPostExecute(String result) {
+
             if(result.equals("nok")){
                 //mPreferences.edit().putBoolean("firstrun", true).commit();
                 info.setText(getString(R.string.su_failed_su_or_busybox));

@@ -155,7 +155,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             StringBuilder sb=new StringBuilder();
-                                            sb.append("busybox rm -r "+bstatfile+";\n");
+                                            sb.append("busybox rm -f "+bstatfile+";\n");
                                             if (sw.isChecked()) {
                                                 mPreferences.edit().putBoolean("booting",true).commit();
                                                 sb.append("reboot;\n");

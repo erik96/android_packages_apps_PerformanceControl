@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -203,8 +204,8 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         if ((requestCode == 1)&&(resultCode == RESULT_OK)) {
             String r= data.getStringExtra("r");
             if(r!=null && r.equals("ok")){
+                mPreferences.edit().putString("rom",Build.DISPLAY).commit();
                 getCPUval();
-                //TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
                 mViewPager.setAdapter(titleAdapter);
                 mViewPager.setCurrentItem(0);
                 return;
@@ -216,14 +217,28 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         if(mPreferences.getBoolean("theme_changed",false)){
             mPreferences.edit().putBoolean("theme_changed",false).commit();
             getCPUval();
-            //TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
         }
         else {
-            Log.d(TAG, "check for su & busybox");
-            Intent intent = new Intent(MainActivity.this, checkSU.class);
-            startActivityForResult(intent, 1);
+            final String b=mPreferences.getString("rom","");
+            if(!b.equals(Build.DISPLAY)) {
+                Log.d(TAG, "check for su & busybox");
+                Intent intent = new Intent(MainActivity.this, checkSU.class);
+                startActivityForResult(intent, 1);
+            }
+            else{
+                if(Helpers.checkSu()) {
+                    getCPUval();
+                    mViewPager.setAdapter(titleAdapter);
+                    mViewPager.setCurrentItem(0);
+                }
+                else{
+                    Log.d(TAG, "check for su");
+                    Intent intent = new Intent(MainActivity.this, checkSU.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
         }
     }
     private void getCPUval(){
