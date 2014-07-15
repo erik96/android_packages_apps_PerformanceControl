@@ -41,13 +41,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private Context context;
     private final String supported[]={"ondemand","ondemandplus","lulzactive","lulzactiveW","interactive","hyper","conservative","lionheart","adaptive","intellidemand"};
     private TextView mCurCpu;
+    private int nCpus=1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=getActivity();
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
+        nCpus = Helpers.getNumOfCpus();
         if(savedInstanceState!=null) {
             MainActivity.curcpu=savedInstanceState.getInt("curcpu");
             MainActivity.mMaxFreqSetting.set(MainActivity.curcpu,savedInstanceState.getString("maxfreq"));
@@ -55,6 +56,9 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             MainActivity.mCurGovernor.set(MainActivity.curcpu,savedInstanceState.getString("governor"));
             MainActivity.mCurIO.set(MainActivity.curcpu,savedInstanceState.getString("io"));
             MainActivity.mCPUon.set(MainActivity.curcpu,savedInstanceState.getString("cpuon"));
+        }
+        else{
+            if(MainActivity.mMinFreqSetting.isEmpty() || MainActivity.mMaxFreqSetting.isEmpty()) MainActivity.getCPUval();
         }
 
         setHasOptionsMenu(true);
@@ -72,8 +76,8 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mCurFreq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(MainActivity.nCpus==1) return;
-                if(MainActivity.curcpu>=(MainActivity.nCpus-1)) MainActivity.curcpu=0;
+                if(nCpus==1) return;
+                if(MainActivity.curcpu>=(nCpus-1)) MainActivity.curcpu=0;
                 else  MainActivity.curcpu++;
                 //getCPUval();
                 setCPUval(MainActivity.curcpu);
@@ -155,9 +159,9 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 final SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putBoolean(CPU_SOB, checked);
                 if (checked) {
-                    final String r=Helpers.readCPU(context,MainActivity.nCpus);
+                    final String r=Helpers.readCPU(context,nCpus);
                     if(r!=null){
-                        for (int i = 0; i < MainActivity.nCpus; i++){
+                        for (int i = 0; i < nCpus; i++){
                             editor.putString(PREF_MIN_CPU+i, r.split(":")[i*5]);
                             editor.putString(PREF_MAX_CPU+i, r.split(":")[i*5+1]);
                             editor.putString(PREF_GOV, r.split(":")[i*5+2]);
@@ -280,7 +284,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             final StringBuilder sb = new StringBuilder();
             String selected = parent.getItemAtPosition(pos).toString();
-            for (int i = 0; i < MainActivity.nCpus; i++){
+            for (int i = 0; i < nCpus; i++){
                 //sb.append("busybox echo ").append(selected).append(" > ").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                 sb.append("set_val \"").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append("\" \"").append(selected).append("\";\n");
             }
@@ -378,8 +382,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     }
 
     public void setMaxSpeed(int progress) {
-        String current = "";
-        current = MainActivity.mAvailableFrequencies[progress];
+        final String current = MainActivity.mAvailableFrequencies[progress];
         int minSliderProgress = mMinSlider.getProgress();
         if (progress <= minSliderProgress) {
             mMinSlider.setProgress(progress);
@@ -391,8 +394,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     }
 
     public void setMinSpeed(int progress) {
-        String current = "";
-        current = MainActivity.mAvailableFrequencies[progress];
+        final String current = MainActivity.mAvailableFrequencies[progress];
         int maxSliderProgress = mMaxSlider.getProgress();
         if (progress >= maxSliderProgress) {
             mMaxSlider.setProgress(progress);
@@ -419,7 +421,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             mMinSlider.setEnabled(true);
         }
         mCurCpu.setText(Integer.toString(i+1));
-        mCurCpu.setBackgroundResource(R.drawable.blue_corners);
+        mCurCpu.setBackgroundResource(R.drawable.grey_corners);
 
         if(MainActivity.mCPUon.get(MainActivity.curcpu).equals("0")){
             mCurCpu.setBackgroundResource(R.drawable.red_corners);

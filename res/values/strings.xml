@@ -445,4 +445,7 @@
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
+
 </resources>

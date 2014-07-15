@@ -82,7 +82,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         dn= mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath())+"/"+TAG+"/logs";
         addPreferencesFromResource(R.layout.tools);
 
-        new CMDProcessor().sh.runWaitFor("busybox mkdir -p "+dn );
+        new File(dn).mkdirs();
 
         mResidualFiles= findPreference(RESIDUAL_FILES);
         mOptimDB= findPreference(PREF_OPTIM_DB);

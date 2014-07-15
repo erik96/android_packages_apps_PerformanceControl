@@ -32,7 +32,6 @@ import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.UnzipUtility;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -60,7 +59,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     private String part,tip,model,bkname;
     private static ProgressDialog progressDialog;
     private static boolean isdialog=false;
-    String dn;
+    private String dn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
 
-        dn=mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath())+"/"+TAG+"/backup/"+tip;
+        dn=mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath())+"/"+TAG+"/backup/";
 
         flasherInfo=(TextView)findViewById(R.id.flashinfo);
         deviceName=(TextView)findViewById(R.id.name);
@@ -171,7 +170,12 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                 else{
                     bkname=s;
                     dialog.dismiss();
-                    new backupOperation().execute();
+                    if(!new File(dn+tip+bkname).mkdirs()){
+                        Toast.makeText(FlasherActivity.this,getString(R.string.err_file,dn+tip+bkname),Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        new backupOperation().execute();
+                    }
                 }
             }
 
@@ -329,17 +333,16 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         @Override
         protected String doInBackground(String... params) {
             final StringBuilder sb = new StringBuilder();
-            sb.append("busybox mkdir -p ").append("\"").append(dn).append(bkname).append("\";\n");
             if(tip.equalsIgnoreCase("kernel")){
                 final File destDir = new File("/system/lib/modules");
                 final File[]dirs = destDir.listFiles();
                 if((dirs!=null)&&(dirs.length>0)){
-                    sb.append("busybox cp /system/lib/modules/*.ko").append(" \"").append(dn).append(bkname).append("\";\n");
+                    sb.append("busybox cp /system/lib/modules/*.ko").append(" \"").append(dn).append(tip).append(bkname).append("\";\n");
                 }
-                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(bkname).append("/boot.img\";\n");
+                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(tip).append(bkname).append("/boot.img\";\n");
             }
             else{
-                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(bkname).append("/recovery.img\";\n");
+                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(tip).append(bkname).append("/recovery.img\";\n");
             }
 
             return Helpers.shExec(sb, FlasherActivity.this, true);

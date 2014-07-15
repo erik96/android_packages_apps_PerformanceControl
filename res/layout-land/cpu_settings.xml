@@ -28,8 +28,7 @@ Copyright (C) 2012  James Roberts
             android:layout_gravity="center_vertical"
             android:baselineAligned="false"
             android:orientation="horizontal"
-        android:weightSum="100"
-        android:paddingTop="20dip">
+        android:weightSum="100">
 
         <LinearLayout
                 android:layout_width="0dp"
@@ -43,7 +42,8 @@ Copyright (C) 2012  James Roberts
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/speed"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +53,7 @@ Copyright (C) 2012  James Roberts
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true"
-                    android:background="@drawable/blue_corners"
+                    android:background="@drawable/grey_corners"
                     android:layout_marginLeft="10dp" />
 
                 <TextView

@@ -44,6 +44,10 @@ Copyright (C) 2012  James Roberts
         android:key="ext_sd"
         android:title="@string/pt_ext_sd"/>
 
+    <Preference
+        android:key="br_op"
+        android:title="@string/backup_restore"/>
+
     <CheckBoxPreference
         android:key="use_light_theme"
         android:summary="@string/ps_use_light_theme"

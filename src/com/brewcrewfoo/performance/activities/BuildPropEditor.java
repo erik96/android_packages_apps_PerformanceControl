@@ -78,7 +78,7 @@ public class BuildPropEditor extends Activity implements Constants, AdapterView.
         setTheme();
         setContentView(R.layout.prop_view);
 
-        new CMDProcessor().sh.runWaitFor("busybox mkdir -p "+dn );
+        new File(dn).mkdirs();
         buildname = (Build.DISPLAY.equals("")||Build.DISPLAY==null) ? buildname + ".prop" : buildname + "-" + Build.DISPLAY.replace(" ", "_") + ".prop";
 
         if(!new File(dn+"/"+buildname).exists()){

@@ -29,7 +29,6 @@ import java.util.List;
 public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
     public static Context c;
     public static Boolean thide=false;
-    public static int nCpus=1;
     public static ArrayList<String> mCurGovernor = new ArrayList<String>();
     public static ArrayList<String> mCurIO = new ArrayList<String>();
     public static ArrayList<String> mMaxFreqSetting = new ArrayList<String>();
@@ -241,9 +240,9 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             }
         }
     }
-    private void getCPUval(){
-        nCpus=Helpers.getNumOfCpus();
-        final String r=Helpers.readCPU(this,nCpus);
+    public static void getCPUval(){
+        final int nCpus = Helpers.getNumOfCpus();
+        final String r=Helpers.readCPU(c, nCpus);
         Log.d(TAG, "utils read: " + r);
         if(r.contains(":")){
             mAvailableFrequencies = r.split(":")[nCpus * 5].split(" ");

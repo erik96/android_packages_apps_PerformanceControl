@@ -211,6 +211,9 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
                         }
                     }).create().show();
         }
+        else if(key.equals("br_op")){
+
+        }
         else if(key.equals("version_info")){
             if(isupdate && !NO_UPDATE) {
                 new AlertDialog.Builder(c)
