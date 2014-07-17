@@ -201,16 +201,17 @@
     <string name="wipe_cache_msg">最后系统将重启，继续？</string>
 
     <string name="prefcat_flash_img">刷 IMG 文件</string>
-    <string name="kernel_img_title">刷内核</string>
-    <string name="ps_kernel_img">把 boot.img 文件作为内核刷入。支持选择单个 boot.img 文件或任意含有 boot.img 的 zip 文件。</string>
-    <string name="recovery_img_title">刷 RECOVERY</string>
-    <string name="ps_recovery_img">把 recovery.img 作为 recovery 刷入。支持选择单个 recovery.img 文件或任意含有 recovery.img 的 zip 文件</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+
     <string name="btn_choose">选择 %s</string>
     <string name="unsupported_info">不支持你的设备。</string>
     <string name="flash_info">将会被刷入分区\n%s\n 做</string>
     <string name="dir_parent">&lt;上级目录&gt;</string>
     <string name="dir">&lt;目录&gt;</string>
     <string name="bkexit">再按一次退出</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">清除残余文件</string>
     <string name="residual_files_title">清除残余文件</string>
@@ -447,4 +448,6 @@
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

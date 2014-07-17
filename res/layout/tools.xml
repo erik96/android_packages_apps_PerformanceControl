@@ -53,10 +53,6 @@ Copyright (C) 2012  James Roberts
                 android:key="pref_kernel_img"
                 android:summary="@string/ps_kernel_img"
                 android:title="@string/kernel_img_title"/>
-        <Preference
-                android:key="pref_recovery_img"
-                android:summary="@string/ps_recovery_img"
-                android:title="@string/recovery_img_title"/>
 
     </PreferenceCategory>
 

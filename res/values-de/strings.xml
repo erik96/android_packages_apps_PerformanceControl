@@ -198,16 +198,16 @@ Translation by Rhonin86 & Evisceration
     <string name="wipe_cache_msg">Am Ende wird das System neu gestartet.\nFortfahren?</string>
 
     <string name="prefcat_flash_img">Flash *.img Datei (Direkt oder aus CWM-Zip)</string>
-    <string name="kernel_img_title">Flash Kernel</string>
-    <string name="ps_kernel_img">Flash boot.img Dateien als Kernel. Möglich sind boot.img Dateien oder zip Dateien, die ein Bootimage enthalten</string>
-    <string name="recovery_img_title">Flash Recovery</string>
-    <string name="ps_recovery_img">Flash recovery.img Dateien als Recovery. Möglich sind recovery.img Dateien oder Zip-Dateien, die ein Recoveryimage enthalten</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
     <string name="btn_choose">Wähle %s</string>
     <string name="unsupported_info">Dein Gerät wird nicht unterstützt</string>
     <string name="flash_info">wird geflasht auf die Partition \n%s\n als</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Drücke erneut zum Beenden</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">Lösche überflüssige Dateien</string>
     <string name="residual_files_title">Lösche überflüssige Dateien</string>
@@ -443,4 +443,6 @@ Translation by Rhonin86 & Evisceration
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

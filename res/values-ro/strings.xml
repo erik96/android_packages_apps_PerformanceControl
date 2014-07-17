@@ -191,16 +191,17 @@ Translation by Laurentiu1996
     <string name="wipe_cache_msg">La sfârşit, sistemul va reporni. Continuaţi?</string>
 
     <string name="prefcat_flash_img">FLASH FIŞIER IMG</string>
-    <string name="kernel_img_title">Flash KERNEL</string>
-    <string name="ps_kernel_img">Flash fişier boot.img ca şi kernel. Se poate selecta un fişier individual sau orice fişier zip ce conţine boot.img</string>
-    <string name="recovery_img_title">Flash RECOVERY</string>
-    <string name="ps_recovery_img">Flash fişier recovery.img ca şi recovery.  Se poate selecta un fişier individual sau orice fişier zip ce conţine recovery.img</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+
     <string name="btn_choose">Alege %s</string>
     <string name="unsupported_info">Telefonul dumneavoastră nu este suportat.</string>
     <string name="flash_info">va fi flash-uit pe partiţia\n%s\n ca şi</string>
     <string name="dir_parent">&lt;DIR părinte&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Apăsaţi din nou pentru ieşire</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">ŞTERGERE FIŞIERE REZIDUALE</string>
     <string name="residual_files_title">Ştergerea fişierelor reziduale</string>
@@ -436,4 +437,6 @@ Translation by Laurentiu1996
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

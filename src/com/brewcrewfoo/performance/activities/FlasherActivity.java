@@ -337,12 +337,12 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                 final File destDir = new File("/system/lib/modules");
                 final File[]dirs = destDir.listFiles();
                 if((dirs!=null)&&(dirs.length>0)){
-                    sb.append("busybox cp /system/lib/modules/*.ko").append(" \"").append(dn).append(tip).append(bkname).append("\";\n");
+                    sb.append("busybox cp /system/lib/modules/*.ko").append(" ").append(dn).append(tip).append(bkname).append(";\n");
                 }
-                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(tip).append(bkname).append("/boot.img\";\n");
+                sb.append("dd if=").append(part).append(" of=\"").append(dn).append(tip).append(bkname).append("/boot.img\";\n");
             }
             else{
-                sb.append("dd if=").append(part).append(" of=").append("\"").append(dn).append(tip).append(bkname).append("/recovery.img\";\n");
+                sb.append("dd if=").append(part).append(" of=\"").append(dn).append(tip).append(bkname).append("/recovery.img\";\n");
             }
 
             return Helpers.shExec(sb, FlasherActivity.this, true);

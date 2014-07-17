@@ -201,8 +201,9 @@ Translation by DaniPhii & Garcia98
     <string name="wipe_cache_msg">Al finalizar, se reiniciará el sistema. ¿Continuar?</string>
 
     <string name="prefcat_flash_img">FLASHEAR FICHERO IMG</string>
-    <string name="kernel_img_title">Flashear kernel</string>
-    <string name="ps_kernel_img">Flashear ficheros boot.img como un kernel. Puedes elegir un fichero boot.img individual o cualquier ZIP que contenga el boot.img deseado</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+
     <string name="recovery_img_title">Flashear Recovery</string>
     <string name="ps_recovery_img">Flashear fichero recovery.img. Puedes elegir un fichero recovery.img individual o cualquier ZIP que contenga el recovery.img deseado</string>
     <string name="btn_choose">Elegir %s</string>
@@ -211,6 +212,8 @@ Translation by DaniPhii & Garcia98
     <string name="dir_parent">&lt;Directorio raíz&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Pulsa de nuevo para salir</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">LIMPIAR ARCHIVOS RESIDUALES</string>
     <string name="residual_files_title">Hacer limpieza</string>
@@ -446,4 +449,6 @@ Translation by DaniPhii & Garcia98
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

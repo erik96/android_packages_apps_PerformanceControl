@@ -199,10 +199,10 @@
     <string name="ps_wipe_cache">Раздел Кэш: %s</string>
     <string name="wipe_cache_msg">По окончанию, система перезагрузится. Продолжить?</string>
     <string name="prefcat_flash_img">ПРОШИТЬ ФАЙЛ IMG</string>
-    <string name="kernel_img_title">Прошить ЯДРО</string>
-    <string name="ps_kernel_img">Прошить файл boot.img или любой архив содержащий boot.img как ядро</string>
-    <string name="recovery_img_title">Прошить RECOVERY</string>
-    <string name="ps_recovery_img">Прошить файл recovery.img или любой архив содержащий recovery.img как Рекавери</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
     <string name="btn_choose">Выберите %s</string>
     <string name="unsupported_info">Устройство не поддерживается</string>
     <string name="flash_info">будет прошит в раздел\n%s\n как</string>
@@ -441,4 +441,7 @@
     <string name="bk_name">Название резервной копии</string>
     <string name="bk_ok">Резервная копия создана.</string>
     <string name="bk_nok">Ошибка ! Операция прервана.</string>
+
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

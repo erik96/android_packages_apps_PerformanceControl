@@ -35,7 +35,7 @@ Copyright (C) 2012  James Roberts
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:gravity="center_vertical|center_horizontal"
         android:id="@+id/lcurcpu"
         android:weightSum="1">

@@ -202,8 +202,9 @@ translation by Stefano187
     <string name="wipe_cache_msg">Al termine, il telefono si riavvierà. Continuare?</string>
 
     <string name="prefcat_flash_img">FLASH IMG FILE</string>
-    <string name="kernel_img_title">Flash KERNEL</string>
-    <string name="ps_kernel_img">Flash di un kernel usando un file boot.img. Puoi scegliere o direttamente un file boot.img o un file zip che contenga un boot.img</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+
     <string name="recovery_img_title">Flash RECOVERY</string>
     <string name="ps_recovery_img">Flash di una recovery usando un file recovery.img. Puoi scegliere o direttamente un file boot.img o un file zip che contenga un boot.img</string>
     <string name="btn_choose">Scegliere %s</string>
@@ -212,6 +213,8 @@ translation by Stefano187
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Premi ancora per uscire</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">ELIMINA FILE RESIDUI</string>
     <string name="residual_files_title">Elimina file residui</string>
@@ -447,4 +450,6 @@ translation by Stefano187
     <string name="bk_ok">Backup operation succeeded.</string>
     <string name="bk_nok">Error ! Backup operation failed.</string>
 
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
 </resources>

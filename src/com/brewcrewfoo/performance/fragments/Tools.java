@@ -267,11 +267,6 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             flash.putExtra("mod","kernel");
             startActivity(flash);
         }
-        else if(key.equals(FLASH_RECOVERY)) {
-            Intent flash = new Intent(context, FlasherActivity.class);
-            flash.putExtra("mod","recovery");
-            startActivity(flash);
-        }
         else if(key.equals(RESIDUAL_FILES)) {
             Intent intent = new Intent(context, ResidualsActivity.class);
             startActivity(intent);
