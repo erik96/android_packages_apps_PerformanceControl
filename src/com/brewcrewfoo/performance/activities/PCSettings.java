@@ -216,10 +216,13 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
         }
         else if(key.equals("version_info")){
             if(isupdate && !NO_UPDATE) {
+                LayoutInflater factory = LayoutInflater.from(this);
+                final View editDialog = factory.inflate(R.layout.ver_dialog, null);
+                final TextView msg = (TextView) editDialog.findViewById(R.id.msg);
+                msg.setText(det);
                 new AlertDialog.Builder(c)
+                        .setView(editDialog)
                         .setTitle(getString(R.string.pt_update))
-                        .setMessage(det)
-                        //.setView(alphaDialog)
                         .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,int which) {
