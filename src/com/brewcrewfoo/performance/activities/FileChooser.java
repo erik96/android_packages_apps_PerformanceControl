@@ -66,8 +66,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
         part=intent1.getStringExtra("part");
-        if(tip.equalsIgnoreCase("kernel")){ dtitlu=getString(R.string.kernel_img_title);}
-        else{ dtitlu=getString(R.string.recovery_img_title);}
+        if(tip.equalsIgnoreCase("kernel")){ dtitlu=getString(R.string.kernelbtn);}
+        else{ dtitlu=getString(R.string.recoverybtn);}
         currentDir = new File(mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath()));
         fill(currentDir);
     }
@@ -320,7 +320,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(FileChooser.this, dtitlu, getString(R.string.wait));
+            progressDialog = ProgressDialog.show(FileChooser.this, null, getString(R.string.wait));
         }
 
         @Override
