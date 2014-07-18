@@ -212,7 +212,7 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
                     }).create().show();
         }
         else if(key.equals("br_op")){
-
+            startActivity(new Intent(this, BackupRestore.class));
         }
         else if(key.equals("version_info")){
             if(isupdate && !NO_UPDATE) {

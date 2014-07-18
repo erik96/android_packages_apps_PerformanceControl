@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.brewcrewfoo.performance.activities.BackupRestore"/>
         <activity android:name="com.brewcrewfoo.performance.activities.checkSU" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.MemUsageActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
