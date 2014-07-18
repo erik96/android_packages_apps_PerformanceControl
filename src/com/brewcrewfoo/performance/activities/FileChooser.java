@@ -134,7 +134,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         dir.addAll(fls);
         if(!f.getName().equalsIgnoreCase(""))
         dir.add(0,new Item("..",getString(R.string.dir_parent),"",f.getParent(),"dir"));
-        adapter = new FileArrayAdapter(this,R.layout.file_view, dir);
+        adapter = new FileArrayAdapter(this,R.layout.file_item, dir);
         this.setListAdapter(adapter);
 
     }
