@@ -15,6 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -122,7 +124,19 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     final TextView tn = (TextView) editDialog.findViewById(R.id.nprop);
 
                     tn.setText(getString(R.string.bk_name));
-                    tv.setText(makeBkName(tip));
+                    bkname=makeBkName(tip);
+                    tv.setText(bkname);
+                    tv.addTextChangedListener(new TextWatcher() {
+                        public void afterTextChanged(Editable s) {
+                            bkname=tv.getText().toString();
+                        }
+
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                    });
                     AlertDialog.Builder builder=new AlertDialog.Builder(FlasherActivity.this)
                             .setTitle(getString(R.string.fmt_backup)+" "+tip.toUpperCase())
                             .setView(editDialog)
@@ -141,7 +155,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     alertDialog.show();
                     Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                     if (theButton != null) {
-                        theButton.setOnClickListener(new CustomListener(alertDialog,tv.getText().toString()));
+                        theButton.setOnClickListener(new CustomListener(alertDialog));
                     }
                 }
             });
@@ -153,22 +167,18 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     }
     class CustomListener implements View.OnClickListener {
         private final Dialog dialog;
-        private String s;
-        public CustomListener(Dialog dialog,String s) {
-            this.s=s;
+        public CustomListener(Dialog dialog) {
             this.dialog = dialog;
         }
         @Override
         public void onClick(View v) {
-            if ((s != null) && (s.length() > 0)) {
-                if (s.endsWith("/")) { s = s.substring(0, s.length() - 1);}
-                if(!s.startsWith("/")) { s="/"+s; }
-                final File b= new File(dn+s);
-                if ( b.exists() ){
-                    Toast.makeText(FlasherActivity.this,getString(R.string.exist_file,dn+s),Toast.LENGTH_LONG).show();
+            if ((bkname != null) && (bkname.length() > 0)) {
+                if (bkname.endsWith("/")) { bkname = bkname.substring(0, bkname.length() - 1);}
+                if(!bkname.startsWith("/")) { bkname="/"+bkname; }
+                if ( new File(dn+tip+bkname).exists() ){
+                    Toast.makeText(FlasherActivity.this,getString(R.string.exist_file,dn+tip+bkname),Toast.LENGTH_LONG).show();
                 }
                 else{
-                    bkname=s;
                     dialog.dismiss();
                     if(!new File(dn+tip+bkname).mkdirs()){
                         Toast.makeText(FlasherActivity.this,getString(R.string.err_file,dn+tip+bkname),Toast.LENGTH_LONG).show();
