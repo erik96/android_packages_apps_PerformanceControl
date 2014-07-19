@@ -8,25 +8,22 @@
     android:gravity="center_vertical|center_horizontal"
     android:layout_weight="0.1"
     android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp">
+    android:layout_marginRight="2dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/ncpu"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:layout_gravity="top" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/vcpu"
-        android:progress="0"
-        android:max="1"
-        android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:layout_gravity="bottom" />
+        android:text="1"
+        android:gravity="top" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:id="@+id/vcpu"
+        android:background="@color/pc_light_gray" />
+
 </LinearLayout>

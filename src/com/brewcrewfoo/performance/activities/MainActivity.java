@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     public static ArrayList<String> mCPUon = new ArrayList<String>();
     public static String[] mAvailableFrequencies = new String[0];
     public static int curcpu=0;
+    public static boolean is_restored=false;
     private SharedPreferences mPreferences;
     private ViewPager mViewPager;
     private boolean mIsLightTheme;
@@ -161,9 +162,9 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
     @Override
     public void onResume() {
         super.onResume();
-
-        if (isThemeChanged() || thide) {
-            thide=false;
+        if (isThemeChanged() || thide || is_restored) {
+            if(thide) thide=false;
+            if(is_restored) is_restored=false;
             Helpers.restartPC(this);
         }
 

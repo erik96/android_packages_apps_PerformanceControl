@@ -174,10 +174,10 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             LinearLayout vcpus[] = new LinearLayout[nCpus];
             for (int i = 0; i < nCpus; i++) {
                 vcpus[i]= (LinearLayout)inflater.inflate(R.layout.cpu_view, root, false);
+                vcpus[i].setId(i);
                 TextView nc=(TextView) vcpus[i].findViewById(R.id.ncpu);
                 nc.setText(Integer.toString(i+1));
                 if(i!=MainActivity.curcpu) nc.setText(" ");
-                vcpus[i].setId(i);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float)0.1);
                 lcurcpu.addView(vcpus[i],params);
             }
@@ -410,12 +410,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     private void setCpuView(int i){
         if(nCpus<=1) return;
-        for(int k=0;k<lcurcpu.getChildCount();k++) {
+        for(int k=0;k<nCpus;k++) {
             LinearLayout l = (LinearLayout) lcurcpu.getChildAt(k);
             TextView nc = (TextView) l.findViewById(R.id.ncpu);
-            ProgressBar vc = (ProgressBar) l.findViewById(R.id.vcpu);
-            if(MainActivity.mCPUon.get(i).equals("0")) {vc.setProgress(0);}
-            else{vc.setProgress(1);}
+            View vc = (View) l.findViewById(R.id.vcpu);
+            if(MainActivity.mCPUon.get(k).equals("0")) {vc.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));}
+            else{vc.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));}
             if(i==k){ nc.setText(Integer.toString(i + 1));}
             else{nc.setText(" ");}
         }
@@ -448,7 +448,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     protected class CurCPUThread extends Thread {
         private boolean mInterrupt = false;
-
         public void interrupt() {
             mInterrupt = true;
         }
@@ -459,10 +458,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 while (!mInterrupt) {
                     if(new File(CUR_CPU_PATH.replace("cpu0","cpu"+MainActivity.curcpu)).exists()){
                         final String curfreq=Helpers.readOneLine(CUR_CPU_PATH.replace("cpu0","cpu"+MainActivity.curcpu));
-                        if((curfreq!=null)&&(curfreq.length()>0))
+                        if((curfreq!=null) && (curfreq.length()>0)){
                             mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curfreq));
-                        else
-                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,"0"));
+                        }
+                        else {
+                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, "0"));
+                        }
                     }
                     else{
                         mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,"0"));
@@ -478,15 +479,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     protected Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
-        mCurFreq.setText(Helpers.toMHz((String) msg.obj));
+            mCurFreq.setText(Helpers.toMHz((String) msg.obj));
         }
     };
 
 
     private void updateSharedPrefs(String var, String value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(var, value).commit();
-
+        editor.putString(var, value).apply();
         Intent intent = new Intent(INTENT_PP);
         intent.putExtra("from",getString(R.string.app_name));
         context.sendBroadcast(intent);
