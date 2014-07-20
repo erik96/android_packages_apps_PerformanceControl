@@ -452,4 +452,13 @@ translation by Stefano187
 
     <string name="err_file">Error ! Can\'t create folder %s</string>
     <string name="backup_restore">Backup and Restore Settings</string>
+
+    <string name="bkup_del_title">Delete Backup</string>
+    <string name="no_bkup_info">No Backups</string>
+    <string name="no_bkup_sinfo">Use menu to create backup.</string>
+    <string name="bkup_info">Tap on item to restore it. Longtap to delete it.</string>
+    <string name="no">NO</string>
+    <string name="create_bkup">Create Backup</string>
+    <string name="restore_bkup_title">Restore Backup</string>
+    <string name="restore_bkup">%s will be restored. Continue?</string>
 </resources>
