@@ -442,15 +442,15 @@
     <string name="bk_ok">Резервная копия создана.</string>
     <string name="bk_nok">Ошибка ! Операция прервана.</string>
 
-    <string name="err_file">Error ! Can\'t create folder %s</string>
-    <string name="backup_restore">Backup and Restore Settings</string>
+    <string name="err_file">Ошибка! Нельзя создать папку %s</string>
+    <string name="backup_restore">Настройки бекапа и восстановления</string>
 
-    <string name="bkup_del_title">Delete Backup</string>
-    <string name="no_bkup_info">No Backups</string>
-    <string name="no_bkup_sinfo">Use menu to create backup.</string>
-    <string name="bkup_info">Tap on item to restore it. Longtap to delete it.</string>
-    <string name="no">NO</string>
-    <string name="create_bkup">Create Backup</string>
-    <string name="restore_bkup_title">Restore Backup</string>
-    <string name="restore_bkup">%s will be restored. Continue?</string>
+    <string name="bkup_del_title">Удалить бекап</string>
+    <string name="no_bkup_info">Нет бекапа</string>
+    <string name="no_bkup_sinfo">Используйте меню для создания бекапа.</string>
+    <string name="bkup_info">Нажмите чтобы восстановить. Удерживайте для удаления.</string>
+    <string name="no">НЕТ</string>
+    <string name="create_bkup">Создать Бекап</string>
+    <string name="restore_bkup_title">Восстановить бекап</string>
+    <string name="restore_bkup">%s будет восстановлено. Продолжить?</string>
 </resources>
