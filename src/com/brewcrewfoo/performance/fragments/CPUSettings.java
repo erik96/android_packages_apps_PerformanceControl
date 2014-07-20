@@ -41,14 +41,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private boolean mIsDynFreq = false;
     private Context context;
     private final String supported[]={"ondemand","ondemandplus","lulzactive","lulzactiveW","interactive","hyper","conservative","lionheart","adaptive","intellidemand"};
-    private int nCpus=1;
+    private int nCpus=Helpers.getNumOfCpus();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=getActivity();
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        nCpus = Helpers.getNumOfCpus();
+
         if(savedInstanceState!=null) {
             MainActivity.curcpu=savedInstanceState.getInt("curcpu");
             MainActivity.mMaxFreqSetting.set(MainActivity.curcpu,savedInstanceState.getString("maxfreq"));
@@ -63,7 +63,16 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
         setHasOptionsMenu(true);
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle saveState) {
+        super.onSaveInstanceState(saveState);
+        saveState.putInt("curcpu",MainActivity.curcpu);
+        saveState.putString("maxfreq",MainActivity.mMaxFreqSetting.get(MainActivity.curcpu));
+        saveState.putString("minfreq",MainActivity.mMinFreqSetting.get(MainActivity.curcpu));
+        saveState.putString("governor",MainActivity.mCurGovernor.get(MainActivity.curcpu));
+        saveState.putString("io",MainActivity.mCurIO.get(MainActivity.curcpu));
+        saveState.putString("cpuon",MainActivity.mCPUon.get(MainActivity.curcpu));
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cpu_settings, root, false);
@@ -170,7 +179,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             }
         });
 
-        if(nCpus>1){
+        //if(nCpus>1){
             LinearLayout vcpus[] = new LinearLayout[nCpus];
             for (int i = 0; i < nCpus; i++) {
                 vcpus[i]= (LinearLayout)inflater.inflate(R.layout.cpu_view, root, false);
@@ -181,7 +190,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float)0.1);
                 lcurcpu.addView(vcpus[i],params);
             }
-        }
+        //}
 
         setCPUval(MainActivity.curcpu);
 
@@ -344,16 +353,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         public void onNothingSelected(AdapterView<?> parent) {
         }
     }
-    @Override
-    public void onSaveInstanceState(Bundle saveState) {
-        super.onSaveInstanceState(saveState);
-        saveState.putInt("curcpu",MainActivity.curcpu);
-        saveState.putString("maxfreq",MainActivity.mMaxFreqSetting.get(MainActivity.curcpu));
-        saveState.putString("minfreq",MainActivity.mMinFreqSetting.get(MainActivity.curcpu));
-        saveState.putString("governor",MainActivity.mCurGovernor.get(MainActivity.curcpu));
-        saveState.putString("io",MainActivity.mCurIO.get(MainActivity.curcpu));
-        saveState.putString("cpuon",MainActivity.mCPUon.get(MainActivity.curcpu));
-    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -409,16 +409,30 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     }
 
     private void setCpuView(int i){
-        if(nCpus<=1) return;
-        for(int k=0;k<nCpus;k++) {
-            LinearLayout l = (LinearLayout) lcurcpu.getChildAt(k);
-            TextView nc = (TextView) l.findViewById(R.id.ncpu);
-            View vc = (View) l.findViewById(R.id.vcpu);
-            if(MainActivity.mCPUon.get(k).equals("0")) {vc.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));}
-            else{vc.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));}
-            if(i==k){ nc.setText(Integer.toString(i + 1));}
-            else{nc.setText(" ");}
+        //if(nCpus<=1) return;
+        for(int k=0; k<nCpus; k++) {
+            setCpuOnOff(k);
+            setCpuNo(k,i);
         }
+    }
+    private void setCpuNo(int i,int k){
+            final LinearLayout l = (LinearLayout) lcurcpu.getChildAt(i);
+            final TextView nc = (TextView) l.findViewById(R.id.ncpu);
+            if (i == k) {
+                nc.setText(Integer.toString(i + 1));
+            } else {
+                nc.setText(" ");
+            }
+    }
+
+    private void setCpuOnOff(int i){
+            final LinearLayout l = (LinearLayout) lcurcpu.getChildAt(i);
+            final View vc = (View) l.findViewById(R.id.vcpu);
+            if (MainActivity.mCPUon.get(i).equals("0")) {
+                vc.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
+            } else {
+                vc.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+            }
     }
 
     public void setCPUval(int i){
@@ -448,6 +462,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     protected class CurCPUThread extends Thread {
         private boolean mInterrupt = false;
+        private String onlist="";
         public void interrupt() {
             mInterrupt = true;
         }
@@ -456,17 +471,32 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         public void run() {
             try {
                 while (!mInterrupt) {
+                    onlist="";
+                    for(int i=0;i<nCpus;i++) {
+                        if (new File(CPU_ON_PATH.replace("cpu0", "cpu" + i)).exists()) {
+                            final String on=Helpers.readOneLine(CPU_ON_PATH.replace("cpu0", "cpu" + i));
+                            if((on!=null) && (on.length()>0)){
+                                onlist+=on.trim()+":";
+                            }
+                            else{
+                                onlist+="0:";
+                            }
+                        }
+                        else{
+                            onlist+="1:";
+                        }
+                    }
                     if(new File(CUR_CPU_PATH.replace("cpu0","cpu"+MainActivity.curcpu)).exists()){
                         final String curfreq=Helpers.readOneLine(CUR_CPU_PATH.replace("cpu0","cpu"+MainActivity.curcpu));
                         if((curfreq!=null) && (curfreq.length()>0)){
-                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curfreq));
+                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curfreq+":"+onlist));
                         }
                         else {
-                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, "0"));
+                            mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, "0:"+onlist));
                         }
                     }
                     else{
-                        mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,"0"));
+                        mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,"0:"+onlist));
                     }
                     sleep(600);
                 }
@@ -479,7 +509,16 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     protected Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
-            mCurFreq.setText(Helpers.toMHz((String) msg.obj));
+            final String r=(String) msg.obj;
+            Log.d(TAG, "CPU onoff: "+r);
+            mCurFreq.setText(Helpers.toMHz(r.split(":")[0]));
+            for(int i=0;i<nCpus;i++) {
+                MainActivity.mCPUon.set(i, r.split(":")[i + 1]);
+                try {
+                    setCpuOnOff(i);
+                }
+                catch (Exception e){}
+            }
         }
     };
 
