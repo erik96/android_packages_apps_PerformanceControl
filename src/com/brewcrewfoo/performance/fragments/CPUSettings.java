@@ -143,8 +143,9 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         });
 
 
-        String[] mAvailableIo = Helpers.getAvailableIOSchedulers(IO_SCHEDULER_PATH);
+
         mIo = (Spinner) view.findViewById(R.id.pref_io);
+        String[] mAvailableIo = Helpers.getAvailableIOSchedulers(IO_SCHEDULER_PATH);
 
         ArrayAdapter<CharSequence> ioAdapter = new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_item);
         ioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -296,8 +297,9 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     public class GovListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            final StringBuilder sb = new StringBuilder();
             String selected = parent.getItemAtPosition(pos).toString();
+            if(MainActivity.mCurGovernor.get(MainActivity.curcpu).equals(selected)) return;
+            final StringBuilder sb = new StringBuilder();
             for (int i = 0; i < nCpus; i++){
                 sb.append("set_val \"").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append("\" \"").append(selected).append("\";\n");
             }
@@ -326,6 +328,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             String selected = parent.getItemAtPosition(pos).toString();
+            if(MainActivity.mCurIO.get(MainActivity.curcpu).equals(selected)) return;
 			final StringBuilder sb = new StringBuilder();
 			for(byte i=0; i<2; i++){
                 if (new File(IO_SCHEDULER_PATH.replace("mmcblk0","mmcblk"+i)).exists())
@@ -510,7 +513,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     protected Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
             final String r=(String) msg.obj;
-            Log.d(TAG, "CPU onoff: "+r);
+            //Log.d(TAG, "CPU onoff: "+r);
             mCurFreq.setText(Helpers.toMHz(r.split(":")[0]));
             for(int i=0;i<nCpus;i++) {
                 MainActivity.mCPUon.set(i, r.split(":")[i + 1]);
