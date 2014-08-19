@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.brewcrewfoo.performance"
-          android:versionCode="4"
-          android:versionName="2.1.14">
+          android:versionCode="2204"
+          android:versionName="2.2.4">
 
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
 
@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.brewcrewfoo.performance.activities.checkSU"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.BackupRestore"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.checkSU" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.MemUsageActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
@@ -47,9 +48,11 @@
         <activity android:name="com.brewcrewfoo.performance.activities.iResidualsActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.SysctlEditor" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <receiver android:name=".service.BootReceiver">
+        <receiver android:name=".service.BootReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
             </intent-filter>
         </receiver>
         <receiver

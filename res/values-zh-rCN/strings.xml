@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Performance Control - An Android CPU Control application
-Copyright (C) 2012  James Roberts
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 
 <resources>
 
@@ -218,16 +201,17 @@ Copyright (C) 2012  James Roberts
     <string name="wipe_cache_msg">最后系统将重启，继续？</string>
 
     <string name="prefcat_flash_img">刷 IMG 文件</string>
-    <string name="kernel_img_title">刷内核</string>
-    <string name="ps_kernel_img">把 boot.img 文件作为内核刷入。支持选择单个 boot.img 文件或任意含有 boot.img 的 zip 文件。</string>
-    <string name="recovery_img_title">刷 RECOVERY</string>
-    <string name="ps_recovery_img">把 recovery.img 作为 recovery 刷入。支持选择单个 recovery.img 文件或任意含有 recovery.img 的 zip 文件</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+
     <string name="btn_choose">选择 %s</string>
     <string name="unsupported_info">不支持你的设备。</string>
     <string name="flash_info">将会被刷入分区\n%s\n 做</string>
     <string name="dir_parent">&lt;上级目录&gt;</string>
     <string name="dir">&lt;目录&gt;</string>
     <string name="bkexit">再按一次退出</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">清除残余文件</string>
     <string name="residual_files_title">清除残余文件</string>
@@ -359,6 +343,15 @@ Copyright (C) 2012  James Roberts
     <string name="mpdecision">MPDECISION</string>
     <string name="pt_mpdecision">启用 MPDecision</string>
 
+    <string name="intelliplug">INTELLIPLUG</string>
+    <string name="pt_intelliplug">Enable Intelliplug</string>
+    <string name="ecomode">ECOMODE</string>
+    <string name="pt_ecomode">Enable EcoMode</string>
+    <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
+    <string name="pt_so_max">Screen off maximum frequency</string>
+    <string name="ps_so_minmax">"Current: "</string>
+    <string name="pt_so_min">Screen off minimum frequency</string>
+
     <string name="prefcat_touchscr">TOUCHSCREEN</string>
     <string name="ps_touchscr">TouchScreen Control</string>
     <string name="ps_touchscr_boot">If enabled will restore all touchcreen settings on reboot</string>
@@ -400,21 +393,20 @@ Copyright (C) 2012  James Roberts
     <string name="pt_hp">Generic Hotplug</string>
     <string name="ps_hp">Disable one core when screen is off</string>
     <string name="pt_cpuquiet">CPUQuiet Governor</string>
-    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: %s</string>
+    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: </string>
     <string name="pt_hotplug">Hotplug Control</string>
     <string name="thermal">THERMAL</string>
     <string name="pt_thermal">Thermal Control</string>
     <string name="mt_mem_usage">Memory Usage</string>
     <string name="pt_drop_caches">Clean drop caches</string>
     <string name="oom_default">Default values</string>
-    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: %s</string>
+    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: </string>
     <string-array name="mc_ps_array">
         <item>Off</item>
         <item>On</item>
         <item>Agressive</item>
     </string-array>
-    <string name="pt_gpu_fmax">GPU maxim frequency</string>
-    <string name="ps_gpu_fmax">Current: %s</string>
+    <string name="pt_gpu_fmax">GPU maximum frequency</string>
     <string name="pt_gpugov_set">GPU Control</string>
     <!-- 2.1.13-->
     <string name="pt_int_sd">Internal SD Card</string>
@@ -423,4 +415,48 @@ Copyright (C) 2012  James Roberts
     <string name="ksm_sleep_times">Sleep times:</string>
     <string name="ksm_pages_scanned">Pages Scanned:</string>
     <string name="info_auto_sd">Leave blank for autodetection</string>
+    <!--2.1.15-->
+    <string name="krait">Undervolting Settings</string>
+    <string name="pt_krait_boost">Decrease voltage</string>
+    <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
+    <string name="pt_krait_thres">Threshold frequency</string>
+    <string name="pt_krait_hi">Voltage for higher frequencies</string>
+    <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
+    <string name="pt_krait_lo">Voltage for lower frequencies</string>
+    <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
+    <!--2.1.16-->
+    <string name="donor">Donate with PayPal</string>
+    <string name="paypal">If you find this app useful</string>
+    <!--2.1.18-->
+    <string name="liveoc">Live OC</string>
+    <string name="oc_value">OC Value (%)</string>
+    <string name="oc_target_low">OC Target Low</string>
+    <string name="oc_target_high">OC Target High</string>
+
+    <string name="pt_initd">Use init.d script</string>
+    <string name="pt_script_name">Script name</string>
+    <string name="mt_calib">Calibrate</string>
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Enable MSM Hotplug</string>
+    <string name="mt_calib_nok">Your device must be plugged and fully charged.</string>
+    <string name="mt_calib_ok">Tap on Calibrate button then unplug the device.</string>
+    <string name="mt_calib_chk">Reboot after calibration</string>
+    <string name="boot_wait">Please wait until boot sequence is finished…</string>
+    <string name="no_file">%s does not exist !</string>
+    <string name="no_settings">No advanced settings available</string>
+    <string name="bk_name">Backup name</string>
+    <string name="bk_ok">Backup operation succeeded.</string>
+    <string name="bk_nok">Error ! Backup operation failed.</string>
+
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
+
+    <string name="bkup_del_title">Delete Backup</string>
+    <string name="no_bkup_info">No Backups</string>
+    <string name="no_bkup_sinfo">Use menu to create backup.</string>
+    <string name="bkup_info">Tap on item to restore it. Longtap to delete it.</string>
+    <string name="no">NO</string>
+    <string name="create_bkup">Create Backup</string>
+    <string name="restore_bkup_title">Restore Backup</string>
+    <string name="restore_bkup">%s will be restored. Continue?</string>
 </resources>

@@ -5,6 +5,7 @@ package com.brewcrewfoo.performance.activities;
  */
 
 import java.io.File;
+import java.io.FileFilter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,8 +66,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
         part=intent1.getStringExtra("part");
-        if(tip.equalsIgnoreCase("kernel")){ dtitlu=getString(R.string.kernel_img_title);}
-        else{ dtitlu=getString(R.string.recovery_img_title);}
+        if(tip.equalsIgnoreCase("kernel")){ dtitlu=getString(R.string.kernelbtn);}
+        else{ dtitlu=getString(R.string.recoverybtn);}
         currentDir = new File(mPreferences.getString("int_sd_path", Environment.getExternalStorageDirectory().getAbsolutePath()));
         fill(currentDir);
     }
@@ -133,7 +134,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         dir.addAll(fls);
         if(!f.getName().equalsIgnoreCase(""))
         dir.add(0,new Item("..",getString(R.string.dir_parent),"",f.getParent(),"dir"));
-        adapter = new FileArrayAdapter(this,R.layout.file_view, dir);
+        adapter = new FileArrayAdapter(this,R.layout.file_item, dir);
         this.setListAdapter(adapter);
 
     }
@@ -231,7 +232,14 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     }
                     nFile=dn+"/boot.img";
                     File destDir = new File(dn+"/system/lib/modules");
-                    File[]dirs = destDir.listFiles();
+                    File[]dirs = destDir.listFiles(
+                            new FileFilter() {
+                                @Override
+                                public boolean accept(File file) {
+                                    return file.getName().toLowerCase().endsWith(".ko");
+                                }
+                            }
+                    );
                     if((dirs!=null)&&(dirs.length>0)){
                         sb.append("mount -o rw,remount /system;\n");
                         sb.append("busybox rm -rf /system/lib/modules/*.ko;\n");
@@ -247,7 +255,28 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     sb.append("busybox rm -rf ").append(dn).append("/*;\n");
                 }
                 else{
-                    sb.append("dd if=").append(nFile).append(" of=").append(part).append(";\n");
+                    if(currentDir.getAbsolutePath().contains(TAG)){
+                        File[]dirs = currentDir.listFiles(
+                                new FileFilter() {
+                                    @Override
+                                    public boolean accept(File file) {
+                                        return file.getName().toLowerCase().endsWith(".ko");
+                                    }
+                                }
+                        );
+                        if((dirs!=null)&&(dirs.length>0)){
+                            sb.append("mount -o rw,remount /system;\n");
+                            sb.append("busybox rm -rf /system/lib/modules/*.ko;\n");
+                            for(File ff: dirs){
+                                if(ff.getName().toLowerCase().endsWith(".ko")){
+                                    sb.append("busybox cp \"").append(currentDir.getAbsolutePath()).append("/").append(ff.getName()).append("\" /system/lib/modules/").append(ff.getName()).append(";\n");
+                                    sb.append("busybox chmod 644 ").append("/system/lib/modules/").append(ff.getName()).append(";\n");
+                                }
+                            }
+                            sb.append("mount -o ro,remount /system;\n");
+                        }
+                    }
+                    sb.append("dd if=\"").append(nFile).append("\" of=").append(part).append(";\n");
                 }
 
             }
@@ -277,9 +306,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         protected void onPostExecute(String result) {
 
             if(result.equalsIgnoreCase("kernel")){
+                mPreferences.edit().putBoolean("booting",true).commit();
                 new CMDProcessor().su.runWaitFor("reboot");
             }
             else if(result.equalsIgnoreCase("recovery")){
+                mPreferences.edit().putBoolean("booting",true).commit();
                 new CMDProcessor().su.runWaitFor("reboot recovery");
             }
             else{
@@ -289,7 +320,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(FileChooser.this, dtitlu, getString(R.string.wait));
+            progressDialog = ProgressDialog.show(FileChooser.this, null, getString(R.string.wait));
         }
 
         @Override

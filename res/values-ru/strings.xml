@@ -199,10 +199,10 @@
     <string name="ps_wipe_cache">Раздел Кэш: %s</string>
     <string name="wipe_cache_msg">По окончанию, система перезагрузится. Продолжить?</string>
     <string name="prefcat_flash_img">ПРОШИТЬ ФАЙЛ IMG</string>
-    <string name="kernel_img_title">Прошить ЯДРО</string>
-    <string name="ps_kernel_img">Прошить файл boot.img или любой архив содержащий boot.img как ядро</string>
-    <string name="recovery_img_title">Прошить RECOVERY</string>
-    <string name="ps_recovery_img">Прошить файл recovery.img или любой архив содержащий recovery.img как Рекавери</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
     <string name="btn_choose">Выберите %s</string>
     <string name="unsupported_info">Устройство не поддерживается</string>
     <string name="flash_info">будет прошит в раздел\n%s\n как</string>
@@ -336,6 +336,15 @@
     <string name="mpdecision">MPDECISION</string>
     <string name="pt_mpdecision">Включить MPDecision</string>
 
+    <string name="intelliplug">INTELLIPLUG</string>
+    <string name="pt_intelliplug">Enable Intelliplug</string>
+    <string name="ecomode">ECOMODE</string>
+    <string name="pt_ecomode">Enable EcoMode</string>
+    <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
+    <string name="pt_so_max">Screen off maximum frequency</string>
+    <string name="ps_so_minmax">"Current: "</string>
+    <string name="pt_so_min">Screen off minimum frequency</string>
+
     <string name="prefcat_touchscr">ТАЧСКРИН</string>
     <string name="ps_touchscr">ТачСкрин Контроль</string>
     <string name="ps_touchscr_boot">Если выбрать, то все тачскрин настройки будут восстановлены после перезагрузки</string>
@@ -378,27 +387,70 @@
     <string name="pt_hp">Общие Горячие Подключения</string>
     <string name="ps_hp">Отключить одно ядро когда экран выключен</string>
     <string name="pt_cpuquiet">Говернор CPUQuiet</string>
-    <string name="ps_cpuquiet">Управляет какие ядра доступны и когда | Текущий: %s</string>
+    <string name="ps_cpuquiet">Управляет какие ядра доступны и когда | Текущий: </string>
     <string name="pt_hotplug">Управление Горячими Подключениями</string>
     <string name="thermal">ТЕМПЕРАТУРА</string>
     <string name="pt_thermal">Настройки Температуры</string>
     <string name="mt_mem_usage">Использование Памяти</string>
     <string name="pt_drop_caches">Очистить Кэш</string>
     <string name="oom_default">Стандартные Значения</string>
-    <string name="ps_mc_ps">Сгрупируйте задания для найменьшей нагрузки ядер | Текущий: %s</string>
+    <string name="ps_mc_ps">Сгрупируйте задания для найменьшей нагрузки ядер | Текущий: </string>
     <string-array name="mc_ps_array">
         <item>Выкл</item>
         <item>Вкл</item>
         <item>Агрессивный</item>
     </string-array>
     <string name="pt_gpu_fmax">Максимальная Частота GPU</string>
-    <string name="ps_gpu_fmax">Текущий: %s</string>
     <string name="pt_gpugov_set">Управление GPU</string>
     <!-- 2.1.13-->
     <string name="pt_int_sd">Внутренняя Память</string>
     <string name="pt_ext_sd">Внешняя Память</string>
     <string name="save_batt">Энергосбережение</string>
-    <string name="ksm_sleep_times">Sleep times:</string>
-    <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="ksm_sleep_times">Время Сна:</string>
+    <string name="ksm_pages_scanned">Отсканировано:</string>
+    <string name="info_auto_sd">Оставьте пустым для автоопределения</string>
+    <!--2.1.15-->
+    <string name="krait">Настройки Снижения Вольтажа</string>
+    <string name="pt_krait_boost">Снизить Вольтаж</string>
+    <string name="ps_krait_boost">Вольтаж уменьшен на 25mV для Обычного и Быстрого чипов если они активны</string>
+    <string name="pt_krait_thres">Предельная Частота</string>
+    <string name="pt_krait_hi">Вольтаж для висших частот</string>
+    <string name="ps_krait_hi">Применить для частот высших чем порог | Текущий: %s μV</string>
+    <string name="pt_krait_lo">Вольтаж для низших частот</string>
+    <string name="ps_krait_lo">Применить для частот низших чем порог | Текущий: %s μV</string>
+    <!--2.1.16-->
+    <string name="donor">Помощь с помощью PayPal</string>
+    <string name="paypal">Если вы считаете это приложение полезным</string>
+    <!--2.1.18-->
+    <string name="liveoc">Разгон ЦП</string>
+    <string name="oc_value">Размер рагона ЦП (%)</string>
+    <string name="oc_target_low">Низкая Цель Разгона ЦП</string>
+    <string name="oc_target_high">Высокая Цель Разгона ЦП</string>
+
+    <string name="pt_initd">Использовать скрипт init.d</string>
+    <string name="pt_script_name">Имя Скрипта</string>
+    <string name="mt_calib">Калибрация</string>
+    <string name="msmhotplug">Горячее подключение MSM</string>
+    <string name="pt_msmhotplug">Включить горячее подключение</string>
+    <string name="mt_calib_nok">Ваше устройство должно быть подключено и заряжено.</string>
+    <string name="mt_calib_ok">Нажмите на кнопку калибрации и потом отсоедините от зарядки.</string>
+    <string name="mt_calib_chk">Перезагрузка после калибрации</string>
+    <string name="boot_wait">Пожалуйста подождите время загрузки…</string>
+    <string name="no_file">%s не существует !</string>
+    <string name="no_settings">Нет расширенных настроек</string>
+    <string name="bk_name">Название резервной копии</string>
+    <string name="bk_ok">Резервная копия создана.</string>
+    <string name="bk_nok">Ошибка ! Операция прервана.</string>
+
+    <string name="err_file">Ошибка! Нельзя создать папку %s</string>
+    <string name="backup_restore">Настройки бекапа и восстановления</string>
+
+    <string name="bkup_del_title">Удалить бекап</string>
+    <string name="no_bkup_info">Нет бекапа</string>
+    <string name="no_bkup_sinfo">Используйте меню для создания бекапа.</string>
+    <string name="bkup_info">Нажмите чтобы восстановить. Удерживайте для удаления.</string>
+    <string name="no">НЕТ</string>
+    <string name="create_bkup">Создать Бекап</string>
+    <string name="restore_bkup_title">Восстановить бекап</string>
+    <string name="restore_bkup">%s будет восстановлено. Продолжить?</string>
 </resources>

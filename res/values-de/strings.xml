@@ -198,16 +198,16 @@ Translation by Rhonin86 & Evisceration
     <string name="wipe_cache_msg">Am Ende wird das System neu gestartet.\nFortfahren?</string>
 
     <string name="prefcat_flash_img">Flash *.img Datei (Direkt oder aus CWM-Zip)</string>
-    <string name="kernel_img_title">Flash Kernel</string>
-    <string name="ps_kernel_img">Flash boot.img Dateien als Kernel. Möglich sind boot.img Dateien oder zip Dateien, die ein Bootimage enthalten</string>
-    <string name="recovery_img_title">Flash Recovery</string>
-    <string name="ps_recovery_img">Flash recovery.img Dateien als Recovery. Möglich sind recovery.img Dateien oder Zip-Dateien, die ein Recoveryimage enthalten</string>
+    <string name="kernel_img_title">Flash KERNEL or RECOVERY</string>
+    <string name="ps_kernel_img">Flash img files. Can choose individual img file or any zip file that contains boot.img or recovery.img</string>
     <string name="btn_choose">Wähle %s</string>
     <string name="unsupported_info">Dein Gerät wird nicht unterstützt</string>
     <string name="flash_info">wird geflasht auf die Partition \n%s\n als</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Drücke erneut zum Beenden</string>
+    <string name="kernelbtn">Kernel</string>
+    <string name="recoverybtn">Recovery</string>
 
     <string name="prefcat_residual_files">Lösche überflüssige Dateien</string>
     <string name="residual_files_title">Lösche überflüssige Dateien</string>
@@ -338,6 +338,15 @@ Translation by Rhonin86 & Evisceration
     <string name="mpdecision">MPDECISION</string>
     <string name="pt_mpdecision">Aktiviere MPDecision</string>
 
+    <string name="intelliplug">INTELLIPLUG</string>
+    <string name="pt_intelliplug">Enable Intelliplug</string>
+    <string name="ecomode">ECOMODE</string>
+    <string name="pt_ecomode">Enable EcoMode</string>
+    <string name="so_min_max">SCREEN OFF FREQUENCIES</string>
+    <string name="pt_so_max">Screen off maximum frequency</string>
+    <string name="ps_so_minmax">"Current: "</string>
+    <string name="pt_so_min">Screen off minimum frequency</string>
+
     <string name="prefcat_touchscr">TOUCHSCREEN</string>
     <string name="ps_touchscr">TouchScreen Control</string>
     <string name="ps_touchscr_boot">Stellt alle TouchScreen Einstellungen nach einem Neustart wieder her, wenn aktiviert.</string>
@@ -379,27 +388,70 @@ Translation by Rhonin86 & Evisceration
     <string name="pt_hp">Generic Hotplug</string>
     <string name="ps_hp">Disable one core when screen is off</string>
     <string name="pt_cpuquiet">CPUQuiet Governor</string>
-    <string name="ps_cpuquiet">Controls which CPU cores are available and when | Current: %s</string>
+    <string name="ps_cpuquiet">Kontrolliert wann und welche CPU Kerne aktiviert sind | Aktuell: </string>
     <string name="pt_hotplug">Hotplug Control</string>
     <string name="thermal">THERMAL</string>
     <string name="pt_thermal">Thermal Control</string>
     <string name="mt_mem_usage">Memory Usage</string>
     <string name="pt_drop_caches">Clean drop caches</string>
-    <string name="oom_default">Default values</string>
-    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: %s</string>
+    <string name="oom_default">Standardwerte</string>
+    <string name="ps_mc_ps">Try to group tasks into the least cores possible | Current: </string>
     <string-array name="mc_ps_array">
-        <item>Off</item>
-        <item>On</item>
-        <item>Agressive</item>
+        <item>Aus</item>
+        <item>An</item>
+        <item>Agressiv</item>
     </string-array>
-    <string name="pt_gpu_fmax">GPU maxim frequency</string>
-    <string name="ps_gpu_fmax">Current: %s</string>
+    <string name="pt_gpu_fmax">GPU maximum frequency</string>
     <string name="pt_gpugov_set">GPU Control</string>
     <!-- 2.1.13-->
-    <string name="pt_int_sd">Internal SD Card</string>
-    <string name="pt_ext_sd">External SD Card</string>
-    <string name="save_batt">Power Saving</string>
+    <string name="pt_int_sd">Interne SD Card</string>
+    <string name="pt_ext_sd">Externe SD Card</string>
+    <string name="save_batt">Energie sparen</string>
     <string name="ksm_sleep_times">Sleep times:</string>
-    <string name="ksm_pages_scanned">Pages Scanned:</string>
-    <string name="info_auto_sd">Leave blank for autodetection</string>
+    <string name="ksm_pages_scanned">Gescannte Seiten:</string>
+    <string name="info_auto_sd">Leer lassen für die automatische Erkennung</string>
+    <!--2.1.15-->
+    <string name="krait">Undervolting Einstellungen</string>
+    <string name="pt_krait_boost">Spannung verringern</string>
+    <string name="ps_krait_boost">The voltage is decreased by 25mV for Nominal, Fast and Faster bin chips if enabled</string>
+    <string name="pt_krait_thres">Threshold frequency</string>
+    <string name="pt_krait_hi">Spannung für höhere Frequenzen</string>
+    <string name="ps_krait_hi">Apply for frequencies higher than threshold | Current: %s μV</string>
+    <string name="pt_krait_lo">Spannung für niedrigere Frequenzen</string>
+    <string name="ps_krait_lo">Apply for frequencies lower than threshold | Current: %s μV</string>
+    <!--2.1.16-->
+    <string name="donor">Spenden mit PayPal</string>
+    <string name="paypal">Wenn Sie diese App nützlich finden</string>
+    <!--2.1.18-->
+    <string name="liveoc">Live OC</string>
+    <string name="oc_value">OC Value (%)</string>
+    <string name="oc_target_low">OC Target Low</string>
+    <string name="oc_target_high">OC Target High</string>
+
+    <string name="pt_initd">Use init.d script</string>
+    <string name="pt_script_name">Script name</string>
+    <string name="mt_calib">Calibrate</string>
+    <string name="msmhotplug">MSM HOTPLUG</string>
+    <string name="pt_msmhotplug">Enable MSM Hotplug</string>
+    <string name="mt_calib_nok">Your device must be plugged and fully charged.</string>
+    <string name="mt_calib_ok">Tap on Calibrate button then unplug the device.</string>
+    <string name="mt_calib_chk">Reboot after calibration</string>
+    <string name="boot_wait">Please wait until boot sequence is finished…</string>
+    <string name="no_file">%s does not exist !</string>
+    <string name="no_settings">No advanced settings available</string>
+    <string name="bk_name">Backup name</string>
+    <string name="bk_ok">Backup operation succeeded.</string>
+    <string name="bk_nok">Error ! Backup operation failed.</string>
+
+    <string name="err_file">Error ! Can\'t create folder %s</string>
+    <string name="backup_restore">Backup and Restore Settings</string>
+
+    <string name="bkup_del_title">Delete Backup</string>
+    <string name="no_bkup_info">No Backups</string>
+    <string name="no_bkup_sinfo">Use menu to create backup.</string>
+    <string name="bkup_info">Tap on item to restore it. Longtap to delete it.</string>
+    <string name="no">NO</string>
+    <string name="create_bkup">Create Backup</string>
+    <string name="restore_bkup_title">Restore Backup</string>
+    <string name="restore_bkup">%s will be restored. Continue?</string>
 </resources>
