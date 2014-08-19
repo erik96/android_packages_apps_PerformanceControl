@@ -21,6 +21,19 @@ local val=$2;
 local v=$(( val/cpus ));
 local ncpus=$(( cpus - 1 ));
 
+local devices=`ls /dev/block/zram*`;
+local ndevices=0;
+
+for j in $devices; do
+    ndevices=$(( ndevices + 1 ));
+done
+
+# override values in case ZRAM is built into kernel
+if [ $ndevices -gt 0 ]; then
+    v=$(( val/ndevices ));
+    ncpus=$(( ndevices - 1 ));
+fi;
+
 if busybox [ -f /system/lib/modules/zram.ko ]; then
     if busybox [ -z "`busybox lsmod | busybox grep zram`" ]; then
         busybox insmod /system/lib/modules/zram.ko;
